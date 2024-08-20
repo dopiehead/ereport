@@ -1,0 +1,186 @@
+
+.hero-section{
+    background-image:linear-gradient(to right,rgb(25, 30, 104),rgb(12, 67, 112),rgba(12, 67, 112,0.3)),url("../assets/images/hero-bg.jpg"); 
+  }
+
+.blacklist-intro{
+    margin-bottom: 50px;
+}
+
+.blacklist-intro h3{
+    margin-top: 30px;
+    font-size: 3.2rem;
+    text-transform: uppercase;
+    text-align: centers;
+}
+
+.blacklist-intro p{
+    font-size: 1.6rem;
+    margin-top: 15px;
+}
+
+.people-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.txt-no-round{
+    background-color: pink;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 2rem;
+    width: 100%;
+}
+
+.col-md-4 h5{
+
+font-weight: bold;
+font-size:18px;
+margin:10px;
+
+}
+
+
+
+
+.wanted_info{
+
+padding:20px;
+
+background-color: lightblue;
+
+border-radius: 20px;
+
+text-align: center;
+
+}
+
+
+.wanted_info strong{
+
+   font-weight: bold;
+   font-size: large;
+    
+    }
+
+
+    .wanted_info p{
+
+        font-weight: bold;
+       text-transform: capitalize;
+         
+         }
+
+
+
+
+
+
+.more-info{
+
+border:1px solid rgb(177, 175, 175);
+
+padding: 10px;
+
+}
+
+.more-info table{
+
+    border-collapse: separate;
+
+    padding: 15px;
+
+    width: 100%;
+
+}
+
+
+
+.more-info table tr td:nth-child(1){
+ font-weight:bold;
+    
+    }
+
+    .images_section ul{
+ 
+        list-style-type: none;
+
+
+    }
+
+
+
+    #videolisting video{
+        background-image:linear-gradient(to right,rgba(0, 0, 0, 0.8),rgba(7, 7, 7, 0.9)),url(/images/yacht.jpg);   
+        }
+
+      
+            #videolisting {
+
+                position: relative;
+                
+                }
+                
+                
+                #videolisting video {
+                
+                    height:480px; width:100%; border:1px solid grey;
+                    
+                    
+                    
+                    }
+                
+                #videolisting img{
+                
+                    width:150px;
+                    height:150px;
+                    border-radius:50%;
+                    margin:10px;
+                    
+                
+                }
+                
+               
+                
+                    #videolisting .fa-play {
+                        position:relative;
+                        top: 50%;
+                        left: 50%;
+                        font-size:41px;
+                        transform: translate(-50%, -50%);
+                       color: rgba(255, 255, 255, 0.8);
+                        border: none;
+                        padding: 10px;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        z-index: 1; /* Ensures it appears above the video */
+                      }
+                      
+                
+                
+                
+                .share i {
+                 
+                font-size: 28px;  
+                
+                margin-right:21px;
+                
+                }
+                
+                
+                .share{
+                margin:21px;
+                }
+
+                .col-md-7{
+                    padding-top: 50px  !important;
+                }
+
+                .col-md-7 p{
+                    font-size: 15px;
+                }
+                
+                .col-md-7 p strong{
+                    font-size: 18px;
+                }

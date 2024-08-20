@@ -1,0 +1,72 @@
+.back-button{
+position:absolute;
+padding:30px;
+margin-left:30px;
+
+}
+
+.back-button a{
+   color:red !important;
+   font-weight:bold;
+   font-size:18px;
+   cursor: pointer;
+ }
+
+ .golive{
+    border-bottom:3px solid rgb(223, 15, 15);;
+   }
+
+.form-container{
+    padding:10px 20px;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.form-container div img{
+ height:70px;
+ width:70px;
+ border-radius:50%;
+ object-fit: cover;
+}
+
+.form-container div i,.form-container div span{
+   padding:5px 8px;
+   background-color:#b1b1b1;
+   border-radius:50%;
+   font-size:25px;
+   color:white ;
+   }
+
+
+.font-container{
+display:flex;
+justify-content:space-between;
+align-items: center;
+padding:20px 40px;
+background-color: #f1f1f1;
+margin-top:80px;
+}
+  
+
+.font-container div i,.font-container div span{
+    padding:5px 8px;
+    background-color:#b1b1b1;
+    border-radius:50%;
+    font-size:25px;
+    color:white ;
+    }
+
+.font-container .form-below i{
+margin-right:8px;
+}
+      
+.hero-section{
+    background-image:linear-gradient(to right,rgb(25, 30, 104),rgb(12, 67, 112),rgba(12, 67, 112,0.3)),url("../assets/images/hero-bg.jpg");
+  
+  }
+
+  .footer{
+    margin-top:0px !important;
+  }

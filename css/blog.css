@@ -1,0 +1,182 @@
+
+.hero-section{
+    background-image:linear-gradient(to right,rgb(19, 66, 122),rgb(25, 52, 109),rgba(16, 73, 119, 0.3)),url("../assets/images/hero-bg.jpg");
+  }
+
+  .hero-text h3{
+    color:rgb(255, 255, 255) ;
+  }
+
+.blog{
+   border-bottom:3px solid rgb(223, 15, 15);;
+  }
+
+
+  
+#txt-trending-post{
+    margin:20px 10px;
+    font-weight:bold;
+    }
+
+
+
+   .trending-section{
+  display:flex;  
+  justify-content:start; 
+  align-items: center; 
+  gap:30px;
+  flex-wrap:wrap;
+}
+
+.fa-arrow-right{
+  color:white;
+  background-color: red;
+  padding:5px;
+  border-radius:50%;
+}
+   
+.post-link a{
+  color:black;
+  font-size:14px;
+}
+
+.search-container{
+   display:flex !important;
+   justify-content:center !important;
+   box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+   border-radius:40px;
+   background-color:white;
+   padding:20px 10px;
+   margin-top:-30px;
+
+
+}
+
+.btn-search{
+background-color:orangered !important;
+color:white !important;
+border:1px solid transparent;
+}
+
+.search-container input{
+  border:1px solid transparent;
+  width:80%;
+}
+
+.search-container input[type=text]:focus{
+  border:1px solid transparent !important;
+  outline:1px solid transparent;
+}
+
+
+.search-container select{
+  border:1px solid transparent;
+}
+
+
+.search-container select:focus{
+  border:1px solid transparent;
+  outline:1px solid skyblue;
+}
+
+.time_posted{
+position: relative;
+ display:flex;
+ justify-content: flex-end;
+}
+
+.time_posted select{
+  border:1px solid transparent !important;
+  padding:15px !important;
+  box-shadow:0px 0px 10px grey !important;
+  font-weight:bold;
+ 
+ }
+
+@media only screen and (max-width:767px){
+    
+    
+   .blog-post-container .trending-section{
+        display:flex;  
+        justify-content:space-evenly; 
+        gap:10px;
+        flex-direction:column; 
+      }
+
+}
+
+
+    
+    .trending-section .post{
+    
+    width:240px;
+    margin-top:30px;
+    
+    }
+
+
+
+    
+    @media only screen and (max-width:767px){
+    
+        .trending-section .post{
+            width:270px;
+            margin-top:20px;
+            
+            }
+    
+    }
+    
+    
+    .trending-section .post img{
+    width:100%;
+    height:190px;
+    }
+    
+    
+    .post-title h3{
+    font-size:14px !important; 
+    font-weight: bold; 
+    margin:8px 0px;
+    }
+
+    .calendar{
+    font-size:13px;
+    }
+    
+    @media only screen and (max-width:497px){
+        .post-title{
+            font-size:1.4rem; 
+            color:white;
+            font-weight: bold; 
+            position: absolute ;
+            left: 10px;
+            bottom:40px;
+        }    
+    }
+    
+    .post-link{
+    font-size:1.2rem;
+    margin-top:25px;  
+    
+    }
+    
+
+    
+    .post{
+    
+    position: relative;
+    
+    }
+
+      
+    .post span{
+    
+    display:block;
+    margin:8px 0px;
+      
+      }
+    
+  
+    
+     

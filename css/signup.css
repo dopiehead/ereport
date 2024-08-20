@@ -1,0 +1,184 @@
+.hero-section{
+    background-image:linear-gradient(to right,rgb(25, 30, 104),rgb(12, 67, 112),rgba(12, 67, 112,0.3)),url("../assets/images/hero-bg.jpg");
+      }
+
+.hero-section h3{
+    font-size:2em;
+    font-style:initial;
+    font-weight: normal;
+    color:green;
+}
+
+.header ul .signup{
+    border-bottom:3px solid rgb(223, 15, 15);;
+   }
+
+
+.form-container{
+    padding: 30px;
+
+
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+  
+    margin: 0 auto;
+    
+}
+
+.user{
+    display:flex;
+    justify-content:space-around;
+    align-items: center;
+    padding:0px 15px;
+    position: relative;
+
+}
+
+.user div{
+display:block;
+margin:8px;
+text-align: center;
+}
+
+
+.user div h6{
+  font-size:18px;
+  font-weight:bold;
+  margin-top: 8px !important;
+    }
+
+
+    
+.user div p{
+    font-size:14px;
+ 
+      }
+
+
+.step_1 i{
+padding:20px;
+border-radius:50%;
+background-color: #1a4dac;
+color:white;
+font-size:14px;
+
+}
+
+
+.step_1:after {
+    content: '';
+    position: absolute;
+    left: 200px; /* Adjust to match your design */
+    top: 20%;
+    transform: translateY(-50%);
+    width: 350px; /* Adjust to match your design */
+    height: 2px;
+    background-color: #eaeaea;
+    z-index: -1;
+}
+
+
+
+.step_2 i{
+    padding:20px;
+    border-radius:50%;
+    background-color: #ebebeb;
+    color:rgb(0, 0, 0);
+    font-size:14px;
+    }
+
+
+    .step_2:after {
+        content: '';
+        position: absolute;
+        right: 200px; /* Adjust to match your design */
+        top: 20%;
+        transform: translateY(-50%);
+        width: 350px; /* Adjust to match your design */
+        height: 2px;
+        background-color: #eaeaea;
+        z-index: -1;
+    }
+
+
+
+.step_3 i{
+    padding:20px;
+    border-radius:50%;
+    background-color: #ebebeb;
+    color:rgb(0, 0, 0);
+    font-size:14px;
+        
+        }
+
+
+
+
+.form-input{
+
+    background-color: #f0f0f0;
+    padding:50px 20px;
+}
+
+
+.form-input label{
+
+font-weight:bold;
+color:black;
+font-size:13px;
+margin-top:30px !important;
+
+}
+
+.arrow-right{
+float:right;
+padding:2px 15px;
+background-color: #7e7d7d;
+}
+
+.arrow-left{
+   
+    padding:2px 15px;
+    background-color: #7e7d7d;
+    }
+
+.arrow-right a{
+    color:black;
+    text-decoration:none;
+
+}
+
+.arrow-left a{
+    color:black;
+    text-decoration:none;
+
+}
+
+::placeholder{
+font-size:14px;
+}
+
+
+.form-container h6{
+font-weight:bold;
+
+}
+
+.file-container{
+    background-color:white !important;
+    border:1px solid transparent !important;
+    padding:20px 10px;
+    text-align:center !important;
+}
+
+input[type=file]{
+font-size:14px;
+display: none;
+}
+
+.file-upload{
+color:white !important;
+background-color: #272727;
+padding:10px;
+}

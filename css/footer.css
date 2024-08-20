@@ -1,0 +1,132 @@
+.footer{
+background-color:rgb(12, 67, 112);
+padding-top:30px;
+margin-top:20px;
+}
+
+.footer .row .col-md-2 i{
+color:white;
+font-size:18px;
+margin-right: 15px;
+margin-top:10px;
+
+} 
+
+.footer .row .col-md-2 div{
+display:flex;
+justify-content:center; 
+gap:5px; 
+  }
+
+.footer h6{
+  margin-top:10px !important;
+}
+
+
+
+
+.footer .row .col-md-3 h6{
+color:white !important;
+font-weight:bold;
+text-align: center;
+width:100%;
+
+}
+
+
+.footer .row .col-md-3 a{
+display:block;
+color:white;
+text-decoration: none;
+margin:10px;
+text-align: center;
+}
+
+
+.footer .row .col-md-3 input[type=text]{
+ font-size:14px;
+  }
+
+
+
+
+
+
+.footer .row .col-md-2 h6{
+    color:white !important;
+    font-weight:bold;
+    text-align: center;
+    }
+    
+    
+    .footer .row .col-md-2 a{
+    display:block;
+    color:white;
+    text-decoration: none;
+    margin:10px;
+    text-align:center;
+    }
+    
+
+
+
+
+.essential_cookies{
+
+    background-color: #fff;
+    padding:5px;
+    border-radius:8px;
+    font-size:14px;
+    text-align: center;
+    width:100% !important;
+
+}
+
+
+.essential_cookies div{
+display:flex;
+justify-content: space-between;
+gap:20px;
+z-index:-1;
+}
+
+
+
+
+.essential_cookies div a{
+  color: #093258 !important;
+  border:1px solid #093258;
+  padding:8px;
+    }
+
+@media only screen and (max-width: 1200px){
+  .essential_cookies div{
+    display:flex;
+    justify-content:center;
+  
+    gap:4px;
+    flex-wrap:wrap;
+
+    }
+}
+
+
+
+    .essential_cookies div a:hover,  .essential_cookies div a:focus{
+      background-color: #093258;
+      color:white ! important;
+      border-radius:15px;
+      
+        }
+
+  .created{
+   text-align: center;
+   
+  }
+
+  .created p{
+    color:rgb(39, 238, 56) !important;
+  }
+
+  
+

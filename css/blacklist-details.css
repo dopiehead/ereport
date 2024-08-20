@@ -1,0 +1,601 @@
+.back-button{
+    position:absolute;
+    padding:30px;
+    margin-left:30px;
+    margin-top:30px;
+    
+    }
+    
+    .back-button a{
+       color:red !important;
+       font-weight:bold;
+       font-size:18px;
+       cursor: pointer;
+     }
+     #section_details span{
+        font-size:17px !important;
+        }
+        
+        #section_details h5{
+            font-size:21px !important;
+        }
+        
+        #section_details .check{
+        padding:0px 28px;
+        background-color: rgb(6, 87, 6);  
+        font-size:8px !important; 
+        border-radius: 20px;
+        }
+        
+        
+        #section_details .fa-check{
+            padding:10px;
+            border-radius: 50%;
+            background-color: rgb(6, 87, 6);   
+            color:white;
+            margin-left: 60px;
+        }
+        
+        #section_details span b {
+        font-weight: bold;
+        font-size:15px;
+        padding:8px;
+        border:1px solid rgb(92, 91, 91);
+        }
+        
+        #section_details h6{
+            font-size:18px !important;
+            font-weight: bold;
+        }
+        
+        #section_details p{
+            font-size:16px !important;
+            font-weight:normal;
+        }
+        
+        #section_details .btn{
+        
+        margin-right:10px !important;
+        }
+        
+        .btn-connect{
+        
+            background-color: rgb(180, 29, 29) !important;
+            color:white !important;
+            font-size: 18px !important;
+        }
+        
+        .btn-message{
+        
+        color: rgb(180, 29, 29) !important;
+        border:1px solid  rgb(180, 29, 29) !important;
+        font-size:18px !important;
+        font-weight: bold !important;
+        }
+        
+        .btn-connect:hover,.btn-connect:focus,.btn-message:hover,.btn-message:focus,.btn-share:focus,.btn-share:hover{
+        opacity: 0.7;
+        }
+        
+        
+        
+        .share_parent{
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .connect_parent,.message_parent,.share_parent{
+        margin-right:15px;
+        }
+        
+        
+        /*-------------------Table Section-----------------------*/
+        
+        .more-info{
+        
+          padding:10px;
+          background-color: lightblue;
+          border-radius:10px;
+          margin-top:10px;
+
+        }
+        
+        
+        .more-info h6{
+        font-size: 18px;
+        font-weight: bold;
+        
+        }
+        
+        .more-info table tbody tr td{
+            font-size: 14px;
+            
+            
+            }
+        
+        
+          .images_section h6{
+            font-size: 18px;
+            margin:10px 0px;
+          }  
+        
+          
+          .images_section span{
+            font-size: 15px;
+            position: relative;
+            top: -15px !important;
+          }  
+        
+        
+          
+          .images_section .btn-danger{
+            font-size: 15px;
+            float:right;
+            padding:4px 10px;
+          }  
+        
+        
+        
+          .review_section p {
+          
+            width:40%;
+        
+          }
+        
+          .review_section{
+            margin-right:10px;
+          }
+         .btn-comment{
+          font-size:16px !important;
+          font-weight: bold !important;
+          margin-top:10px !important;
+          border:1px solid rgb(175, 27, 27) !important;
+          padding:4px 10px !important;
+          color:rgb(175, 27, 27) !important;
+        
+         }
+        
+        
+         .wanted_info p{
+        font-size:13px !important;
+        line-height:13px;
+        font-weight:bold;
+        color: rgb(83, 83, 83);
+        
+         }
+        
+         .menu_wanted{
+          text-align: center;
+         }
+        
+        
+         .menu_wanted h6{
+          text-align: center;
+          font-size:17px;
+          font-weight: bold;
+         }
+        
+         .menu_wanted span{
+        font-size:15px;
+        font-weight: bold;
+        position: relative;
+        top: 0px !important;
+         }
+          
+         .menu_wanted p{
+          text-align: center;
+         margin-top:5px;
+         }
+        
+        #service_provider{
+        
+          margin-top:10px;
+          font-weight: bold;
+          color: black !important;
+        
+        }
+            
+        
+        /*----------------------modal------------------*/ 
+        
+        
+        #popup{
+        
+          position:fixed;
+          top: 55%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          width: 400px;
+          
+          padding:15px;
+          z-index:1000;
+          box-shadow: 0 5px 30px rgba(0,0,0,.30);
+          background: #f1f1f1;
+          background: #f1f1f1;
+          visibility:hidden;
+          opacity:0;
+          transition: 0.3s;
+          
+          }
+          
+          
+          
+          @media only screen and (min-width:430px) and (max-width:498px){
+          
+          
+          #popup{
+           
+          
+          top: 50%;
+          left: 50%;
+          
+          width: 300px;
+          padding:5px;
+          
+          box-shadow: 0 5px 30px rgba(0,0,0,.30);
+          
+          
+          
+          }
+          
+          }
+          
+          
+          
+          
+          @media only screen and (min-width:325px) and (max-width:376px){
+          
+          
+          #popup{
+           
+          
+          top: 50%;
+          left: 50%;
+          
+          width: 200px;
+          padding:5px;
+          
+          box-shadow: 0 5px 30px rgba(0,0,0,.30);
+          
+          
+          }
+          
+          }
+          
+          
+          @media only screen and (min-width:377px) and (max-width:390px){
+          
+          
+          #popup{
+          
+          top: 50%;
+          left: 50%;
+          
+          width: 300px;
+          padding:5px;
+          
+          box-shadow: 0 5px 30px rgba(0,0,0,.30);
+          
+          
+          }
+          
+          }
+          
+          
+          
+          #popup.active{
+            
+              visibility: visible;
+              opacity: 1;
+              transition: 0.3s;
+              
+                  }
+          
+          #closeModal{
+              float: right;
+              background-color: black;
+              color: white;
+              padding:0px 6px;
+              border-radius: 50%;
+              cursor: pointer;
+              margin-top: -8px;
+              
+              
+              }
+          
+        
+          
+          #popup input{
+          outline:1px solid skyblue;
+          font-size: 17px;
+         
+          }
+          
+          #popup input:focus{
+              outline:1px solid skyblue;
+              }
+          
+         
+          
+          .btn-success{
+          
+              font-size: 16px;
+              font-weight:bold;
+              padding:4px 13%;
+              float: right;
+           
+          
+          }
+          
+         
+             #popup textarea{
+          
+             outline: 1px solid skyblue;
+          
+             font-size: 15px;
+             
+          
+          
+             }
+        
+             .images_section img{
+             
+              width:100%;
+              height:140px;
+        
+             }
+        
+             .images_section ul li{
+              
+              margin:6px;
+              width:168px;
+        
+             }
+        
+
+             .images_section{
+              display:flex;
+              justify-content:space-evenly;
+             }
+        
+             .more_pictures ul {
+              display:flex;
+              justify-content:space-around;
+              gap:20px;
+              list-style-type: none;
+
+        
+             }
+        
+             .more_pictures ul li img{
+              width:100%;
+              height:140px;
+        
+             }
+        
+        
+             h3{
+             
+               font-weight: bolder;
+               font-size:18px !important;
+        
+             }
+        
+             .share{
+               font-size:15px;
+               color:gray;
+               margin-top:10px;
+               cursor:pointer;
+               font-weight:bold;
+             }
+                
+        
+        
+        
+             .menu_wanted{
+               margin:10px;
+               font-weight:bold;
+               color: black!important;
+               width: 250px;
+        
+        
+             }
+        
+             .menu_wanted img{
+        
+            width:100%;
+        
+        
+        
+             }
+        
+             .col-md-8 img{
+        
+               width:80%;
+               height:100%;
+             }
+        
+             .see_more{
+              float: right;
+              font-size:14px !important;
+              margin-top:10px;
+              color:red;
+        
+             }
+        
+             p{
+              font-size: 14px;
+             
+             }
+        
+             
+             .btn-links{
+              display: flex;
+              justify-content: space-between;
+              width:100%;
+             }
+        
+        
+             .btn-links a,.btn-links i{
+              font-size:14px;
+              color:rgb(36, 36, 36) !important;
+            
+             }
+        
+        
+             
+             .btn-links a{
+             
+              padding:10px;
+              border:2px solid gray;
+             }
+        
+        
+        
+             
+             .btn-links a:focus,.btn-links i:focus,.btn-links a:hover,.btn-links i:hover{
+              background-color:rgb(14, 14, 105);
+              color:white !important;
+              transition:0.5s;
+              border:2px solid transparent;
+             }
+        /*----------------------modal------------------*/ 
+        
+        
+        
+        .popup input[type=text],.popup input[type=email],.popup textarea,.popup button{
+          font-size:1.8rem;
+          margin-top:13px;
+        }
+        
+        .popup-report input[type=text],.popup-report input[type=email],.popup-report textarea,.popup button{
+          font-size:1.8rem;
+          margin-top:13px; 
+        }
+        
+        .popup button,.popup-report button{
+          float:right;
+        }
+        
+        .popup input[type=text],.popup input[type=email],.popup textarea{
+        box-shadow:0px 0px 4px rgb(192, 190, 190);
+        }
+        
+        .popup,.popup-report{
+        
+          position:fixed;
+          top: 55%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          width: 500px;
+          padding:15px;
+          z-index:99;
+          box-shadow: 0 5px 30px rgba(0,0,0,.30);
+          background: #ffffff;
+          background: #ffffff;
+          visibility:hidden;
+          opacity:0;
+          transition: 0.3s;
+          
+          }
+          
+          
+          
+          @media only screen and (min-width:430px) and (max-width:498px){
+          
+          
+          .popup,.popup-report{
+           
+          
+          top: 50%;
+          left: 50%;
+          
+          width: 300px;
+          padding:5px;
+          
+          box-shadow: 0 5px 30px rgba(0,0,0,.30);
+          
+          
+          
+          }
+          
+          }
+          
+          
+          
+          
+          @media only screen and (min-width:325px) and (max-width:376px){
+          
+          
+          .popup,.popup-report{
+           
+          
+          top: 50%;
+          left: 50%;
+          
+          width: 200px;
+          padding:5px;
+          
+          box-shadow: 0 5px 30px rgba(0,0,0,.30);
+          
+          
+          }
+          
+          }
+          
+          
+          @media only screen and (min-width:377px) and (max-width:390px){
+          
+          
+          .popup,.popup-report{
+          
+          top: 50%;
+          left: 50%;
+          
+          width: 300px;
+          padding:5px;
+          
+          box-shadow: 0 5px 30px rgba(0,0,0,.30);
+          
+          
+          }
+          
+          }
+          
+          
+          
+          .popup.active,.popup-report.active{
+            
+              visibility: visible;
+              opacity: 1;
+              transition: 0.3s;
+              
+                  }
+          
+          #closeModal{
+              float: right;
+              background-color: black;
+              color: white;
+              padding:0px 6px;
+              border-radius: 50%;
+              cursor: pointer;
+              margin-top: -8px;
+              
+              
+              }
+        
+              .popup h3{
+                  color:red;
+              }
+        
+              a{
+                  cursor: pointer;
+              }
+        
+              .btn-info{
+                font-size:1.6rem;
+              }
+        
+          
+        
+             

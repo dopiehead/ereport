@@ -1,0 +1,153 @@
+.calltoaction img{
+height:150px;
+width:100%;
+border-radius:50px;
+object-fit:cover;
+}
+
+.calltoaction{
+border:3px solid rgb(5, 61, 134);
+margin-top:15px;
+padding:30px;
+font-weight:bold;
+}
+
+.calltoaction .col-md-2 a{
+    border:2px solid rgb(5, 61, 134);
+    margin:10px 0px;
+    padding:10px 15px;
+    background-color: rgb(224, 224, 224);
+    font-weight:bold;
+    width:100%;
+    text-decoration: none !important;;
+ }
+
+
+ @media only screen and (max-width:767px){
+   .calltoaction .col-md-2 a{
+     
+      margin:15px 0px;
+      padding:10px 15px;
+}
+ }
+
+ .property_container{
+display:flex;
+justify-content:space-around;
+padding:0px 10px;
+ }
+
+ @media only screen and (max-width:1200px){
+   .property_container{
+      display:flex;
+      justify-content:space-around;
+      padding:0px 0px;
+      flex-direction:column;
+       }
+
+       .property_container img{
+         width:100% !important;  
+         height:100% !important;
+         object-fit: cover;
+        }
+       
+ }
+
+ .property_home{
+    padding:2px;
+ }
+
+ .property_note{
+background-color: rgb(5, 61, 134);
+padding:15px 20px;
+ }
+
+ .property_note h6{
+   color: white;
+   font-weight:bold;
+ }
+
+     .property_note p{
+        color: white;
+        font-weight:bold;
+        word-wrap:break-word;
+        font-size:13px;
+          }
+          .property_note a{
+            color: rgb(5, 61, 134)e;
+            text-decoration: none;
+            background-color: #fff;
+            padding:5px 10px;
+            font-size:13px;
+            }
+
+ .property_container img{
+  width:200px;  
+  height:100%;
+  object-fit: cover;
+ }
+
+ .request{
+ background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.2)),url("../assets/images/phone.jpg");
+ background-position:center;   
+ background-size: cover;
+ padding:20px 15px;
+ }
+
+ .request h6{
+ color:white;
+ font-weight:bold;
+ }
+
+ .request p{
+ color:white;
+ font-weight:bold;
+ font-size:14px;
+ margin-top:10px;
+ }
+
+ .request a{
+    margin-top:10px;
+    text-decoration: none;
+    padding:10px;
+    font-weight: bold;
+   
+ }
+
+ .aRequest{
+    color:rgb(19, 72, 151) !important;
+    background-color:white;
+    margin-right:5px;
+    font-size:13px;
+  
+    
+    }
+
+ .vRequest{
+color:white !important;
+border:2px solid white;
+font-size:13px;
+
+
+}
+
+.banner_info{
+    background:linear-gradient(to right,rgb(4, 22, 49),rgb(19, 72, 151)) ;
+    color: white;
+    padding:50px 20px;
+    display:block;
+   text-align:center;
+    margin-top:40px;
+}
+
+.banner_info h6{
+    font-weight:bold;
+     color:white;
+}
+
+.banner_info a{
+    font-weight:bold;
+     color:rgb(19, 72, 151) !important;
+     background-color: #fff;
+     padding:5px 10px;
+}

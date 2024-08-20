@@ -1,0 +1,49 @@
+.categories{
+    border-bottom:3px solid rgb(223, 15, 15);;
+   }
+   
+.hero-section{
+    background-image:linear-gradient(to right,rgb(25, 30, 104),rgb(12, 67, 112),rgba(12, 67, 112,0.3)),url("../assets/images/hero-bg.jpg");
+  
+  }
+  .navigation{
+    display:flex;
+    justify-content:space-evenly;
+    align-items: center;
+   gap: 20px;
+   flex-wrap:wrap;
+  }
+  
+   .naviLinks{
+    width:190px;
+    height:150px;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow:0px 3px 10px rgb(167, 167, 167);
+    background-color: #fff;
+    margin-top:15px;
+   
+    }
+    
+    
+    .naviLinks img{
+    
+      width:100px;
+    
+      height:100px;
+    
+      object-fit: cover;
+    
+    }
+
+
+    .naviLinks h6{
+      
+        display:block;
+        margin-top:49px;
+        position: relative;
+        top:20px;
+     
+      }

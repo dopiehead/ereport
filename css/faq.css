@@ -1,0 +1,27 @@
+.questions h6{
+    display:block;
+    margin:10px 0px;
+    padding:10px 15px;
+    background-color: #e9e9e9;
+    font-size: 14px;
+
+}
+
+.hero-section{
+    background-image:linear-gradient(to right,rgb(25, 30, 104),rgb(12, 67, 112),rgba(12, 67, 112,0.3)),url("../assets/images/hero-bg.jpg");
+      }
+
+ .faq{
+        border-bottom:3px solid rgb(223, 15, 15);;
+       }
+
+.caret{
+float:right !important;
+}
+  
+.active-accordion{
+    display: none; 
+     transition:0.7s ease-in-out; 
+    }
+
+    
