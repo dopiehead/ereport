@@ -47,11 +47,6 @@ text-align: center;
  font-size:14px;
   }
 
-
-
-
-
-
 .footer .row .col-md-2 h6{
     color:white !important;
     font-weight:bold;
@@ -69,7 +64,30 @@ text-align: center;
     
 
 
+    .newsletter{
+      background-image:linear-gradient(to right,rgba(15, 15, 17, 0.7),rgba(3, 9, 27, 0.4)),url("../assets/images/newsletter/newsletter.jpg");
+      height:40vh;
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      justify-content:space-around;
+      align-items:center;
 
+      
+      }
+      
+      .newsletter-envelope .fa-envelope{
+      font-size:141px !important;
+      color:rgb(45, 119, 216);
+          }
+
+    .text-center h5{
+      font-weight:bolder !important;
+     
+      margin:10px 0px !important;
+    }
+
+    
 
 .essential_cookies{
 

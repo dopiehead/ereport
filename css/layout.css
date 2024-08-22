@@ -140,7 +140,7 @@ color: rgb(7, 5, 112);
     color:#818181;
     background-color:whitesmoke;
     overflow-x:hidden;
-    transition: 0.5s ease-in-out;
+    transition: block 0.3s ease !important;
     z-index: 9;
     
     
@@ -187,5 +187,6 @@ display:none;
 
 .overlayParent{
 display:none !important;
+
 
 }

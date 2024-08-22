@@ -2,9 +2,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>log in</title>
+    <title>Forget Password</title>
     <?php  include 'components/links.php'; ?>
-    <link rel="stylesheet" href="css/sign-in.css">
+    <link rel="stylesheet" href="css/forget-password.css">
 
 </head>
 <body>
@@ -16,26 +16,28 @@
 <div class="container login-container">
 
      <div class="img_container">
-       
+     
+     <br>
+
+ 
        <img src="assets/images/sign-in/popo.png" alt="">
 
      </div>
 
      <div class="form-container">
-       
-      <label for="email">Email</label>
+
+     <h6 class="text-bold text-center"><b>Join Us</b></h6><br>
+   
       <input type="text" class="form-control" placeholder="Enter your Email"><br>
        
-       <label for="password">Password</label>
-      <input type="password" class="form-control" placeholder="Ener your Password"><br>
 
-      <button class="btn btn-danger form-control">Sign in</button>
+      <button class="btn btn-danger form-control">Send</button>
        
       <br>
       
              <div class="account-container">
-                 <a href="forget-password">Forget Password</a>
-                 <a href="create-account.php" >Create Account</a>                
+                 <a href="sign-in.php">Have an account? Log in</a>
+                               
              </div>
 
              <br>

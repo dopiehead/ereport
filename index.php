@@ -21,7 +21,7 @@
   </h3>
   <p>Help us build a transparent and trustworthy community <br>by reporting Bad Practices, fraud and Negligence</p>
   <br><br>
-   <a>Get started</a>
+   <a  style='font-size:15px;'>Get started</a>
 
 </div>
 

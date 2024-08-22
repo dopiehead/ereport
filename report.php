@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Blog</title>
+    <title>Report</title>
 </head>
 <body>
 <?php  include 'components/links.php'; ?>
@@ -67,7 +67,7 @@
                             <div class="post-image"><img src="https://placehold.co/600x400/000000/FFFFFF/png" alt="The post image"></div>
                             <div class="calendar"><i class="fa fa-calendar"></i> FEBRUARY 28,2024 <i class="fa fa-user"></i> BY  <small style="color:red">ADMIN</small></div>
                             <div class="post-title"><h3>Short Event title on Topic</h3></div>
-                            <div class="post-link"><a href="#">Read More <i class="fas fa-arrow-right"></i></a></div>
+                            <div class="post-link"><a href="report-details.php">Read More <i class="fas fa-arrow-right"></i></a></div>
                         </div>
                 
                         <div class="post">

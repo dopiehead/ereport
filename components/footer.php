@@ -1,4 +1,38 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<div class="text-center">
+
+<h5><b>Subscribe to our newsletter</b></h5>
+<br>
+<div class="newsletter container">
+
+      <div class="newsletter-envelope">
+
+            <i class="fa fa-envelope"></i>
+
+      </div>     
+
+
+      <div class="newsletter-form">      
+                 
+            <input type="text" name="" placeholder="Enter your Email" class="form-control"><br>
+
+            <button type="submit" class="btn btn-danger form-control">Subscribe</button>
+      
+      </div>
+
+     
+
+</div>
+
+</div>
+
+
+
+
+<br><br>
+
 <div class="footer">
        <div class="container">
     <div class="row">
@@ -57,14 +91,7 @@
 
          <div class="col-md-3">
 
-         <h6>Subscribe to our newsletter</h6>
-                 
-                 <input type="text" name="" placeholder="Enter your Email" class="form-control"><br>
-                 <button type="submit" class="btn btn-danger form-control">Subscribe</button>
-
-                 <br><br>
-
-                 <div class="essential_cookies d-none">
+                 <div class="essential_cookies">
                   
                      <p>Our site uses essential cookies to work</p>
                       
