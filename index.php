@@ -12,18 +12,32 @@
 
 <div class="hero-section">
 
-<div class="hero-text">
+ <div class="hero-text">
 
-<p>Be a Reporter and an Investigative Journalist</p>
-  <h3>
-    Empower your <span>voice</span>,<br>
-    Report injustice, Assault and Corruption.
-  </h3>
-  <p>Help us build a transparent and trustworthy community <br>by reporting Bad Practices, fraud and Negligence</p>
+     <div class="text-container" style="width:100%;">
+
+         <div class="text-slide">
+              <h3>Be a <span>Reporter</span> and an <br>Investigative Journalist</h3>
+          </div>
+
+         <div class="text-slide">
+             <h3>
+              Empower your <span>voice</span>,<br>
+              Report injustice, Assault and Corruption.
+             </h3>
+         </div>
+
+         <div  class="text-slide">
+          <h3>Making public <span>complaint</span> <br>count</h3>
+         </div> 
+
+     </div> 
+
+  <p>Help us build a transparent and trustworthy community <br>by reporting Bad Practices, Fraud and Negligence</p>
   <br><br>
    <a  style='font-size:15px;'>Get started</a>
 
-</div>
+ </div>
 
 </div>
 
@@ -144,20 +158,26 @@
 
          <div class="row in_numbers">
 
-         <div class="col-md-4 sorted">
+         <div class="col-md-3 sorted">
         <h6 id="counter1" class="counter" data-start="0" data-end="120" data-duration="2500">0</h6>
         <p>Sorted Reports</p>
     </div>
 
-    <div class="col-md-4 nreports">
+    <div class="col-md-3 nreports">
         <h6 id="counter2" class="counter" data-start="0" data-end="100" data-duration="2500">0</h6>
         <p>Number of Reports</p>
      </div>
 
 
-     <div class="col-md-4 nreports">
+     <div class="col-md-3 sorted ">
         <h6 id="counter3" class="counter" data-start="0" data-end="80" data-duration="2500">0</h6>
         <p>Pending Reports</p>
+     </div>
+
+
+     <div class="col-md-3 nreports">
+        <h6 id="counter4" class="counter" data-start="0" data-end="150" data-duration="2500">0</h6>
+        <p>Registered Members</p>
      </div>
 
          </div>
@@ -175,7 +195,7 @@
 <br>
      <div class="row">
 
-         <div class="col-md-6">
+         <div class="col-md-6 ">
 
                   <a href="">Who we are</a>   <br>   
 
@@ -584,6 +604,30 @@ $(document).ready(function() {
     // Initial check if counters are in view
     startCounterWhenInView();
 });
+
+</script>
+
+<script>
+
+    $(document).ready(function() {
+        var slides = $('.text-slide');
+        var currentSlide = 0;
+
+        function showNextSlide() {
+            var previousSlide = currentSlide;
+            currentSlide = (currentSlide + 1) % slides.length;
+
+            $(slides[previousSlide]).removeClass('active').addClass('previous');
+            $(slides[currentSlide]).removeClass('previous').addClass('active');
+        }
+
+        // Initialize the first slide
+        $(slides[currentSlide]).addClass('active');
+
+        // Set interval to slide through the text
+        setInterval(showNextSlide, 3000); // Change text every 3 seconds
+    });
+
 </script>
 
 </body>

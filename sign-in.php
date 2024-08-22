@@ -34,7 +34,7 @@
       <br>
       
              <div class="account-container">
-                 <a href="forget-password">Forget Password</a>
+                 <a href="forget-password.php">Forget Password</a>
                  <a href="create-account.php" >Create Account</a>                
              </div>
 

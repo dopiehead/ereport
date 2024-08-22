@@ -7,14 +7,14 @@
 <br>
 <div class="newsletter container">
 
-      <div class="newsletter-envelope">
+      <div class="newsletter-envelope section from-left">
 
             <i class="fa fa-envelope"></i>
 
       </div>     
 
 
-      <div class="newsletter-form">      
+      <div class="newsletter-form section from-right">      
                  
             <input type="text" name="" placeholder="Enter your Email" class="form-control"><br>
 
@@ -66,14 +66,11 @@
          </div>
 
          <div class="col-md-2">
-
             
-              <h6>Support</h6>
-              
+              <h6>Support</h6>              
               <a href="#">Contact us</a>
               <a href="#">Feedback</a>
             
-
          </div>
 
 
@@ -83,9 +80,7 @@
 
             <a href="#">Terms and condition</a>
             <a href="#">Privacy policy</a>
-             
-    
-
+            
          </div>
 
 
@@ -118,3 +113,52 @@
     <br>
 
   </div>
+
+  <script>
+        $(document).ready(function () {
+            let lastScrollTop = 0;
+            $(window).scroll(function () {
+                let currentScrollTop = $(this).scrollTop();
+                if (currentScrollTop > lastScrollTop) {
+                    // Scrolling down
+                    $('.header').css('visibility', 'hidden'); // Adjust based on header height
+                } else {
+                    // Scrolling up
+                    $('.header').css('visibility', 'visible'); //
+                }
+                lastScrollTop = currentScrollTop;
+            });
+        });
+    </script>
+
+<script>
+    $(document).ready(function() {
+        // Function to check if element is in viewport
+        function isElementInViewport(el) {
+            var rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Function to add the 'visible' class when in view
+        function checkIfInView() {
+            $('.section').each(function() {
+                if (isElementInViewport(this)) {
+                    $(this).addClass('visible');
+                }
+            });
+        }
+
+        // On scroll or resize, check if elements are in view
+        $(window).on('scroll resize', function() {
+            checkIfInView();
+        });
+
+        // Initial check in case elements are already in view
+        checkIfInView();
+    });
+</script>

@@ -19,6 +19,8 @@
 body{
 
     font-family:poppins;
+
+    overflow-x: hidden; 
 }
 
 </style>

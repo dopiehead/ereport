@@ -146,5 +146,23 @@ z-index:-1;
     color:rgb(39, 238, 56) !important;
   }
 
-  
+/*------------------- animation  --------------------------------*/
 
+  .section {
+    opacity: 0;
+    position: relative;
+    transition: opacity 1s ease, transform 1s ease; /* Transition for smooth animation */
+}
+  
+  .from-left {
+    transform: translateX(-100%); /* Start off-screen to the left */
+}
+
+.from-right {
+    transform: translateX(100%); /* Start off-screen to the right */
+}
+
+.visible {
+    opacity: 1;
+    transform: translateX(0); /* Bring the element to its original position */
+}

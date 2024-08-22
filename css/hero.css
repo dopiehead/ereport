@@ -5,6 +5,7 @@ height:75vh;
 padding:35px 10px 20px 10px;
 display:flex;
 align-items:center;
+
 margin-top:0px !important;
 }
 
@@ -12,15 +13,18 @@ margin-top:0px !important;
     .hero-section{
 
         height:55vh;
+        padding:45px 10px 20px 10px;
 
     }   
 }
+
 
 
 .hero-text h3 {
 font-size:3rem;
 font-weight:bolder;
 color:white;
+width:100% !important;
 
 }
 
@@ -52,6 +56,15 @@ color:white;
 color:white !important;    
 }
 
+@media screen and (max-width :768px) {
+
+    .hero-text p{
+        color:white !important; 
+        margin-top:20px;   
+        }
+
+}
+
 
 .hero-text a{
 border:1px solid transparent;
@@ -76,3 +89,4 @@ border-radius:15px;
         }
 
 }
+

@@ -60,22 +60,7 @@
 
 </script>
 
-<script>
-        $(document).ready(function () {
-            let lastScrollTop = 0;
-            $(window).scroll(function () {
-                let currentScrollTop = $(this).scrollTop();
-                if (currentScrollTop > lastScrollTop) {
-                    // Scrolling down
-                    $('.header').css('visibility', 'hidden'); // Adjust based on header height
-                } else {
-                    // Scrolling up
-                    $('.header').css('visibility', 'visible'); //
-                }
-                lastScrollTop = currentScrollTop;
-            });
-        });
-    </script>
+
 
 </body>
 </html>
