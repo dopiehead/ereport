@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|sofia|Trirong|Poppins">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
@@ -22,32 +23,11 @@
              <div class="logo-container">
                 
   
-                 <h6 style="visibility:hidden;">Ereport</h6>
+                 <h6>Ereport</h6>
 
              </div>
-
        
-        
-             <ul>
-
-                 <h6 style="">Ereport</h6>
-            
-                 <li class="active"><i class="fa fa-icons"></i>&nbsp; dashboard <span><i class="fa fa-caret-down"></i></span></li>
-
-                 <li><i class="fa fa-user-alt"></i>&nbsp; Profile <span><i class="fa fa-caret-down"></i></span></li>
-
-                 <li><i class="fa fa-plus"></i>&nbsp; Post Report <span><i class="fa fa-caret-down"></i></span></li>
-
-                 
-
-                 <li><i class="fa fa-cog"></i>&nbsp; Settings <span><i class="fa fa-caret-down"></i></span></li>
-
-                 <li><i class="fas fa-sign-out-alt"></i>&nbsp; Log out <span><i class="fa fa-caret-down"></i></span></li>
-
-
-             </ul>
-
-            
+             <?php include '../components/dashboard/overlay.php'; ?>
 
          </div> 
 
@@ -80,6 +60,7 @@
                      </div>
      
                  </div>
+                 
 
 
              <h6>Dashboard</h6>
@@ -103,9 +84,12 @@
              </div>
 
          </div>
+
+       
          
-         
-         <table class="table-striped table-hovered" style="width:100%;"> 
+         <div class="table-container">
+
+         <table class="table-striped table-hovered table-responsive" style="width:100%;"> 
 
 
              <thead>
@@ -113,10 +97,11 @@
                 <tr>
 
                      <th style="padding:20px;font-size:14px;"><input type="checkbox"></th>
-                     <th style="padding:20px;font-size:14px;">Name</th>
-                     <th style="padding:20px;font-size:14px;">Email</th>
-                     <th style="padding:20px;font-size:14px;">Address</th>
-                     <th style="padding:20px;font-size:14px;">Phone</th>
+                     <th style="padding:20px;font-size:14px;">Subject</th>
+                     <th style="padding:20px;font-size:14px;">Video / Photo</th>
+                     <th style="padding:20px;font-size:14px;">Details</th>
+                     <th style="padding:20px;font-size:14px;">Report Location</th>
+                     <th style="padding:20px;font-size:14px;">Date</th>
                      <th style="padding:20px;font-size:14px;">Actions</th>
 
                  </tr>
@@ -128,63 +113,68 @@
                  <tr>
 
                       <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
-                      <td style="padding:20px;font-size:14px;">Musa Adewale</td>
-                      <td style="padding:20px;font-size:14px;">Essential@gmail.com</td>
+                      <td style="padding:20px;font-size:14px;">Sandalous Event</td>
+                      <td style="padding:20px;font-size:14px;"><img src="../assets/images/yacht.jpg" alt="" width="100"></td>
+                      <td style="padding:20px;font-size:14px;">Some details about the incident</td>
                       <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
-                      <td style="padding:20px;font-size:14px;">09074456453</td>
-                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp; <i class="fa fa-trash"></i></td>
+                      <td style="padding:20px;font-size:14px;">Aug 12 2024 11:13 am</td>
+                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp;</td>
 
                  </tr>    
 
                  <tr>
 
-                      <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
-                      <td style="padding:20px;font-size:14px;">Musa Adewale</td>
-                      <td style="padding:20px;font-size:14px;">Essential@gmail.com</td>
+                 <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
+                      <td style="padding:20px;font-size:14px;">Sandalous Event</td>
+                      <td style="padding:20px;font-size:14px;"><img src="../assets/images/yacht.jpg" alt="" width="100"></td>
+                      <td style="padding:20px;font-size:14px;">Some details about the incident</td>
                       <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
-                      <td style="padding:20px;font-size:14px;">09074456453</td>
-                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp; <i class="fa fa-trash"></i></td>
-
+                      <td style="padding:20px;font-size:14px;">Aug 12 2024 11:13 am</td>
+                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp; </td>
                  </tr>  
 
 
                  <tr>
 
-                      <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
-                      <td style="padding:20px;font-size:14px;">Musa Adewale</td>
-                      <td style="padding:20px;font-size:14px;">Essential@gmail.com</td>
+                 <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
+                      <td style="padding:20px;font-size:14px;">Sandalous Event</td>
+                      <td style="padding:20px;font-size:14px;"><img src="../assets/images/yacht.jpg" alt="" width="100"></td>
+                      <td style="padding:20px;font-size:14px;">Some details about the incident</td>
                       <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
-                      <td style="padding:20px;font-size:14px;">09074456453</td>
-                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp; <i class="fa fa-trash"></i></td>
-
+                      <td style="padding:20px;font-size:14px;">Aug 12 2024 11:13 am</td>
+                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp;</td>
                  </tr>  
 
                  <tr>
 
-                        <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
-                        <td style="padding:20px;font-size:14px;">Musa Adewale</td>
-                        <td style="padding:20px;font-size:14px;">Essential@gmail.com</td>
-                        <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
-                        <td style="padding:20px;font-size:14px;">09074456453</td>
-                       <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp; <i class="fa fa-trash"></i></td>
-
-                  </tr>  
+                 <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
+                      <td style="padding:20px;font-size:14px;">Sandalous Event</td>
+                      <td style="padding:20px;font-size:14px;"><img src="../assets/images/yacht.jpg" alt="" width="100"></td>
+                      <td style="padding:20px;font-size:14px;">Some details about the incident</td>
+                      <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
+                      <td style="padding:20px;font-size:14px;">Aug 12 2024 11:13 am</td>
+                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp;</td>
+                  
+                    </tr>  
 
 
                   <tr>
 
-                       <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
-                      <td style="padding:20px;font-size:14px;">Musa Adewale</td>
-                         <td style="padding:20px;font-size:14px;">Essential@gmail.com</td>
-                          <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
-                     <td style="padding:20px;font-size:14px;">09074456453</td>
-                     <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp; <i class="fa fa-trash"></i></td>
-
-</tr>  
+                  <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
+                      <td style="padding:20px;font-size:14px;">Sandalous Event</td>
+                      <td style="padding:20px;font-size:14px;"><img src="../assets/images/yacht.jpg" alt="" width="100"></td>
+                      <td style="padding:20px;font-size:14px;">Some details about the incident</td>
+                      <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
+                      <td style="padding:20px;font-size:14px;">Aug 12 2024 11:13 am</td>
+                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp;</td>
+                  
+                 </tr>  
 
             </tbody>
 
          </table>
+
+         </div>
 
          <div class="pagination-container">
             
@@ -225,7 +215,25 @@
      </div>
 
 
+     <script>
+
+$(".fa-bars").on('click', function() {
+    $(this).toggleClass('active');
     
+    if ($(this).hasClass('active')) {
+        $(".fa-bars").css('backgroundColor', 'lightgreen');
+        $(".board").css('width', '100%');
+        $(".menu-body").css('width', '7%');
+        $("label").css('display', 'none');
+    } else {
+        $(".fa-bars").css('backgroundColor', ''); // Reset background color
+        $(".board").css('width', '80%'); // Reset width to default or initial state
+        $(".menu-body").css('width', '30%'); // Reset width to default or initial state
+        $("label").css('display', 'inline-block');
+    }
+});
+
+     </script>
 
 
 

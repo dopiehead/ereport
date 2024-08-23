@@ -1,0 +1,43 @@
+label a{
+    text-decoration: none;
+    color:black;
+}
+
+
+.menu-body ul li{
+    margin:50px 10px;
+    font-size:15px;
+    padding:0px 10px;
+    cursor: pointer;
+    position: relative;
+    
+    
+    
+        }
+    
+        .menu-body ul li.active {
+            background-color: rgb(154, 200, 231) !important;
+             }
+        
+    
+        .menu-body ul li span{
+        float: right ;
+                }
+
+                
+    .settings_menu{
+        display: none;
+        position: absolute;
+        background-color: white;
+        padding:5px 10px;
+        top:-50px;
+        right:10px;
+        }
+    
+        .settings_menu li i{
+            font-size:13px !important;
+            }
+    
+    
+    
+    
