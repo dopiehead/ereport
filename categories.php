@@ -2,10 +2,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>categories</title>
     <?php  include 'components/links.php'; ?>
-  
-    <link rel="stylesheet" href="css/categories.css">
+  <link rel="stylesheet" href="css/categories.css">
+    <link rel="stylesheet" href="css/navlinks.css">
 </head>
 <body>
    
@@ -16,8 +16,7 @@
 <div class="hero-text">
 
   <h3>
-    Empower your <span>voice</span>,<br>
-    Report injustice.
+   categories
   </h3>
 <br><br>
 

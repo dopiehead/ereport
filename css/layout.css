@@ -1,6 +1,6 @@
 .header{
 color:rgb(223, 223, 223);
-padding:5px;
+padding:3px;
 position:fixed;
 top:0;
 width:100%;
@@ -179,10 +179,16 @@ color: rgb(7, 5, 112);
  .header ul .blacklisted,
  .header ul .blog,
  .header ul .golive,
- .header ul .signup{
+ .header ul .signup,
+ .header ul .protest,
+ .header ul .complain
+ {
 display:none;
- }  
+   
 }
+
+}
+
 
 
 .overlayParent{

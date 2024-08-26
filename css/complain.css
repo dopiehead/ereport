@@ -1,0 +1,74 @@
+.complain{
+    border-bottom:3px solid rgb(223, 15, 15);;
+   }
+   
+.hero-section{
+    background-image:linear-gradient(to right,rgb(25, 30, 104),rgb(12, 67, 112),rgba(12, 67, 112,0.3)),url("../assets/images/hero-bg.jpg");
+  
+  }
+  .complain-container{
+    border:1px solid transparent;
+    padding:10px;
+    margin-top:10px;
+    background-color:rgb(240, 238, 238);
+  }
+
+  .complain-comment-section{
+    background-color: white !important;
+    padding:10px;
+    box-shadow:0px 0px 3px rgb(230, 230, 230);
+  }
+
+  .complain-comment-container{
+    background-color: #fff !important;
+    padding:10px;
+    box-shadow:0px 0px 3px rgb(230, 230, 230);
+  
+  }
+
+  .complain-comment-container textarea{
+   border:1px solid transparent;
+   box-shadow: 0px 0px 5px grey;
+
+  }
+
+  .btn-comment{
+    color:white !important;
+    background-color: rgb(26, 135, 224) !important;
+    box-shadow: 0px 3px 10px grey;
+    transition:0.5s linear;
+    border:1px solid transparent;
+  }
+
+  .hand,.heart,.reply{
+    border-radius:10px; 
+  }
+
+
+  .complain-comment-section img{
+border-radius: 50%;
+height:80px;
+width:80px;
+  }
+
+.user-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.user_name{
+    font-weight:bold;
+    color: rgb(153, 153, 153);
+}
+
+.user_name{
+    font-weight:bold;
+    color: rgb(153, 153, 153);
+}
+
+.user_image{
+    border-radius: 50%;
+    height:50px;
+    width:50px;
+    }

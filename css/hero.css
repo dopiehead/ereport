@@ -71,10 +71,24 @@ border:1px solid transparent;
 background-color:rgb(121, 10, 10);
 color:white !important;
 padding:5px 15px;
-font-size:15px !important;
+font-size:1.2rem !important;
 border-radius:15px;
 
 }
+
+
+.hero-text a:hover{
+    border:2px solid white;
+    background-color:inherit !important;
+    color:white !important;
+    padding:5px 15px;
+    font-size:1.2rem !important;
+    border-radius:15px;
+    
+    }
+
+
+
 
 @media screen and (max-width :768px) {
 

@@ -23,6 +23,20 @@ font-weight:bold;
  }
 
 
+ .calltoaction .col-md-2 a:hover{
+   border:2px solid transparent;
+   margin:10px 0px;
+   padding:10px 15px;
+   color:white !important;
+   background-color: rgb(5, 61, 134);
+   font-weight:bold;
+   width:100%;
+   text-decoration: none !important;;
+}
+
+
+
+
  @media only screen and (max-width:767px){
    .calltoaction .col-md-2 a{
      
@@ -74,12 +88,21 @@ padding:15px 20px;
         font-size:13px;
           }
           .property_note a{
-            color: rgb(5, 61, 134)e;
+            color: rgb(5, 61, 134);
             text-decoration: none;
             background-color: #fff;
             padding:5px 10px;
-            font-size:13px;
+            font-size:14px;
             }
+
+            .property_note a:hover, .property_note a:focus{
+               color: rgb(255, 255, 255) !important;
+               text-decoration: none;
+               background-color: rgb(5, 61, 134);
+               border:2px solid white;
+               
+               font-size:14px;
+               }
 
  .property_container img{
   width:200px;  
@@ -123,6 +146,13 @@ padding:15px 20px;
     
     }
 
+    .aRequest:hover{
+   background-color: rgb(19, 72, 151) !important;
+    color: white !important;
+      
+      }
+
+
  .vRequest{
 color:white !important;
 border:2px solid white;
@@ -130,6 +160,14 @@ font-size:13px;
 
 
 }
+
+.vRequest:hover{
+   color:rgb(180, 216, 49) !important;
+   border:2px solid #ceda2dd5;
+   font-size:13px;
+   
+   
+   }
 
 .banner_info{
     background:linear-gradient(to right,rgb(4, 22, 49),rgb(19, 72, 151)) ;
@@ -150,4 +188,10 @@ font-size:13px;
      color:rgb(19, 72, 151) !important;
      background-color: #fff;
      padding:5px 10px;
+}
+
+
+.banner_info a:hover{
+   
+    border-radius:18px;
 }

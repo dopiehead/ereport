@@ -72,9 +72,27 @@ text-align: center;
       display:flex;
       justify-content:space-around;
       align-items:center;
+      gap:5px;
 
       
       }
+
+      .newsletter-form a{
+      background-color:rgba(0, 0, 0,0.1);
+      color:white;
+      border: 1px solid #ccc;
+      font-size:14px;
+      width: 100%;
+
+      }
+
+
+
+
+      /* @media only screen and (max-width: 1200px){
+      
+
+      } */
       
       .newsletter-envelope .fa-envelope{
       font-size:141px !important;
@@ -166,3 +184,165 @@ z-index:-1;
     opacity: 1;
     transform: translateX(0); /* Bring the element to its original position */
 }
+
+.popup div span strong {
+  color:black !important;
+}
+
+
+.newsletter-choose div{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.newsletter-choose div span{
+display: block;
+margin:5px 3px;
+font-weight: normal !important;
+}
+
+.newsletter-choose div span input[type=checkbox]{
+    box-shadow: none !important;
+  margin:5px 4px;
+  }
+  
+
+.newsletter-choose{
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* flex-wrap: wrap; */
+  
+}
+
+@media only screen and (max-width:767px){
+  .newsletter-choose{
+ 
+    flex-wrap: wrap;
+    
+  }
+}
+
+
+/* --------------------popup------------------------ */
+
+#popup{
+background-color: white;  
+position:fixed;
+padding: 10px 8px !important;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+width:500px;
+height:300px;
+z-index: 99;
+box-shadow: 0 5px 30px rgba(0,0,0,.30);
+background: #fff;
+visibility:hidden;
+opacity:0;
+transition: 0.3s;
+text-align: center;
+font-size: 14px !important;
+font-family: poppins !important;
+
+}
+
+
+
+
+#popup.active{ 
+visibility: visible;
+opacity: 1;
+transition: 0.3s;
+
+    }
+
+
+
+#close{
+font-size: 14px;
+position: absolute;
+top: -6px;
+left: 93%;
+color:black;
+cursor: pointer;
+box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+border-radius: 50%;
+background-color: white;
+z-index: 1;
+}
+
+
+#close:hover, #close:focus{
+opacity: 0.6;
+border: none;
+outline: none;
+ outline: none;
+
+}
+
+
+#popup input{
+border:1px solid transparent;
+box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+}
+
+
+#btn-comment{
+
+	text-transform: capitalize;
+	font-family: poppins;
+	color: white;
+	box-shadow:0px 5px 8px rgba(0,0,0,0.3);
+	border-radius:3px;
+}
+
+
+h6{
+text-transform: capitalize;
+}
+
+
+@media only screen and (max-width:497px){
+
+#popup{
+background-color: white;  
+position:fixed;
+top:35%;
+left: 50%;
+transform: translate(-50%,-50%);
+width: 320px;
+height:350px;
+font-size: 14px !important;
+
+}
+
+}
+
+
+#popup.active{
+visibility: visible;
+opacity: 1;
+transition: 0.3s;
+  }
+
+
+#close{
+font-size: 18px;
+position: absolute;
+top: -5px;
+left: 93%;
+color:black;
+cursor: pointer;
+box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+border-radius: 50%;
+padding: 0px 8px;
+z-index: 1px;
+background-color: white;
+background-color: white;
+}
+
+
+

@@ -28,11 +28,13 @@
 
 .board{
     width:100% !important;
+    transition:0.5s ease-in;
 }
 
 .menu-body{
 background-color: rgb(233, 233, 233) !important;
 width:30%;
+transition:0.5s ease-out;
 }
 
 

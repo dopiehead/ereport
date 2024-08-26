@@ -4,6 +4,7 @@
     <title>Home</title>
     <?php  include 'components/links.php'; ?>
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navlinks.css">
 
 </head>
 <body>
@@ -73,7 +74,7 @@
         
          <div class="naviLinks">
 
-         <img src="assets/images/menu/hotel.png">
+         <a><img src="assets/images/menu/hotel.png"></a>
 
          </div>
 
@@ -81,7 +82,7 @@
         
          <div class="naviLinks">
 
-         <img src="assets/images/menu/business-owner.png">
+         <a><img src="assets/images/menu/business-owner.png"></a>
 
          </div>
          
@@ -216,7 +217,7 @@
                  </div>
          </div>
 
-         <div class="col-md-6">
+         <div class="col-md-6 fade-in">
 
          <img src="assets/images/book.jpg" alt="">
 
@@ -281,7 +282,7 @@
 
 <div class="container blog-section">
 
-     <h5>Reports <span class="see_more"><a href="blog.php">See more</a></span></h5><br>
+     <h5>Reports <span class="see_more"><a href="report.php">See more</a></span></h5><br>
 
      <div class="blog-container">
       
@@ -293,7 +294,7 @@
  
              <strong>Short Event Title on Topic</strong><br>
              <br>
-             <a>Read more <i class="fa fa-arrow-right"></i></a>
+             <a href="report-details.php">Read more <i class="fa fa-arrow-right"></i></a>
          </div>
 
 
@@ -320,7 +321,7 @@
  
              <strong>Short Event Title on Topic</strong><br>
               <br>
-             <a>Read more <i class="fa fa-arrow-right"></i></a>
+             <a href="report-details.php">Read more <i class="fa fa-arrow-right"></i></a>
 
              </div>
 
@@ -336,7 +337,7 @@
 
 <div class="container blog-section">
 
-     <h5>Reports/Videos <span class="see_more"><a href="blog.php">See more</a></span></h5><br>
+     <h5>Reports/Videos <span class="see_more"><a href="report.php">See more</a></span></h5><br>
 
      <div class="blog-container">
       
@@ -629,6 +630,35 @@ $(document).ready(function() {
     });
 
 </script>
+
+<script>
+    $(document).ready(function() {
+        // Check if the element is in the viewport
+        function checkVisibility() {
+            $('.fade-in').each(function() {
+                var elementTop = $(this).offset().top;
+                var viewportBottom = $(window).scrollTop() + $(window).height();
+                if (elementTop < viewportBottom - 50) {
+                    $(this).addClass('visible');
+                }
+            });
+        }
+
+        // On scroll event
+        $(window).on('scroll', function() {
+            checkVisibility();
+        });
+
+        // Initial check
+        checkVisibility();
+    });
+</script>
+
+
+
+
+
+
 
 </body>
 </html>

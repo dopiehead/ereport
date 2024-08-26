@@ -4,17 +4,22 @@
 <div class="text-center">
 
 <h5><b>Subscribe to our newsletter</b></h5>
-<br>
-<div class="newsletter container">
 
-      <div class="newsletter-envelope section from-left">
+<br>
+<div class="newsletter container ">
+
+      <div class="newsletter-envelope section from-left mr-3">
 
             <i class="fa fa-envelope"></i>
 
       </div>     
 
+  
 
-      <div class="newsletter-form section from-right">      
+      <div class="newsletter-form section from-right">  
+
+
+             <a class="btn form-control bg-transparent text-white border border-white border-2 mb-3 p-2 " onclick="btn_cat()">Select Categories</a>
                  
             <input type="text" name="" placeholder="Enter your Email" class="form-control"><br>
 
@@ -60,7 +65,7 @@
             <a href="categories.php">categories</a>
             <a href="blacklist.php">blacklisted</a>
              <a href="blog.php">blog</a>
-             <a href="#">Golive</a>
+             <a href="golive.php">Golive</a>
             <a href="signup.php">Sign in</a>
 
          </div>
@@ -113,6 +118,48 @@
     <br>
 
   </div>
+
+  <div class="popup" id="popup">
+    <a id="close" onclick="btn_cat()">&times;</a>
+       <h6>Choose category</h6>
+        <div class="container newsletter-choose">
+
+            <div>
+                  <span><input type="checkbox"><strong>Police</strong></span>
+                  <span><input type="checkbox"><strong>Teacher</strong></span>
+                  <span> <input type="checkbox"><strong>School</strong></span>
+                  <span><input type="checkbox"><strong>Hospital</strong></span>
+            </div>
+
+            <div>
+                 <span><input type="checkbox"><strong>Immigration</strong></span>
+                 <span><input type="checkbox"><strong>Custom</strong></span>
+                 <span><input type="checkbox"><strong>Civil Service</strong></span>
+                 <span><input type="checkbox"><strong>Army</strong></span>
+            </div>
+
+            <div>
+                 <span><input type="checkbox"><strong>Insurance</strong></span>
+                  <span><input type="checkbox"><strong>Pharmaceuticals</strong></span>
+                  <span><input type="checkbox"><strong>Hotels</strong></span>
+                  <span><input type="checkbox"><strong>Army</strong></span>
+            </div>
+
+        </div>
+
+        <button class="form-control btn btn-danger mt-5">Submit</button>
+
+  </div>
+
+
+  <script type="text/javascript">
+ function btn_cat() {
+var popup = document.getElementById('popup');
+popup.classList.toggle('active');
+  }
+
+</script>
+
 
   <script>
         $(document).ready(function () {
