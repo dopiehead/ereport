@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|sofia|Trirong|Poppins">
-<link rel="stylesheet" href="css/layout.css">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/sweetalert.min.js"></script>
 <script src="js/flickity.pkgd.min.js"></script>
@@ -12,6 +11,8 @@
 <link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/ads.css">
 <link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/loader.css">
+
 
 <!-- JavaScript -->
 

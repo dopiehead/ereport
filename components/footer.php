@@ -96,9 +96,9 @@
                      <p>Our site uses essential cookies to work</p>
                       
                      <div>
-                          <a href="#">Decline all</a>
+                          <a class="decline">Decline all</a>
 
-                          <a href="#">Accept all</a>
+                          <a class="accept">Accept all</a>
                      </div>
 
                  </div>
@@ -118,6 +118,8 @@
     <br>
 
   </div>
+
+  
 
   <div class="popup" id="popup">
     <a id="close" onclick="btn_cat()">&times;</a>
@@ -143,6 +145,7 @@
                   <span><input type="checkbox"><strong>Pharmaceuticals</strong></span>
                   <span><input type="checkbox"><strong>Hotels</strong></span>
                   <span><input type="checkbox"><strong>Army</strong></span>
+                  <span><input type="text" placeholder="Others"></span>
             </div>
 
         </div>
@@ -208,4 +211,15 @@ popup.classList.toggle('active');
         // Initial check in case elements are already in view
         checkIfInView();
     });
+</script>
+
+<script>
+
+$(".accept").on('click', function(){
+$(".essential_cookies").css("visibility","hidden");
+});
+
+$(".decline").on('click', function(){
+$(".essential_cookies").css("visibility","hidden");
+});
 </script>

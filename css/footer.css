@@ -265,7 +265,8 @@ transition: 0.3s;
 font-size: 14px;
 position: absolute;
 top: -6px;
-left: 93%;
+left: 95%;
+padding: 0px 8px;
 color:black;
 cursor: pointer;
 box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
@@ -327,22 +328,6 @@ visibility: visible;
 opacity: 1;
 transition: 0.3s;
   }
-
-
-#close{
-font-size: 18px;
-position: absolute;
-top: -5px;
-left: 93%;
-color:black;
-cursor: pointer;
-box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
-border-radius: 50%;
-padding: 0px 8px;
-z-index: 1px;
-background-color: white;
-background-color: white;
-}
 
 
 

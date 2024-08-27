@@ -40,6 +40,7 @@
 
 <img src="assets/images/menu/police.png">
 
+<p>Police</p>
 
 </div>
 
@@ -47,6 +48,8 @@
 <div class="naviLinks">
 
 <img src="assets/images/menu/restaurant.png">
+
+<p>restaurant</p>
 
 </div>
 
@@ -56,6 +59,8 @@
 
 <img src="assets/images/menu/gas-station.png">
 
+<p>Gas Station</p>
+
 </div>
 
 
@@ -63,6 +68,8 @@
 <div class="naviLinks">
 
 <img src="assets/images/menu/hotel.png">
+
+<p>Hotel</p>
 
 </div>
 
@@ -72,6 +79,8 @@
 
 <img src="assets/images/menu/business-owner.png">
 
+<p>business owner</p>
+
 </div>
 
 
@@ -79,12 +88,16 @@
 
 <img src="assets/images/menu/service-provider.png">
 
+<p>service provider</p>
+
 </div>
 
 
 <div class="naviLinks">
 
   <img src="assets/images/menu/bank.png">
+
+  <p>bank</p>
   
 </div>
 
@@ -94,6 +107,8 @@
 
 <img src="assets/images/menu/drugs.png">
 
+<p>drugs</p>
+
 </div>
 
 
@@ -101,6 +116,7 @@
 
          <img src="assets/images/menu/army.png">
 
+         <p>Army</p>
 
          </div>
 
@@ -111,6 +127,8 @@
 
          <img src="assets/images/menu/electricity.png">
 
+          <p>electricity</p>
+
          </div>
 
 
@@ -118,6 +136,9 @@
          <div class="naviLinks">
 
          <img src="assets/images/menu/discovery.png"> 
+
+         <p>discovery/Inventions</p>
+
 
          </div>
 
@@ -127,14 +148,20 @@
          <div class="naviLinks">
          
          <img src="assets/images/menu/wanted.png">
+ 
+          <p>wanted person</p>
 
          </div>
+         
+     
 
 
 
          <div class="naviLinks">
 
          <img src="assets/images/menu/court.png">
+
+         <p>court matters</p>
 
          </div>
 
@@ -143,12 +170,16 @@
 
          <img src="assets/images/menu/relationship.png">
 
+         <p>relationship</p>
+
          </div>
 
 
          <div class="naviLinks">
 
          <img src="assets/images/menu/car.png">
+
+         <p>stolen vehicles</p>
 
          </div>
 
@@ -157,6 +188,8 @@
 
          <img src="assets/images/menu/spiritual.png">
         
+         <p>spiritual</p>
+
         </div>
 
 
@@ -165,6 +198,8 @@
           
         <img src="assets/images/menu/landlord.png">
  
+        <p>landlord</p>
+
           </div>
 
 
@@ -172,6 +207,8 @@
           
           <img src="assets/images/menu/individual.png">
    
+          <p>individual</p>
+
             </div>
   
          
@@ -179,6 +216,7 @@
           
           <img src="assets/images/menu/leadership.png">
    
+          <p>leadership</p>
             </div>
   
 
@@ -187,14 +225,18 @@
           <div class="naviLinks">
           
           <img src="assets/images/menu/gist.png">
- 
+          
+          <p>As tip off gist</p>
+
           </div>
 
 
           <div class="naviLinks">
           
           <img src="assets/images/menu/suspect.png">
- 
+   
+          <p>suspect</p>
+
           </div>
 
 
@@ -202,12 +244,16 @@
           
           <img src="assets/images/menu/security.png">
  
+          <p>security information</p>
+
           </div>
 
 
          <div class="naviLinks">
           
          <img src="assets/images/menu/vendor.png">
+
+          <p>vendor</p>
 
          </div>
 
@@ -216,6 +262,8 @@
          <div class="naviLinks">
 
          <img src="assets/images/menu/medical.png">
+           
+         <p>medicals</p>
 
          </div>
 
@@ -226,6 +274,8 @@
 
          <img src="assets/images/menu/missing.png">
 
+         <p>missing persons</p>
+
          </div>
 
 
@@ -233,6 +283,8 @@
          <div class="naviLinks">
   
          <img src="assets/images/menu/discrete.png">
+
+         <p>discrete property</p>
 
          </div>
 
@@ -242,12 +294,16 @@
 
          <img src="assets/images/menu/child-negligence.png">
 
+         <p>child negligence</p>
+
          </div>
 
 
          <div class="naviLinks">
 
          <img src="assets/images/menu/civil-service.png">
+  
+          <p>Civil Service</p>
 
          </div>
 
@@ -256,12 +312,16 @@
 
          <img src="assets/images/menu/federal.png">
 
+         <p>federal</p>
+
          </div>
 
 
          <div class="naviLinks">
           
          <img src="assets/images/menu/street.png">
+
+         <p>street</p>
 
          </div>
 
@@ -272,6 +332,8 @@
 
          <img src="assets/images/menu/fraud.png">
 
+         <p>Fraud / Deception</p>
+
          </div>
 
 
@@ -281,6 +343,8 @@
 
          <img src="assets/images/menu/fake-product.png">
 
+         <p>Fake products</p>
+
          </div>
 
 
@@ -288,12 +352,16 @@
 
          <img src="assets/images/menu/funding.png">
 
+         <p>Funding</p>
+
          </div>
 
 
          <div class="naviLinks">
          
          <img src="assets/images/menu/whistle.png">
+
+          <p>Whistle blower</p>
 
          </div>
 

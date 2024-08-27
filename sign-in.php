@@ -22,15 +22,17 @@
      </div>
 
      <div class="form-container">
-       
+       <form id="signin-form">
       <label for="email">Email</label>
-      <input type="text" class="form-control" placeholder="Enter your Email"><br>
+      <input type="email" name="email" id="email" class="form-control" placeholder="Enter your Email"><br>
        
        <label for="password">Password</label>
-      <input type="password" class="form-control" placeholder="Ener your Password"><br>
+      <input type="password" name="password" id="password" class="form-control" placeholder="Enter your Password"><br>
 
-      <button class="btn btn-danger form-control">Sign in</button>
-       
+      <button class="btn btn-danger btn-signin form-control">Sign in</button>
+
+      <?php include 'components/loader.php'; ?>
+      </form>
       <br>
       
              <div class="account-container">
@@ -45,5 +47,58 @@
     
 <br><br>
 <?php  include 'components/footer.php'; ?>
+
+
+
+<script type="text/javascript">
+
+// var url = $('#url').val();
+// var url_details = $('#url_details').val();
+$('.btn-signin').on('click',function(e){
+e.preventDefault();
+$("#loading-image").show();
+$('.btn-signin').prop('disabled', true);
+ $.ajax({
+
+            type: "POST",
+            url: "engine/sign-in-process.php",
+            data:  $("#signin-form").serialize(),
+            cache:false,
+            contentType: "application/x-www-form-urlencoded",
+             success: function(response) {
+             $("#loading-image").hide();
+             if (response==1)  {
+              window.location.href = "../ereport/dashboard/dashboard.php";
+                 $("#signin-form")[0].reset();
+             }                                 
+          else{            
+            swal({
+            	icon:"error",
+            	text:response
+            });
+          $('.btn-signin').prop('disabled', false);         
+           $("input").css('border-color','red');           
+           }
+            },
+
+            error: function(jqXHR, textStatus, errorThrown) {
+
+                console.log(errorThrown);
+
+            }
+
+        })
+
+    });
+
+</script>
+
+
+
+
+
+
+
+
 </body>
 </html>

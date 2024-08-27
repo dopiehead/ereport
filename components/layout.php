@@ -1,8 +1,4 @@
-<html lang="en">
-<head>
-<?php include 'components/links.php'; ?>
-</head>
-<body>
+
  <div class="header">
 
      <ul>

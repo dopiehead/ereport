@@ -8,14 +8,14 @@
   }
   .navigation{
     display:flex;
-    justify-content:space-evenly;
+    justify-content:space-around;
     align-items: center;
-   gap: 20px;
+   gap: 15px;
    flex-wrap:wrap;
   }
   
    .naviLinks{
-    width:150px;
+    width:155px;
     height:150px;
     display:flex;
     justify-content:center;
@@ -27,15 +27,24 @@
 
    
     }
+
+    .naviLinks p{
+
+    font-weight:bold !important;
+      text-transform:capitalize !important;
+      font-size:14px !important;
+     
+      }
+      
     
-    
-    
-    
+
     .naviLinks img{
     
       width:100px;
     
       height:100px;
+
+      margin-top:8px;
     
       object-fit: cover;
 
