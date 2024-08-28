@@ -76,6 +76,8 @@
 
          <a><img src="assets/images/menu/hotel.png"></a>
 
+         <p>hotel</p>
+
          </div>
 
 
@@ -84,12 +86,16 @@
 
          <a><img src="assets/images/menu/business-owner.png"></a>
 
+         <p>business owner</p>
+
          </div>
          
          
          <div class="naviLinks">
 
          <img src="assets/images/menu/service-provider.png">
+
+         <p>service provider</p>
 
          </div>
 
@@ -98,20 +104,26 @@
 
            <img src="assets/images/menu/bank.png">
 
+           <p>Banks</p>
+
          </div>
 
     
 
          <div class="naviLinks">
 
-  <img src="assets/images/menu/drugs.png">
+           <img src="assets/images/menu/drugs.png">
+            
+           <p>drugs</p>
+
          </div>
 
 
          <div class="naviLinks">
 
-<img src="assets/images/menu/army.png">
+           <img src="assets/images/menu/army.png">
 
+<p>army</p>
 
 </div>
 

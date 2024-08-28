@@ -1,6 +1,7 @@
-<?php if (isset($_GET['logout'])) {
-    $userAuth->logout();
-    header("Location: index.php"); // Redirect to self to avoid showing logout message after refresh
-    exit();
-}
+<?php 
+session_start();
+session_destroy();
+header("location:../sign-in.php");
+exit();
+?>
 ?>

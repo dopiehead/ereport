@@ -147,16 +147,15 @@ justify-content: space-around;
     
     } 
 
+    .naviLinks p{
 
-    .naviLinks h6{
-      
-        display:block;
-        margin-top:49px;
-        position: relative;
-        top:20px;
-     
-      }
+      font-weight:bold !important;
+        text-transform:capitalize !important;
+        font-size:14px !important;
+       
+        }
 
+        
 .e_report{
   margin-top: 30px;
   text-align:center;

@@ -17,7 +17,6 @@ $vkey = md5(time() . $email);
 // Perform validation
 $errors = [];
 
-
 if (empty($email.$name.$password.$cpassword)) {
     $errors[] = "All fields are required";
 }

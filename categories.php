@@ -365,6 +365,18 @@
 
          </div>
 
+
+         <div class="naviLinks">
+         
+         <img src="assets/images/menu/telecom.png">
+
+          <p>telecommunication</p>
+
+         </div>
+
+
+
+
          <div class="naviLinks">
 
          <img src="assets/images/menu/achievements.png">

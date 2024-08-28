@@ -11,7 +11,7 @@
 
                  <li><i class="fa fa-plus"></i>&nbsp;<label><a href="../dashboard/post-report.php">Post Report</a></label></li>
 
-                 <li><i class="fas fa-sign-out-alt"></i>&nbsp; <label>Log out</label> <span></span></li>
+                 <li><i class="fas fa-sign-out-alt"></i>&nbsp; <label><a href="../engine/logout.php">Log out</label></a> <span></span></li>
 
              </ul>
 

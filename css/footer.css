@@ -329,5 +329,9 @@ opacity: 1;
 transition: 0.3s;
   }
 
+  .btn-cart{
+    cursor: pointer;
+  }
+
 
 

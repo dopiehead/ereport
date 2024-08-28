@@ -19,7 +19,7 @@
       <div class="newsletter-form section from-right">  
 
 
-             <a class="btn form-control bg-transparent text-white border border-white border-2 mb-3 p-2 " onclick="btn_cat()">Select Categories</a>
+             <a class="btn btn-cart form-control bg-transparent text-white border border-white border-2 mb-3 p-2 " onclick="btn_cat()">Select Categories</a>
                  
             <input type="text" name="" placeholder="Enter your Email" class="form-control"><br>
 
