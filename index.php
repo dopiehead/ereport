@@ -638,7 +638,7 @@ $(document).ready(function() {
         $(slides[currentSlide]).addClass('active');
 
         // Set interval to slide through the text
-        setInterval(showNextSlide, 3000); // Change text every 3 seconds
+        setInterval(showNextSlide, 3800); // Change text every 3 seconds
     });
 
 </script>

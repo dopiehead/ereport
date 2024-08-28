@@ -37,12 +37,12 @@
          <div>
                  <img src="assets/images/IMG_E7548.jpg" alt="">
 
-                 <i class="fa fa-plus"></i>
+                 <i id="startCamera" class="fa fa-plus"></i>
          </div>
 
         <div>
 
-            <i class="fa fa-close"></i>
+            <i id="stopCamera" class="fa fa-close"></i>
 
 
         </div>
@@ -53,10 +53,11 @@
 
 
 </div>
-<div>
-<br><br><br><br><br>
-</div>
 
+<div class="container video">
+
+<video id="video" autoplay></video>
+</div>
 <div class="container">
 
      <div class="font-container">
@@ -86,5 +87,47 @@
 
 
 <?php  include 'components/footer.php';  ?>
+<script>
+  $(document).ready(function() {
+    let stream = null; // Store the media stream globally
+
+    $('#startCamera').on('click', function() {
+        // Check if the browser supports media devices
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            // Request access to the camera
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(mediaStream) {
+                    // Save the stream for later use
+                    stream = mediaStream;
+                    // Get the video element
+                    const video = $('#video')[0];
+                    // Set the video source to the stream
+                    video.srcObject = stream;
+                })
+                .catch(function(err) {
+                    console.error('Error accessing the camera: ', err);
+                    alert('Unable to access the camera. Please check your permissions.');
+                });
+        } else {
+            console.error('getUserMedia is not supported in this browser.');
+            alert('getUserMedia is not supported in this browser.');
+        }
+    });
+
+    $('#stopCamera').on('click', function() {
+        if (stream) {
+            // Get all tracks from the stream
+            const tracks = stream.getTracks();
+            // Stop each track
+            tracks.forEach(track => track.stop());
+            // Clear the video source
+            $('#video')[0].srcObject = null;
+            // Optionally, set the stream variable to null
+            stream = null;
+        }
+    });
+});
+
+</script>
 </body>
 </html>

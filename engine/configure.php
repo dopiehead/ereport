@@ -1,6 +1,6 @@
 <?php
 
-class Database {
+class Database{
     private $host = "localhost";
     private $user = "root";
     private $password = "";
@@ -14,7 +14,21 @@ class Database {
             die("Connection failed: " . $this->conn->connect_error);
         }
     }
+
+    public function prepare($query) {
+        return $this->conn->prepare($query);
+    }
+
+
+    public function query($sql) {
+        return $this->conn->query($sql);
+    }
+
+    public function close() {
+        $this->conn->close();
+    }
 }
 
 ?>
+
 

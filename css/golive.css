@@ -67,6 +67,11 @@ margin-right:8px;
   
   }
 
-  .footer{
-    margin-top:0px !important;
-  }
+ video{
+  height:300px;
+  width:100%;
+ }
+
+ i{
+  cursor: pointer;
+ }

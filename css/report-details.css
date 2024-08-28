@@ -18,7 +18,7 @@ margin-right:30px;
 }
 
 .col-md-6{
-padding: 0;
+padding: 5;
 }
 .col-md-6 figure{
 position:relative;
@@ -379,6 +379,14 @@ height:120px;
         font-size:14px;
         }
 
-          
+        .reply-container{
+            
+            display:block; 
+            }  
+    
+
+        .comment-reply{
+         cursor:pointer;
+        }
     
     

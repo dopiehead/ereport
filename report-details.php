@@ -72,20 +72,30 @@
      </div>
 
       <div class="commenter"><img class="reporter" src="assets/images/IMG_E7548.jpg" alt=""> <span>Name</span></div>
+          <form id="commentForm">
 
-      <textarea name="" id="" class="form-control" rows="5">
+       <input type="hidden" name="comment_id" id="comment_id">
+
+       <input type="hidden" name="user_id" id="user_id">
+    
+      <textarea name="content" id="content" class="form-control content" rows="5">
 
      </textarea>
     
      <div class="button-comments">
-     <button class="btn btn-success">Send <i class="fa fa-chevron-right"></i></button>
-     </div>
+     <input type="submit" class="btn btn-success" value="Send">
+     </form>
+    
+    </div>
 
 </div>
 
     
         
         </div>
+
+
+
 
         <div class="col-md-6" >
 
@@ -145,15 +155,18 @@
 
 
 
-               <div class="comment-show">
-                 <div>
+               <div class="comment-show" id="comment-show">
+
+
+                 <!-- <div class="comment-box">
+
                      <img src="assets/images/IMG_E7548.jpg" alt=""><span class="status"><i class="fa fa-circle"></i></span><span class="commenter-name">Name</span>
                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi quam doloremque sint tenetur, atque tempore commodi ratione possimus consequatur. Minus, atque. Corrupti assumenda voluptate consequuntur modi error ratione delectus praesentium!</p>
                  
                      <div class="comment-options">
 
-                     <div class="smiley">
-                         <i class="fa-regular fa-face-smile"></i>
+                     <div class="smiley"> -->
+                         <!-- <i class="fa-regular fa-face-smile"></i>
                      </div>
 
                      <div class="comment-likes">
@@ -175,17 +188,17 @@
 
                  </div>
 
-                 <hr>
+                 <hr> -->
        
 
-               </div> 
+               <!-- </div>  -->
 
 
-               <div>
+               <!-- <div>
                      <img src="assets/images/IMG_E7548.jpg" alt=""><span class="status"><i class="fa fa-circle"></i></span><span class="commenter-name">Name</span>
                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi quam doloremque sint tenetur, atque tempore commodi ratione possimus consequatur. Minus, atque. Corrupti assumenda voluptate consequuntur modi error ratione delectus praesentium!</p>
                  
-                     <div class="comment-options">
+                     <div class="comment-options" id="comment-options">
 
                      <div class="smiley">
                          <i class="fa-regular fa-face-smile"></i>
@@ -200,17 +213,18 @@
                      </div> 
 
                      <div class="comment-reply">
-                         <a href="" class="btn-reply">Reply</a>                      
+                         <a class="btn-reply">Reply</a>                      
                     </div>
 
                     <div class="comment_reply_time">
               
                     <span class="comment-time">6hours</span>
-                    </div>
+                    </div> -->
 
-                 </div>
 
-                 <hr>
+
+
+
        
 
                </div> 
@@ -228,6 +242,7 @@
 </div>
 <br>
 
+<div class="container">
 
 <div class="ads-right">
         
@@ -422,5 +437,95 @@
 </div>
 <br><br>
 <?php  include 'components/footer.php'; ?>
+
+<!-- Include jQuery and SweetAlert2 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  $(document).ready(function() {
+    // Load initial comments
+    $("#comment-show").load("engine/view-comments.php");
+
+    // Handle comment form submission
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        var formData = new FormData(this);
+        fetch('engine/comments-process.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            Swal.fire(data);  // Using SweetAlert2
+            $("#comment-show").load("engine/view-comments.php");
+            $(".content").val(""); // Ensure .content class exists
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('An error occurred: ' + error.message);
+        });
+    });
+
+    // Handle reply form submission
+    // document.querySelectorAll('.replyForm').forEach(form => {
+    //     form.addEventListener('submit', function(e) {
+    //         e.preventDefault();
+           
+            
+    //         var formData = new FormData(this);
+       
+    //         fetch('engine/comments-reply-process.php', {
+    //             method: 'POST',
+    //             body: formData
+    //         })
+    //         .then(response => response.text())
+    //         .then(data => {
+    //             Swal.fire(data); // Using SweetAlert2
+    //             $("#comment-show").load("engine/view-comments.php");
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //             Swal.fire('An error occurred: ' + error.message);
+    //         });
+    //     });
+    // });
+
+    // Optional: Add functionality for reply button
+    $(document).on('click', '.btn-reply', function(e) {
+        e.preventDefault();
+        // Add reply container display logic if needed
+        // $(".reply-container").show();
+    });
+
+    // Optional: Add functionality for additional reply button
+    $(document).on('click', '.reply-btn', function(e) {
+        e.preventDefault();
+        var user_id = $("#user_id").val();
+var comment_id = $("#comment_id").val();
+var content = $("#content-reply").val();
+
+$.ajax({
+type: "POST",
+url: "engine/comments-reply-process.php",
+data: {'user_id':user_id,'comment_id':comment_id,'content-reply':content},
+success: function(response) {
+    Swal.fire(response);
+ },
+error: function(jqXHR, textStatus, errorThrown) {
+console.log(errorThrown);
+}
+
+});
+
+    });
+
+  });
+</script>
+
+
+                 
+
 </body>
 </html>
