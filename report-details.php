@@ -1,3 +1,16 @@
+<?php session_start(); // Start the session
+
+if (isset($_SESSION['name']) && $_SESSION['name'] !== "") {
+   $user_name =  $_SESSION['name']; 
+   $user_id =  $_SESSION['id']; 
+
+} else {
+    echo 'Session variable "name" is not set or is empty.';
+}
+?>
+
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -62,23 +75,25 @@
 
 <div class="comment-section">
      <div class="user-selection">
-         <select> 
-             <option>Choose Category</option>  
-             <option>Positive Comment</option>
-             <option>Negative Comment</option> 
-             <option>Suggestions</option>  
+         <select name="comment_category" id="comment_category"> 
+             <option value="">Choose Category</option>  
+             <option value="positive">Positive Comment</option>
+             <option value="negative">Negative Comment</option> 
+             <optionn value="suggestions">Suggestions</option>  
          </select>
 
      </div>
 
-      <div class="commenter"><img class="reporter" src="assets/images/IMG_E7548.jpg" alt=""> <span>Name</span></div>
+      <div class="commenter"><img class="reporter" src="assets/images/IMG_E7548.jpg" alt=""> <span><?php echo $user_name; ?></span></div>
           <form id="commentForm">
 
        <input type="hidden" name="comment_id" id="comment_id">
 
-       <input type="hidden" name="user_id" id="user_id">
+       <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
+
+       <input type="hidden" name="name" id="name" value="<?php echo $user_name; ?>" >
     
-      <textarea name="content" id="content" class="form-control content" rows="5">
+      <textarea name="comment" id="comment" class="form-control comment" wrap="physical" rows="5">
 
      </textarea>
     
@@ -158,75 +173,7 @@
                <div class="comment-show" id="comment-show">
 
 
-                 <!-- <div class="comment-box">
-
-                     <img src="assets/images/IMG_E7548.jpg" alt=""><span class="status"><i class="fa fa-circle"></i></span><span class="commenter-name">Name</span>
-                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi quam doloremque sint tenetur, atque tempore commodi ratione possimus consequatur. Minus, atque. Corrupti assumenda voluptate consequuntur modi error ratione delectus praesentium!</p>
-                 
-                     <div class="comment-options">
-
-                     <div class="smiley"> -->
-                         <!-- <i class="fa-regular fa-face-smile"></i>
-                     </div>
-
-                     <div class="comment-likes">
-                          <i class="fa-regular fa-thumbs-up"></i>
-                     </div> 
-
-                     <div class="comment-ban">
-                        <i class="fa fa-ban"></i>
-                     </div> 
-
-                     <div class="comment-reply">
-                         <a href="" class="btn-reply">Reply</a>                      
-                    </div>
-
-                    <div class="comment_reply_time">
-              
-                    <span class="comment-time">6hours</span>
-                    </div>
-
-                 </div>
-
-                 <hr> -->
-       
-
-               <!-- </div>  -->
-
-
-               <!-- <div>
-                     <img src="assets/images/IMG_E7548.jpg" alt=""><span class="status"><i class="fa fa-circle"></i></span><span class="commenter-name">Name</span>
-                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi quam doloremque sint tenetur, atque tempore commodi ratione possimus consequatur. Minus, atque. Corrupti assumenda voluptate consequuntur modi error ratione delectus praesentium!</p>
-                 
-                     <div class="comment-options" id="comment-options">
-
-                     <div class="smiley">
-                         <i class="fa-regular fa-face-smile"></i>
-                     </div>
-
-                     <div class="comment-likes">
-                          <i class="fa-regular fa-thumbs-up"></i>
-                     </div> 
-
-                     <div class="comment-ban">
-                        <i class="fa fa-ban"></i>
-                     </div> 
-
-                     <div class="comment-reply">
-                         <a class="btn-reply">Reply</a>                      
-                    </div>
-
-                    <div class="comment_reply_time">
-              
-                    <span class="comment-time">6hours</span>
-                    </div> -->
-
-
-
-
-
-       
-
+                
                </div> 
 
              </div>
@@ -440,92 +387,145 @@
 
 <!-- Include jQuery and SweetAlert2 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
-  $(document).ready(function() {
-    // Load initial comments
+$(document).ready(function() {
     $("#comment-show").load("engine/view-comments.php");
+    $(document).on("click", '.reply', function() {
+        var comment_id = $(this).attr('id');
+        $('#comment_id').val(comment_id);  // Set the comment ID in the hidden input field
+        $("#name").focus();  // Focus the name input field
+    
+    });
+$('#commentForm').on('submit', function(e) {
+        e.preventDefault(); 
+        $("#loading-image").show(); // Show loading image
 
-    // Handle comment form submission
-    document.getElementById('commentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        var formData = new FormData(this);
-        fetch('engine/comments-process.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            Swal.fire(data);  // Using SweetAlert2
-            $("#comment-show").load("engine/view-comments.php");
-            $(".content").val(""); // Ensure .content class exists
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire('An error occurred: ' + error.message);
+        var formdata = new FormData(this); // Create FormData object with the form's data
+
+        $.ajax({
+            type: "POST",
+            url: "engine/comments-process.php",
+            data: formdata, // Send FormData object
+            cache: false,
+            processData: false,
+            contentType: false,
+
+            success: function(response) {
+                $("#loading-image").hide(); // Hide loading image
+
+                if (response == 1) {
+                    // On success, reload comments and reset form
+                    $("#comment-show").load("engine/view-comments.php");
+
+                    swal({
+                        text: "Comment added successfully",
+                        icon: "success",
+                    });
+
+                    $("#name").val(""); // Clear name input
+                    $("#comment").val(""); // Clear comment input
+                    $("#comment_id").val(""); // Clear comment_id input
+                } else {
+                    swal({
+                        icon: "error",
+                        text: response
+                    });
+                }
+            },
+
+            error: function(jqXHR, textStatus, errorThrown) {
+                $("#loading-image").hide(); // Hide loading image on error
+                console.log("Error: " + errorThrown); // Log error
+                swal({
+                    icon: "error",
+                    text: "An error occurred: " + errorThrown
+                });
+            }
         });
     });
-
-    // Handle reply form submission
-    // document.querySelectorAll('.replyForm').forEach(form => {
-    //     form.addEventListener('submit', function(e) {
-    //         e.preventDefault();
-           
-            
-    //         var formData = new FormData(this);
-       
-    //         fetch('engine/comments-reply-process.php', {
-    //             method: 'POST',
-    //             body: formData
-    //         })
-    //         .then(response => response.text())
-    //         .then(data => {
-    //             Swal.fire(data); // Using SweetAlert2
-    //             $("#comment-show").load("engine/view-comments.php");
-    //         })
-    //         .catch(error => {
-    //             console.error('Error:', error);
-    //             Swal.fire('An error occurred: ' + error.message);
-    //         });
-    //     });
-    // });
-
-    // Optional: Add functionality for reply button
-    $(document).on('click', '.btn-reply', function(e) {
-        e.preventDefault();
-        // Add reply container display logic if needed
-        // $(".reply-container").show();
-    });
-
-    // Optional: Add functionality for additional reply button
-    $(document).on('click', '.reply-btn', function(e) {
-        e.preventDefault();
-        var user_id = $("#user_id").val();
-var comment_id = $("#comment_id").val();
-var content = $("#content-reply").val();
-
-$.ajax({
-type: "POST",
-url: "engine/comments-reply-process.php",
-data: {'user_id':user_id,'comment_id':comment_id,'content-reply':content},
-success: function(response) {
-    Swal.fire(response);
- },
-error: function(jqXHR, textStatus, errorThrown) {
-console.log(errorThrown);
-}
-
 });
-
-    });
-
-  });
 </script>
 
 
-                 
+<script>
+$(document).on('click', '.likes', function() {
+    var user_id = "<?php echo $user_id; ?>";
+    var comment_id = $(this).attr('id');
+    
+    $.ajax({
+        type: "POST",
+        url: "engine/update-report-likes.php",
+        data: { 'user_id': user_id, 'comment_id': comment_id },
+        success: function(response) {
+        
+            $('#bom').load(location.href + " #cy"); // Reload specific part of the page
+            if (response == 1) {
+                swal({
+                    title: "Success!",
+                    text: "Like added successfully",
+                    icon: "success",
+                });
+            } else if (response == 2) {
+                swal({
+                    title: "Notice",
+                    text: "You have already liked this comment",
+                    icon: "info",
+                });
+            } else {
+
+                alert(response);
+                // swal({
+                //     title: "Error",
+                //     text: "An error occurred while liking the comment",
+                //     icon: "error",
+                // });
+            }
+        },
+        error: function(xhr, status, error) {
+            swal({
+                title: "Error",
+                text: "An unexpected error occurred.",
+                icon: "error",
+            });
+        }
+    });
+});
+</script>
+
+
+<script>
+$(document).on('click', '.dislikes', function() {
+    var user_id = "<?php echo $user_id; ?>";
+    var comment_id = $(this).attr('id');
+    
+    $.ajax({
+        type: "POST",
+        url: "engine/update-report-dislikes.php",
+        data: { 'user_id': user_id, 'comment_id': comment_id },
+        success: function(response) {
+            if (response == 1) {
+                swal({
+                    title: "Success!",
+                    text: "Like removed successfully",
+                    icon: "success",
+                });
+            } else {
+
+                swal(response);
+                
+            }
+        },
+        error: function(xhr, status, error) {
+            swal({
+                title: "Error",
+                text: "An unexpected error occurred.",
+                icon: "error",
+            });
+        }
+    });
+});
+</script>
+            
 
 </body>
 </html>

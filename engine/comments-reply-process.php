@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Prepare failed: " . $conn->error);
     }
 
-    $stmt->bind_param("iis", $comment_id, $user_id, $content);
+    $stmt->bind_param("iis", $user_id, $comment_id, $content);
     
     if ($stmt->execute()) {
         echo "Reply added successfully.";

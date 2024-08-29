@@ -27,6 +27,13 @@ class Database{
     public function close() {
         $this->conn->close();
     }
+
+    public function getError() {
+        return $this->conn->error;
+    }
+
+
+
 }
 
 ?>

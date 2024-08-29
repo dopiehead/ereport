@@ -137,7 +137,7 @@
 
          <img src="assets/images/menu/discovery.png"> 
 
-         <p>discovery/Inventions</p>
+         <p>Inventions</p>
 
 
          </div>

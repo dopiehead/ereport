@@ -4,14 +4,16 @@ $conn = new Database();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_POST['user_id']; // Retrieve from session or request
-    $content = $_POST['content'];
-    
-    $stmt = $conn->prepare("INSERT INTO comments (user_id, content) VALUES (?, ?)");
-    $stmt->bind_param("is", $user_id, $content);
+    $comment = $_POST['comment'];
+    $comment_sender_name = $_POST['name'];
+    $comment_id = $_POST['comment_id'];
+    $date = date("D, F d, Y", strtotime('+1 hours'));
+    $stmt = $conn->prepare("INSERT INTO comments (user_id,comment,parent_comment_id,comment_sender_name,date) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("isiss", $user_id, $comment, $comment_id, $comment_sender_name, $date);
     if ($stmt->execute()) {
-        echo "Comment added successfully.";
+        echo "1";
     } else {
-        echo "Error: " . $conn->error;
+        echo "Error in adding comment". $stmt->error;
     }
 
     $stmt->close();

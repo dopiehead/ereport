@@ -14,5 +14,5 @@ $UserAuth = new UserAuth($db);
             echo"Incorrect details. Try again.";
         }
     
-session_start();
+
 ?>

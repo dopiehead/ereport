@@ -54,9 +54,10 @@
 
 </div>
 
-<div class="container video">
+<div class="container w-100 ">
 
-<video id="video" autoplay></video>
+<video class="mt-5" id="video" autoplay></video>
+
 </div>
 <div class="container">
 

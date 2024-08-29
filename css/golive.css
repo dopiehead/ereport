@@ -70,8 +70,10 @@ margin-right:8px;
  video{
   height:300px;
   width:100%;
+  margin-top:25px ;
  }
 
- i{
-  cursor: pointer;
+ .form-container i{
+  cursor: pointer !important;
+  z-index:1;
  }
