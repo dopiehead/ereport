@@ -382,6 +382,10 @@ height:120px;
            border-left: 1px solid grey;
            padding:2px 10px;}
 
+           .comment-show .btn-reply:hover{
+            color:blue;
+           }
+
         .comment_reply_time .comment-time{
         opacity:0.7;
         font-size:13px;

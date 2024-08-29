@@ -11,6 +11,7 @@ $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 $cpassword = $_POST['cpassword'] ?? '';
 $verified = $_POST['verified'] ?? '0'; // Default to '0' if not set
+$upload = $_POST['upload'] ??'';
 $date = date("D, F d, Y g:iA", strtotime('+1 hours'));
 $vkey = md5(time() . $email);
 

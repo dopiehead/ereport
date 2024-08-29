@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($likeCount == 0) {
         // User has not liked this comment
-        echo "2"; // Or any appropriate message for not found
+        echo "You have not liked this comment"; // Or any appropriate message for not found
         $conn->close();
         exit();
     }
