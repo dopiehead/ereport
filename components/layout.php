@@ -1,4 +1,4 @@
-
+<?php session_start(); ?>
  <div class="header">
 
      <ul>
@@ -11,8 +11,18 @@
          <li class="protest"><a href="protest.php">Protest</a></li>
          <li class="complain"><a href="complain.php">Complain</a></li>
          <li class="golive"><a href="golive.php">Golive</a></li>
+
+         <?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])){ ?>
+         
+            <li class="login signup"><a href="dashboard/dashboard.php">Profile</a></li>
+
+         <?php } else { ?>
+
          <li class="login signup"><a href="sign-in.php">Sign in</a></li>
          
+         <?php } ?>
+
+
          <div class="menu-icon">
                <div class="bar bar1"></div>
                <div class="bar bar2"></div>
@@ -40,9 +50,12 @@
              <a href="protest.php"><span class="protest">protest</span></a>
              <a href="complain.php"><span class="complain">complain</span></a>
              <a href="golive.php"><span class="golive">Golive</span></a>
+
+             <?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])){ ?>
             <a href="sign-in.php"><span class="login">Sign in</span></a>
-
-
+            <?php } else { ?>
+                <a href="sign-in.php"><span class="login">Sign in</span></a>
+             <?php } ?>
        
      </div>
 </div>

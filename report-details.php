@@ -3,9 +3,12 @@
 if (isset($_SESSION['name']) && $_SESSION['name'] !== "") {
    $user_name =  $_SESSION['name']; 
    $user_id =  $_SESSION['id']; 
+   $img_upload = $_SESSION['img']; 
 
-} else {
-    echo 'Session variable "name" is not set or is empty.';
+} 
+else{
+    $user_name = "John Smith";
+    $img_upload = "<i class='fa fa-user-alt'></i>";
 }
 ?>
 
@@ -72,20 +75,20 @@ if (isset($_SESSION['name']) && $_SESSION['name'] !== "") {
       <a>Negative  <i class="fa fa-comments negative"></i></a> 
       <a>Suggestions</a>
 </div>
-
+<form id="commentForm">
 <div class="comment-section">
      <div class="user-selection">
          <select name="comment_category" id="comment_category"> 
              <option value="">Choose Category</option>  
-             <option value="positive">Positive Comment</option>
-             <option value="negative">Negative Comment</option> 
+             <option value="positive">Positive Comments</option>
+             <option value="negative">Negative Comments</option> 
              <optionn value="suggestions">Suggestions</option>  
          </select>
 
      </div>
 
-      <div class="commenter"><img class="reporter" src="assets/images/IMG_E7548.jpg" alt=""> <span><?php echo $user_name; ?></span></div>
-          <form id="commentForm">
+      <div class="commenter"><img class="reporter" src="<?php echo $_SESSION['img']?>" alt=""> <span><?php echo $user_name; ?></span></div>
+        
 
        <input type="hidden" name="comment_id" id="comment_id">
 
@@ -98,10 +101,13 @@ if (isset($_SESSION['name']) && $_SESSION['name'] !== "") {
      </textarea>
     
      <div class="button-comments">
+
+     <input type="file" name='fileupload' id='fileupload' class="btn btn-file">
      <input type="submit" class="btn btn-success" value="Send">
-     </form>
+     </div>
+
+    </form>
     
-    </div>
 
 </div>
 
@@ -425,6 +431,7 @@ $('#commentForm').on('submit', function(e) {
                     $("#name").val(""); // Clear name input
                     $("#comment").val(""); // Clear comment input
                     $("#comment_id").val(""); // Clear comment_id input
+                    $("#fileupload").val("");
                 } else {
                     swal({
                         icon: "error",

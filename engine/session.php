@@ -1,26 +1,26 @@
 <?php 
+     class Session
+{
+    public function __construct()
+    {
+        session_start(); // Start the session when the object is created
+    }
 
-class Session {
-    public function __construct() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+    // Check if the user is logged in
+    public function checkLogin()
+    {
+        if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+            $this->redirectToSignIn();
         }
     }
 
-    public function set($key, $value) {
-        $_SESSION[$key] = $value;
-    }
-
-    public function get($key) {
-        return $_SESSION[$key] ?? null;
-    }
-
-    public function destroy() {
-        session_unset();
-        session_destroy();
+    // Redirect to the sign-in page
+    private function redirectToSignIn()
+    {
+        header("Location: ../sign-in.php");
+        exit;
     }
 }
-
 ?>
 
 

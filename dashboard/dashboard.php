@@ -1,3 +1,17 @@
+<?php
+require_once '../engine/Session.php'; // Include the Session class
+
+$session = new Session(); // Create an instance of the Session class
+$session->checkLogin(); // Check if the user is logged in
+
+// The rest of your code
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+?>
+
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +22,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|sofia|Trirong|Poppins">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/dashboard/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard/profile_pic.css">
+    
     
     <style>
         body{
@@ -61,7 +77,10 @@
      
                  </div>
                  
+                
 
+            <img class="profile_pic" src="<?php echo $_SESSION["img"]; ?>" alt="image">
+    
 
              <h6>Dashboard</h6>
                

@@ -134,6 +134,8 @@
 
 <img src="assets/images/menu/electricity.png">
 
+<p>electricity</p>
+
 </div>
 
 

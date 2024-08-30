@@ -123,34 +123,63 @@
 
   <div class="popup" id="popup">
     <a id="close" onclick="btn_cat()">&times;</a>
-       <h6>Choose category</h6>
-        <div class="container newsletter-choose">
+    <div class="d-flex justify-content-start align-items-center px-1 gap-5">
+    <a id="next" class='bg-success p-1 mr-1' onclick="prev_cat()"><i class="fa fa-chevron-left"></i></a>
+    <a id="previous"  class='bg-success p-1' onclick="next_cat()"><i class="fa fa-chevron-right"></i></a>
+    </div>
+    
+    
+    <h6>Choose category</h6>
 
-            <div>
+        <div class="container newsletter-choose">
+             
+             <div class="first_slide">
+                  <span><input type="checkbox"><strong>bank</strong></span>
+                  <span><input type="checkbox"><strong>service provider</strong></span>
+                  <span> <input type="checkbox"><strong>electricity</strong></span>
+                  <span><input type="checkbox"><strong>Inventions</strong></span>
+             </div>
+
+             <div class="first_slide">
+                  <span><input type="checkbox"><strong>wanted person</strong></span>
+                  <span><input type="checkbox"><strong>court matters</strong></span>
+                  <span> <input type="checkbox"><strong>relationship</strong></span>
+                  <span><input type="checkbox"><strong>stolen vehicles</strong></span>
+             </div>
+          
+             <div class="first_slide">
+                  <span><input type="checkbox"><strong>spiritual</strong></span>
+                  <span><input type="checkbox"><strong>landlord</strong></span>
+                  <span> <input type="checkbox"><strong>individual</strong></span>
+                  <span><input type="checkbox"><strong>leadership</strong></span>
+            </div>
+
+
+            <div class="second_slide">
                   <span><input type="checkbox"><strong>Police</strong></span>
                   <span><input type="checkbox"><strong>Teacher</strong></span>
                   <span> <input type="checkbox"><strong>School</strong></span>
                   <span><input type="checkbox"><strong>Hospital</strong></span>
             </div>
 
-            <div>
+            <div class="second_slide">
                  <span><input type="checkbox"><strong>Immigration</strong></span>
                  <span><input type="checkbox"><strong>Custom</strong></span>
                  <span><input type="checkbox"><strong>Civil Service</strong></span>
                  <span><input type="checkbox"><strong>Army</strong></span>
             </div>
 
-            <div>
+            <div class="second_slide">
                  <span><input type="checkbox"><strong>Insurance</strong></span>
                   <span><input type="checkbox"><strong>Pharmaceuticals</strong></span>
                   <span><input type="checkbox"><strong>Hotels</strong></span>
-                  <span><input type="checkbox"><strong>Army</strong></span>
+                  <span><input type="checkbox"><strong>As tip off gist</strong></span>
                   <span><input type="text" placeholder="Others"></span>
             </div>
 
         </div>
 
-        <button class="form-control btn btn-danger mt-5">Submit</button>
+        <button class="form-control btn btn-danger mt-4">Submit</button>
 
   </div>
 
@@ -222,4 +251,34 @@ $(".essential_cookies").css("visibility","hidden");
 $(".decline").on('click', function(){
 $(".essential_cookies").css("visibility","hidden");
 });
+</script>
+
+
+ <script>
+        $(document).ready(function() {
+            function checkWidth() {
+                if ($(window).width() < 497) {
+                    $(".first_slide").hide();
+                } else {
+                    $(".first_slide").show();
+                }
+            }
+
+            // Check width on page load
+            checkWidth();
+
+            // Check width on window resize
+            $(window).resize(checkWidth);
+        });
+   
+function prev_cat(){
+    $(".first_slide").show();
+    $(".second_slide").hide(); 
+}
+
+function next_cat(){
+    $(".second_slide").show(); 
+    $(".first_slide").hide();  
+}
+
 </script>

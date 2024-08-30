@@ -28,3 +28,10 @@ $(".settings_menu").toggle();
 });
 
 </script>
+
+<script>
+function toggleMenu() {
+    var menu = document.querySelector('.menu-body');
+    menu.classList.toggle('active'); // Toggle the 'active' class on the sidebar
+}
+</script>

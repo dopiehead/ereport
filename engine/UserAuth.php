@@ -8,16 +8,16 @@ class UserAuth {
        // Start the session at the beginning
     }
 
-    public function register($name, $email, $password, $verified, $date, $vkey) {
+    public function register($name, $email, $password,$img_upload, $verified, $date, $vkey) {
         $hash_password = password_hash($password, PASSWORD_BCRYPT);
-        $sql = "INSERT INTO user_profile (name, email, password, verified, date, vkey) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO user_profile (name, email, password,img_upload, verified, date, vkey) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         
         if ($stmt === false) {
             throw new Exception("Failed to prepare SQL statement.");
         }
 
-        $stmt->bind_param("ssssss", $name, $email, $hash_password, $verified, $date, $vkey);
+        $stmt->bind_param("sssssss", $name, $email, $hash_password,$img_upload,$verified, $date, $vkey);
         $success = $stmt->execute();
         $stmt->close();
         
@@ -25,7 +25,7 @@ class UserAuth {
     }
 
     public function login($email, $password) {
-        $sql = "SELECT id, name, email, password FROM user_profile WHERE email = ? AND verified = 1";
+        $sql = "SELECT id, name,img_upload, email, password FROM user_profile WHERE email = ? AND verified = 1";
         $stmt = $this->db->prepare($sql);
 
         if ($stmt === false) {
@@ -37,13 +37,14 @@ class UserAuth {
         $stmt->store_result();
 
         if ($stmt->num_rows === 1) {
-            $stmt->bind_result($id, $name, $db_email, $hashed_password);
+            $stmt->bind_result($id, $name, $img_upload,$db_email, $hashed_password);
             $stmt->fetch();
 
             if (password_verify($password, $hashed_password)) {
                 $_SESSION['id'] = $id;
                 $_SESSION['email'] = $db_email;
                 $_SESSION['name'] = $name;
+                $_SESSION['img'] = $img_upload;
                 
                 $stmt->close();
                 return true;

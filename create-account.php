@@ -40,6 +40,8 @@
 
       <input type="hidden" name="verified" id="verified" value="0">
 
+      <input type="hidden" name="img_upload" id="img_upload" value="0">
+
       <button class="btn btn-danger btn-signup form-control">Sign Up</button>
        
       <?php include 'components/loader.php'; ?>

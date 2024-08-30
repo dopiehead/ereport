@@ -11,7 +11,7 @@ $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 $cpassword = $_POST['cpassword'] ?? '';
 $verified = $_POST['verified'] ?? '0'; // Default to '0' if not set
-$upload = $_POST['upload'] ??'';
+$img_upload = $_POST['img_upload'] ??'0';
 $date = date("D, F d, Y g:iA", strtotime('+1 hours'));
 $vkey = md5(time() . $email);
 
@@ -28,7 +28,7 @@ elseif ($password !== $cpassword) {
 }
 
 if (empty($errors)) {
-    if ($UserAuth->register($name, $email, $password, $verified, $date, $vkey)) {
+    if ($UserAuth->register($name, $email, $password,$img_upload,$verified, $date, $vkey)) {
         echo "1";
         exit();
     } else {
