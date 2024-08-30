@@ -1,5 +1,5 @@
 <?php session_start(); // Start the session
-
+error_reporting(E_ALL ^ E_NOTICE);
 if (isset($_SESSION['name']) && $_SESSION['name'] !== "") {
    $user_name =  $_SESSION['name']; 
    $user_id =  $_SESSION['id']; 
@@ -72,7 +72,7 @@ else{
                      </div>
                </div>
               <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio adipisci laboriosam odio voluptas cum blanditiis provident laudantium aperiam a sunt! Libero minus corrupti animi inventore tenetur velit, modi veniam id.</p>
-              <span class="heart p-4"><i class="fa fa-heart"></i> </span>   <span class="hand p-3"><i class="fa fa-hand"></i> </span> <span class="reply p-3"><a class="reply">Reply</a></span>
+              <span class="heart p-4 likes"><i class="fa fa-heart"></i> </span>   <span class="hand p-3 dislikes"><i class="fa fa-hand"></i> </span> <span class="reply p-3"><a class="reply">Reply</a></span>
          
          </div>
 

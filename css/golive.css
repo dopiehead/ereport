@@ -1,79 +1,102 @@
-.back-button{
-position:absolute;
-padding:30px;
-margin-left:30px;
-
+/* Button Styles */
+.back-button {
+    position: absolute;
+    padding: 30px;
+    margin-left: 30px;
 }
 
-.back-button a{
-   color:red !important;
-   font-weight:bold;
-   font-size:18px;
-   cursor: pointer;
- }
+.back-button a {
+    color: red !important;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+}
 
- .golive{
-    border-bottom:3px solid rgb(223, 15, 15);;
-   }
+/* Go Live Indicator */
+.golive {
+    border-bottom: 3px solid rgb(223, 15, 15);
+}
 
-.form-container{
-    padding:10px 20px;
+/* Form Container */
+.form-container {
+    padding: 10px 20px;
     background-color: #f1f1f1;
     display: flex;
-    justify-content:space-between;
-    align-items:center;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.form-container div img{
- height:70px;
- width:70px;
- border-radius:50%;
- object-fit: cover;
+.form-container div img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
-.form-container div i,.form-container div span{
-   padding:5px 8px;
-   background-color:#b1b1b1;
-   border-radius:50%;
-   font-size:25px;
-   color:white ;
-   }
-
-
-.font-container{
-display:flex;
-justify-content:space-between;
-align-items: center;
-padding:20px 40px;
-background-color: #f1f1f1;
-margin-top:80px;
+.form-container div i,
+.form-container div span {
+    padding: 5px 8px;
+    background-color: #b1b1b1;
+    border-radius: 50%;
+    font-size: 25px;
+    color: white;
 }
+
+/* Font Container */
+.font-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #f1f1f1;
   
-
-.font-container div i,.font-container div span{
-    padding:5px 8px;
-    background-color:#b1b1b1;
-    border-radius:50%;
-    font-size:25px;
-    color:white ;
-    }
-
-.font-container .form-below i{
-margin-right:8px;
 }
-      
-.hero-section{
-    background-image:linear-gradient(to right,rgb(25, 30, 104),rgb(12, 67, 112),rgba(12, 67, 112,0.3)),url("../assets/images/hero-bg.jpg");
-  
-  }
 
- video{
-  height:300px;
-  width:100%;
-  margin-top:25px ;
- }
+.font-container div i,
+.font-container div span {
+    padding: 5px 8px;
+    background-color: #b1b1b1;
+    border-radius: 50%;
+    font-size: 25px;
+    color: white;
+}
 
- .form-container i{
-  cursor: pointer !important;
-  z-index:1;
- }
+.font-container .form-below i {
+    margin-right: 8px;
+}
+
+/* Hero Section */
+.hero-section {
+    background-image: linear-gradient(to right, rgb(25, 30, 104), rgb(12, 67, 112), rgba(12, 67, 112, 0.3)), url("../assets/images/hero-bg.jpg");
+}
+
+/* Video */
+   .video-container {
+            position: relative;
+            width: 100%;
+            height: 430px; /* Adjust height as needed */
+            overflow: hidden;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Adjust the opacity to make it darker or lighter */
+            pointer-events: none; /* Ensure the overlay does not interfere with video controls */
+        }
+/* Icon Styles */
+.form-container i {
+    cursor: pointer !important;
+    z-index: 1;
+}
