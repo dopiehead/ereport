@@ -133,6 +133,7 @@ body {
 .manage h6 {
     font-size: 16px;
     margin: 0;
+    font-weight:bold !important;
 }
 
 .add-delete {
@@ -363,4 +364,8 @@ textarea {
 input[type="file"] {
     font-size: 14px;
     display: none;
+}
+
+.fw-bold{
+    font-weight:bold !important;
 }

@@ -3,12 +3,12 @@ include('configure.php');
 $conn = new Database();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $comment_id = intval($_POST['complain_id']); // Sanitize input
+    $comment_id = intval($_POST['protest_id']); // Sanitize input
     $user_id = intval($_POST['user_id']); // Sanitize input
     $date = date("Y-m-d H:i:s"); // Use a standard format for date and time
   
     // Check if the user has already liked the comment
-    $checkLikeQuery = "SELECT COUNT(*) FROM complain_likes_unlikes WHERE user_id = ? AND comment_id = ?";
+    $checkLikeQuery = "SELECT COUNT(*) FROM protest_likes_unlikes WHERE user_id = ? AND comment_id = ?";
     $stmt = $conn->prepare($checkLikeQuery);
     if ($stmt === false) {
         die('Prepare failed: ' . $conn->error);
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Delete the like from report_likes_unlikes table
-    $deleteLikeQuery = "DELETE FROM complain_likes_unlikes WHERE comment_id = ? AND user_id = ?";
+    $deleteLikeQuery = "DELETE FROM protest_likes_unlikes WHERE protest_id = ? AND user_id = ?";
     $stmt = $conn->prepare($deleteLikeQuery);
     if ($stmt === false) {
         die('Prepare failed: ' . $conn->error);

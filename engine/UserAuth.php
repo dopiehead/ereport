@@ -8,16 +8,16 @@ class UserAuth {
        // Start the session at the beginning
     }
 
-    public function register($name, $email, $password,$img_upload, $verified, $date, $vkey) {
+    public function register($name, $email, $password,$img_upload, $verified, $blacklist, $date, $vkey) {
         $hash_password = password_hash($password, PASSWORD_BCRYPT);
-        $sql = "INSERT INTO user_profile (name, email, password,img_upload, verified, date, vkey) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO user_profile (name, email, password,img_upload, verified,  blacklist, date, vkey) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         
         if ($stmt === false) {
             throw new Exception("Failed to prepare SQL statement.");
         }
 
-        $stmt->bind_param("sssssss", $name, $email, $hash_password,$img_upload,$verified, $date, $vkey);
+        $stmt->bind_param("sssssss", $name, $email, $hash_password,$img_upload,$verified, $blacklist, $date, $vkey);
         $success = $stmt->execute();
         $stmt->close();
         
@@ -25,7 +25,7 @@ class UserAuth {
     }
 
     public function login($email, $password) {
-        $sql = "SELECT id, name,img_upload, email, password FROM user_profile WHERE email = ? AND verified = 1";
+        $sql = "SELECT id, name,img_upload, email, password FROM user_profile WHERE email = ? AND verified = 1 and blacklist = 0 ";
         $stmt = $this->db->prepare($sql);
 
         if ($stmt === false) {

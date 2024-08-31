@@ -3,7 +3,7 @@ include('configure.php');
 $conn = new Database();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $comment_id = intval($_POST['comment_id']); // Sanitize input
+    $comment_id = intval($_POST['protest_id']); // Sanitize input
     $user_id = intval($_POST['user_id']); // Sanitize input
     $date = date("Y-m-d H:i:s"); // Use a standard format for date and time
   
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Delete the like from report_likes_unlikes table
-    $deleteLikeQuery = "DELETE FROM report_likes_unlikes WHERE comment_id = ? AND user_id = ?";
+    $deleteLikeQuery = "DELETE FROM protest_likes_unlikes WHERE comment_id = ? AND user_id = ?";
     $stmt = $conn->prepare($deleteLikeQuery);
     if ($stmt === false) {
         die('Prepare failed: ' . $conn->error);
