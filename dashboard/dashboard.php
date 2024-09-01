@@ -79,8 +79,18 @@ $session->checkLogin(); // Check if the user is logged in
                  
                 
 
-            <img class="profile_pic" src="<?php echo $_SESSION["img"]; ?>" alt="image">
-    
+                 <?php if (file_exists($_SESSION['img'])) {
+$extension = strtolower(pathinfo($_SESSION['img'],PATHINFO_EXTENSION));
+$image_extension  = array('jpg','jpeg','png');
+if (!in_array($extension , $image_extension)) {
+    $_SESSION['img'] = "<i style='font-size:20px;color:black;' class='fa fa-user-alt profile_pic' ></i>";
+echo$_SESSION['img']; }
+else{ ?>
+  
+   <img class="profile_pic" src="<?php echo $_SESSION['img']; ?>" alt="image">
+   
+<?php }  } 
+?>
 
              <h6>Dashboard</h6>
                

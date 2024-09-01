@@ -11,8 +11,9 @@ $session->checkLogin(); // Check if the user is logged in
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Post report</title>
     <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|sofia|Trirong|Poppins">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -72,9 +73,18 @@ $session->checkLogin(); // Check if the user is logged in
                      </div>
      
                  </div>
-                 
-                 <img class="profile_pic" src="<?php echo $_SESSION["img"]; ?>" alt="image">
-    
+
+                 <?php if (file_exists($_SESSION['img'])) {
+$extension = strtolower(pathinfo($_SESSION['img'],PATHINFO_EXTENSION));
+$image_extension  = array('jpg','jpeg','png');
+if (!in_array($extension , $image_extension)) {
+    $_SESSION['img'] = "<i style='font-size:20px;color:black;' class='fa fa-user-alt profile_pic' ></i>";
+echo$_SESSION['img']; }
+else{ ?>
+   <img class="profile_pic" src="<?php echo $_SESSION['img']; ?>" alt="image">
+<?php }  } 
+?>
+              
              <h6>Post report</h6>
                
 
@@ -113,7 +123,7 @@ $session->checkLogin(); // Check if the user is logged in
 
              <label for="offender" class="mb-2 mt-3 fw-bold">Name Of Offender</label>
  
-             <input type="text" class="form-control" placeholder="Name">
+             <input type="text" name="reporterName" class="form-control" placeholder="Name">
 
          </div>
 
@@ -121,7 +131,7 @@ $session->checkLogin(); // Check if the user is logged in
 
              <label for="addressOffender"  class="mb-2 mt-3 fw-bold">Address of Offender</label>
 
-             <input type="text" class="form-control" placeholder="Address">
+             <input type="text" name="addressOffender" class="form-control" placeholder="Address">
 
          </div>
 
@@ -133,7 +143,7 @@ $session->checkLogin(); // Check if the user is logged in
 
               <label for="Date of Event"  class="mb-2 mt-3 fw-bold">Date of Event</label>
  
-              <input type="text" class="form-control" placeholder="Date">
+              <input type="date" name="eventDate" class="form-control" placeholder="Date">
 
          </div>
 
@@ -141,7 +151,7 @@ $session->checkLogin(); // Check if the user is logged in
 
               <label for="Time of Event"  class="mb-2 mt-3 fw-bold">Time of Event</label>
 
-              <input type="text" class="form-control" placeholder="Time">
+              <input type="time" name="eventTime" class="form-control" placeholder="Time">
 
          </div>
 
@@ -150,30 +160,67 @@ $session->checkLogin(); // Check if the user is logged in
                   
                        <label for="Details of Event"  class="mb-2 mt-3 fw-bold">Details of Event</label>
 
-                      <input type="text" class="form-control w-100" placeholder="Text Here">
+                      <input type="text" name="eventDetails"  class="form-control w-100" placeholder="Text Here">
 
                       <label for="Purpose of reporting"  class="mb-2 mt-3 fw-bold">Purpose of reporting</label>
 
-                       <input type="text" class="form-control" placeholder="Text Here">
+                       <input type="text" name="reportPurpose" class="form-control" placeholder="Text Here">
               
                        <div class="d-flex justify-content-space-between px-2 mt-3 gap-1">
 
              
              
                  <div class="mr-5">
-                       <h6  class=" fw-bold mb-2 mt-3">Who would you like us to report to (Please thick)</h6>
 
-                       <input type="checkbox"> Manager <br>
-                       <input type="checkbox"> Owner <br>
-                       <input type="checkbox"> The government <br>
-                       <input type="checkbox"> Police <br>
+                       <h6  class=" fw-bold mb-2 mt-3">Who would you like us to report to (Please thick)</h6>
+                        <div class="row">
+                       <div class="col-md-3">
+                       <input name="reportTo[]" value="manager" type="checkbox"> Manager <br>
+                       <input name="reportTo[]" value="owner" type="checkbox"> Owner <br>
+                       <input name="reportTo[]" value="government" type="checkbox"> The government <br>
+                       <input name="reportTo[]" value="police" type="checkbox"> Police <br>
+                       <input name="reportTo[]" value="individual" type="checkbox"> individual <br>
+                       <input name="reportTo[]" value="insurance" type="checkbox"> insurance <br>
+                        </div>
+
+
+                        <div class="col-md-3">
+                       <input name="reportTo[]" value="bank" type="checkbox"> bank <br>
+                       <input name="reportTo[]" value="service_provider" type="checkbox">service provider <br>
+                       <input name="reportTo[]" value="drugs" type="checkbox"> drugs <br>
+                       <input name="reportTo[]" value="army" type="checkbox"> army <br>
+                       <input name="reportTo[]" value="teacher" type="checkbox">teacher <br>
+                        </div>
+
+                        
+                        <div class="col-md-3">
+                       <input name="reportTo[]" value="electricity" type="checkbox"> electricity <br>
+                       <input name="reportTo[]" value="court_matters" type="checkbox">court matters <br>
+                       <input name="reportTo[]" value="relationship" type="checkbox"> relationship <br>
+                       <input name="reportTo[]" value="wanted_person" type="checkbox"> wanted person <br>
+                       <input name="reportTo[]" value="hotel" type="checkbox"> hotel <br>
+                        </div>
+
+
+                        <div class="col-md-3">
+                       <input name="reportTo[]" value="stolen_vehicles" type="checkbox"> stolen vehicles <br>
+                       <input name="reportTo[]" value="inventions" type="checkbox"> inventions <br>
+                       <input name="reportTo[]" value="spiritual" type="checkbox"> spiritual <br>
+                       <input name="reportTo[]" value="landlord" type="checkbox"> landlord <br>
+                       <input name="reportTo[]" value="civil_service" type="checkbox"> civil service <br>
+                        </div>
+
+                        </div>
+
+
+
 
                           <br>
 
                          <h6 class="mb-2 mt-3 fw-bold">Will you like to be anonymous (Please thick)</h6>
 
-                        <input type="checkbox"> Yes <br>
-                         <input type="checkbox"> No<br>
+                        <input name="anonymous" type="checkbox"   value="yes"> Yes <br>
+                         <input name="anonymous" type="checkbox" value="no"> No<br>
                            <br>
                  </div>
 
@@ -181,15 +228,15 @@ $session->checkLogin(); // Check if the user is logged in
 
                        <h6 class="mb-2 mt-3 fw-bold">Which category are you reporting for (Please thick)</h6>
 
-                          <input type="checkbox"> Inefficiency <br>
-                          <input type="checkbox"> Negligence <br>
-                          <input type="checkbox"> Rape <br>
-                          <input type="checkbox"> Insult<br>
-                          <input type="checkbox"> Assault <br>
-                           <input type="checkbox"> Bad Approach<br>
-                          <input type="checkbox"> Murder<br>
-                          <input type="checkbox"> Abuse<br>
-                          <input type="checkbox"> Others<br>
+                          <input name="reportCategory[]" type="checkbox" value="inefficiency"> Inefficiency <br>
+                          <input name="reportCategory[]" type="checkbox" value="negligence"> Negligence <br>
+                          <input name="reportCategory[]" type="checkbox" value="rape"> Rape <br>
+                          <input name="reportCategory[]" type="checkbox" value="insult"> Insult<br>
+                          <input  name="reportCategory[]" type="checkbox" value="assault "> Assault <br>
+                           <input  name="reportCategory[]" type="checkbox" value="bad approach"> Bad Approach<br>
+                          <input  name="reportCategory[]" type="checkbox" value="murder"> Murder<br>
+                          <input  name="reportCategory[]" type="checkbox" value="abuse"> Abuse<br>
+                          <input  name="reportCategory[]" type="text" class="form-control" placeholder="Others">         <br>
                  </div> 
 
                  </div> 
@@ -207,22 +254,48 @@ $session->checkLogin(); // Check if the user is logged in
 <br><br>
 
  <div class="page_2">
+     
+
+ <div>
+
+<h6 class="mb-2 mt-3 fw-bold">Picture Upload</h6>
+<label class="form-control p-5 w-100 text-center bg-light">
+<small  id="file-labelx"  style="font-size: 14px;padding: 1px;background-color: rgba(0,0,0,0.6);color: white;">Choose a file</small><br></span>
+<span id="fileNamex"></span>
+<input style="display: none;" type="file" class="form-control" name="imager" accept="image/*" onchange="updateFileNameAndPreview(this)">
+</label>
+
+<div class="d-flex justify-content-center align-items-center">
+<img id="image-preview" alt="Image preview">
+</div>
+
+</div>
+
+
 
 
 
      <div>
 
-         <h6 class="mb-2 mt-3 fw-bold">Voice record Upload</h6>
-         <label class="form-control p-5 w-100 text-center bg-light"  style="">
-            <small  id="file-label"  style="font-size: 14px;padding: 1px;background-color: rgba(0,0,0,0.6);color: white;">Choose a file</small><br></span><span id="fileName"></span><input style="display: none;" type="file" class="form-control" name="imager"  onchange="updateFileName(this)"></label>
+         <h6 class="mb-2 mt-3 fw-bold">Video record Upload</h6>
+         <label class="form-control p-5 w-100 text-center bg-light">
+        <small id="file-label" style="font-size: 14px; padding: 1px; background-color: rgba(0,0,0,0.6); color: white;">
+            Choose a file
+        </small>
+        <br>
+        <span id="fileName">No file chosen</span>
+        <input id="fileInput" style="display: none;" type="file" class="form-control" name="fileupload" accept="video/*" onchange="previewFile(this)">
+    </label>
               <span id="fileName"></span>
-          
+              <div id="preview-container" class="d-flex justify-content-center align-items-center">
+        <video id="preview-video" controls></video>
+    </div> 
 
      </div>
 
            <br>
 
-     <div>
+     <!-- <div>
 
 
            <h6 class="mb-2 mt-3 fw-bold">Voice evidence Upload</h6>
@@ -231,13 +304,13 @@ $session->checkLogin(); // Check if the user is logged in
                       <small  id="file-labelx"  style="font-size: 14px;padding: 1px;background-color: rgba(0,0,0,0.6);color: white;">Choose a file</small><br></span><span id="fileNamex"></span><input style="display: none;" type="file" class="form-control" name="imager"  onchange="updateFileNamex(this)"></label>
                       <span id="fileNamex"></span>
              </div>
-     </div>
+     </div> -->
 
          
         <br>
         <span class='arrow-left btn-previous'><a><i class="fa fa-arrow-left"></i> Previous</a></span>
              
-        <span class='arrow-right'><a class="btn-report">Done</a></span>
+        <span class='arrow-right'><input name="submit" type="submit"  class="btn-report bg-inherit" value="Done"></span>
 
         <?php include '../components/loader.php'; ?>
 
@@ -309,39 +382,64 @@ $(".page_2").hide();
 </script>
 
 
-<script type="text/javascript">
-  
-  function updateFileName(input) {
-  var fileName = input.files[0].name;
-    document.getElementById('file-label').innerText = fileName;
-  }
-  
-  </script>
+<script>
+        function previewFile(input) {
+            var file = input.files[0];
+            var fileName = file ? file.name : 'No file chosen';
+            document.getElementById('fileName').textContent = fileName;
+
+            var video = document.getElementById('preview-video');
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    video.src = e.target.result;
+                    video.style.display = 'block'; // Show the video element
+                };
+                reader.readAsDataURL(file); // Read the file as a data URL
+            } else {
+                video.style.display = 'none'; // Hide the video element
+            }
+        }
+    </script>
 
 
  
 <script type="text/javascript">
-  
-  function updateFileNamex(input) {
-  var fileNamex = input.files[0].name;
-    document.getElementById('file-labelx').innerText = fileNamex;
-  }
-  
-  </script>
+        function updateFileNameAndPreview(input) {
+            var file = input.files[0];
+            if (file) {
+                // Update file name
+                document.getElementById('file-labelx').innerText = file.name;
+
+                // Show image preview
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var imagePreview = document.getElementById('image-preview');
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block'; // Show the image
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Hide image preview if no file is selected
+                document.getElementById('file-labelx').innerText = 'Choose a file';
+                document.getElementById('image-preview').style.display = 'none';
+            }
+        }
+    </script>
 
 
 
 <script type="text/javascript">
 
-$('#reportForm').on('submit',function(e){
+$('#reportForm').on('submit',function(event){
 if (confirm("Are you sure to submit this?")) {
- e.preventDefault();
+ event.preventDefault();
 $(".loading-image").show();
 var formdata = new FormData();
    $.ajax({
            type: "POST",
 
-           url: "post-report-process.php",
+           url: "engine/post-report-process.php",
 
            data:new FormData(this),
 
@@ -381,6 +479,8 @@ else
     });
 
 </script>
+
+
 
 </body>
 </html>

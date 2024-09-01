@@ -3,7 +3,7 @@ require_once '../engine/Session.php'; // Include the Session class
 
 $session = new Session(); // Create an instance of the Session class
 $session->checkLogin(); // Check if the user is logged in
-
+$user_id = $_SESSION['id'];
 // The rest of your code
 ?>
 
@@ -14,12 +14,15 @@ $session->checkLogin(); // Check if the user is logged in
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Profile</title>
     <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|sofia|Trirong|Poppins">
-    <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/dashboard/profile.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/dashboard/profile_pic.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/dashboard/profile.css">
+    <link rel="stylesheet" href="../css/dashboard/profile_pic.css">
+    <link rel="stylesheet" href="../css/loader.css">
     
     <style>
         body{
@@ -70,10 +73,19 @@ $session->checkLogin(); // Check if the user is logged in
                      </div>
      
                  </div>
-                 
-                 <img class="profile_pic" src="<?php echo $_SESSION["img"]; ?>" alt="image">
-    
-    
+
+                 <?php if (file_exists($_SESSION['img'])) {
+$extension = strtolower(pathinfo($_SESSION['img'],PATHINFO_EXTENSION));
+$image_extension  = array('jpg','jpeg','png');
+if (!in_array($extension , $image_extension)) {
+    $_SESSION['img'] = "<i style='font-size:20px;color:black;' class='fa fa-user-alt' ></i>";
+echo$_SESSION['img']; }
+else{ ?>
+    <div id="bom"><div id="my">
+   <img class="profile_pic" src="<?php echo $_SESSION['img']; ?>" alt="image">
+   </div></div>
+<?php }  } 
+?>
 
              <h6>Profile</h6>
                
@@ -114,17 +126,24 @@ $session->checkLogin(); // Check if the user is logged in
 </table>
 
 <div style="padding:10px;">
- <small> Username </small><br>
+ <small> <?php echo$_SESSION['name']; ?> </small><br>
 
-<small>09074456453</small><br>
+ <small> <?php 
+if (!empty($_SESSION['contact'])) {
+    echo htmlspecialchars($_SESSION['contact']);
+} else {
+    echo "No phone number provided yet";
+}
+?></small><br>
+
 <small>Dial code +234</small><br>
 
-<small>Phone number</small><br>
-<small>phone number</small><br>
+<small><?php if(!empty($_SESSION['contact'])) {echo$_SESSION['contact2'];} else{echo"No Other number";} ?></small><br>
+
 
 <small>Dial code +234</small><br>
 
-<small>essentialng@gmail.com</small>
+<small><?php echo $_SESSION['email']?></small>
 
    <br>
 
@@ -132,10 +151,10 @@ $session->checkLogin(); // Check if the user is logged in
 
 <form id="editpage-form" method="post">
 
-<input type="hidden" name="id">
-<input type="file" name="fileupload"><br><br>
+<input type="hidden" name="id" value="<?php echo$_SESSION['id'] ?>">
+<input type="file" name="fileupload" accept="image/*"><br><br>
 <input type="submit" name="submit" id="submit" value="Change photo" class="btn btn-success " style="color: white;font-size:14px;"><br>
-
+<?php include '../components/loader.php'; ?>
 </form>
 
 </div>
@@ -148,9 +167,9 @@ $session->checkLogin(); // Check if the user is logged in
 
 <form id="editpage-details">
 
-<input type="text" id="first_name" name="first_name" placeholder="Full Name" class="form-control"><br>
+<input type="text" id="first_name" name="name" placeholder="Full Name" class="form-control"><br>
 
-<input type="hidden"  name="sid">
+<input type="hidden"  name="sid" value="<?php echo $user_id ?>">
 
 <h6>Password</h6>
 
@@ -177,7 +196,7 @@ $session->checkLogin(); // Check if the user is logged in
 
 <br>
 <h6> Address Details</h6>
-<textarea name="" id="" class="form-control" placeholder="..Write something" wrap="physical">
+<textarea name="location" id="" class="form-control" placeholder="..Write something" wrap="physical">
 </textarea>
 
 <br>
@@ -194,7 +213,7 @@ $session->checkLogin(); // Check if the user is logged in
 <div style="text-align: right;">
 <a class="btn btn-danger" onclick="cancel()">Cancel</a>&nbsp;<a id="btn-submit" class="btn btn-success">Submit</a>
 </div>
-
+<?php include '../components/loader.php'; ?>
 </form>
 
 </div>
@@ -250,6 +269,109 @@ evt.currentTarget.className += " active";
 document.getElementById("defaultOpen").click();
 </script>
 
+
+<script>
+  
+function cancel() {
+$("#editpage-details")[0].reset();
+}
+</script>
+
+
+
+
+
+<script type="text/javascript">
+
+$('#editpage-form').on('submit',function(e){
+if (confirm("Are you sure to change this?")) {
+e.preventDefault();
+$(".loading-image").show();
+let formdata = new FormData();
+   $.ajax({
+           type: "POST",
+
+           url: "engine/changeprofilepic.php",
+
+           data:new FormData(this),
+
+           cache:false,
+
+           processData:false,
+
+           contentType:false,
+
+           success: function(response) {
+
+           $(".loading-image").hide();
+
+          if(response==1){
+
+            swal({
+
+          text:"Image has been changed",
+          icon:"success",
+        });
+       $('#bom').load(location.href + " #my");
+}
+
+else
+ { 
+  swal({
+            icon:"error",
+            text:response
+
+           });
+            $("#editpage-form")[0].reset();      
+
+            }
+ }
+        });
+ }
+    });
+
+</script>
+
+
+<script type="text/javascript">
+  $('#btn-submit').on('click',function(){
+    $.ajax({
+        type: "POST",
+        url: "engine/edit-page.php",
+        data:  $("#editpage-details").serialize(),
+        cache:false,
+        contentType: "application/x-www-form-urlencoded",
+        success: function(response) {
+              if (response==1) {
+                swal({
+              text:"Details update is saved",
+               icon:"success",
+ });
+           $("#editpage-details")[0].reset();
+            $("#myformx").hide();
+ }
+   else{
+          swal({
+                    text:response,
+                   icon:"error",
+
+              });
+             }
+
+            },
+
+            error: function(jqXHR, textStatus, errorThrown) {
+
+                console.log(errorThrown);
+
+            }
+
+        })
+
+    });
+
+
+</script>
 
 </body>
 </html>
