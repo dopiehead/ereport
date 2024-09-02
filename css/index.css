@@ -367,8 +367,7 @@ text-decoration:none;
 
           
           .blog-container figure:hover{
-            width:250px;
-            height:270px;
+            opacity:0.6;
           
             overflow:hidden;
             box-shadow:0px 3px 15px rgb(177, 176, 176);

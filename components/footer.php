@@ -319,7 +319,15 @@ $.ajax({
         }
 
         else{
-            swal("Error: " + response);
+            swal({
+
+                title: "Error!",
+                text: response,
+                icon: "error",
+                buttons: false,
+                timer: 2000
+                 });
+            
         }
       }
 });

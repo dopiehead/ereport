@@ -102,7 +102,7 @@ else{
     
      <div class="button-comments">
 
-     <input type="file" name='fileupload' id='fileupload' class="btn btn-file">
+     <input type="file" name='fileupload' id='fileupload' class="btn bg-primary mr-1 border border-0 rounded-pill btn-file">
      <input type="submit" class="btn btn-success" value="Send">
      </div>
 

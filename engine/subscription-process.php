@@ -10,8 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subscription_categories = $_POST["subscription_category"];
     $date =  $date = date("D, F d, Y g:iA");
     if (empty($email)) {
-        echo "Please enter your email address";
-    } elseif (empty($subscription_categories)) {
+        echo "Please enter your  email address";
+    }
+    
+    elseif(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+        echo"Email format not supported";
+    }
+
+    elseif (empty($subscription_categories)) {
         echo "Please select at least one subscription category";
     } else {
         // Serialize the array
