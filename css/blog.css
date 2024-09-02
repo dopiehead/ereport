@@ -177,6 +177,34 @@ position: relative;
       
       }
     
-  
+      .ads-right{
+        display:block;
+        position: absolute;
+        top:75%;
+        margin-top:250px;
+        right:5px;
+        width:150px;
+        box-shadow: 0px 0px 8px grey;
+    }
+
+    @media only screen and (max-width:767px) {
+        .ads-right{
+            display:block;
+            position:relative;
+            top:0px !important;
+            margin-top:40px;
+            right:0;
+            width:100%;
+            box-shadow: 0px 0px 8px grey;
+        }
+    }
+
+    .ads-right img{
+     height:150px;
+     width:100%;
+     margin:10px 0px;
+     object-fit:cover;
+    }
+
     
      

@@ -106,6 +106,20 @@
 <br><br><br>
 </div>
 
+<div class="container">
+    
+<div class="ads-right">
+        
+        <img src="assets/images/ads/ad1.png" alt="">
+    
+        <img src="assets/images/ads/ad2.png" alt="">
+    
+        <img src="assets/images/ads/ad3.png" alt="">
+    
+        <img src="assets/images/ads/ad4.png" alt="">
+    
+        </div>
+        </div>
 
 
 <?php  include 'components/footer.php'; ?>

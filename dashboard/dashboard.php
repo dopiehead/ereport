@@ -107,10 +107,10 @@ else{ ?>
 
              </div>
 
-             <div class="add-delete">
+             <!-- <div class="add-delete">
                  <a class="add_report"><i class="fa fa-plus"></i> Add New Report</a> 
                  <a  class="remove_report"> <i class="fa fa-minus"></i>Delete</a>
-             </div>
+             </div> -->
 
          </div>
 
@@ -118,118 +118,23 @@ else{ ?>
          
          <div class="table-container">
 
-         <table class="table-striped table-hovered table-responsive" style="width:100%;"> 
+    
 
 
-             <thead>
-
-                <tr>
-
-                     <th style="padding:20px;font-size:14px;"><input type="checkbox"></th>
-                     <th style="padding:20px;font-size:14px;">Subject</th>
-                     <th style="padding:20px;font-size:14px;">Video / Photo</th>
-                     <th style="padding:20px;font-size:14px;">Details</th>
-                     <th style="padding:20px;font-size:14px;">Report Location</th>
-                     <th style="padding:20px;font-size:14px;">Date</th>
-                     <th style="padding:20px;font-size:14px;">Actions</th>
-
-                 </tr>
-
-             </thead>
-
-            <tbody>
-
-                 <tr>
-
-                      <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
-                      <td style="padding:20px;font-size:14px;">Sandalous Event</td>
-                      <td style="padding:20px;font-size:14px;"><img src="../assets/images/yacht.jpg" alt="" width="100"></td>
-                      <td style="padding:20px;font-size:14px;">Some details about the incident</td>
-                      <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
-                      <td style="padding:20px;font-size:14px;">Aug 12 2024 11:13 am</td>
-                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp;</td>
-
-                 </tr>    
-
-                 <tr>
-
-                 <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
-                      <td style="padding:20px;font-size:14px;">Sandalous Event</td>
-                      <td style="padding:20px;font-size:14px;"><img src="../assets/images/yacht.jpg" alt="" width="100"></td>
-                      <td style="padding:20px;font-size:14px;">Some details about the incident</td>
-                      <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
-                      <td style="padding:20px;font-size:14px;">Aug 12 2024 11:13 am</td>
-                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp; </td>
-                 </tr>  
-
-
-                 <tr>
-
-                 <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
-                      <td style="padding:20px;font-size:14px;">Sandalous Event</td>
-                      <td style="padding:20px;font-size:14px;"><img src="../assets/images/yacht.jpg" alt="" width="100"></td>
-                      <td style="padding:20px;font-size:14px;">Some details about the incident</td>
-                      <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
-                      <td style="padding:20px;font-size:14px;">Aug 12 2024 11:13 am</td>
-                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp;</td>
-                 </tr>  
-
-                 <tr>
-
-                 <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
-                      <td style="padding:20px;font-size:14px;">Sandalous Event</td>
-                      <td style="padding:20px;font-size:14px;"><img src="../assets/images/yacht.jpg" alt="" width="100"></td>
-                      <td style="padding:20px;font-size:14px;">Some details about the incident</td>
-                      <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
-                      <td style="padding:20px;font-size:14px;">Aug 12 2024 11:13 am</td>
-                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp;</td>
-                  
-                    </tr>  
-
-
-                  <tr>
-
-                  <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
-                      <td style="padding:20px;font-size:14px;">Sandalous Event</td>
-                      <td style="padding:20px;font-size:14px;"><img src="../assets/images/yacht.jpg" alt="" width="100"></td>
-                      <td style="padding:20px;font-size:14px;">Some details about the incident</td>
-                      <td style="padding:20px;font-size:14px;">No 3 Iyalla street, Alausa Ikeja.</td>
-                      <td style="padding:20px;font-size:14px;">Aug 12 2024 11:13 am</td>
-                      <td style="padding:20px;font-size:14px;"><i class="fa fa-edit"></i> &nbsp;</td>
-                  
-                 </tr>  
-
-            </tbody>
-
-         </table>
+            
+          
 
          </div>
 
-         <div class="pagination-container">
-            
-            
-         
-
-              <div>
-
-              <p>Showing 5 out of 15</p>
-
-
-              </div>
+   
          
          
          
-             <div class="pagination text-center">
+        
 
-               <a href="#" class="prev">Previous</a>
-                 <a href="#" class="active">1</a>
-                 <a href="#">2</a>
-                 <a href="#">3</a>
-                 <a href="#">4</a>
-                 <a href="#">5</a>
-                 <a href="#">Next</a>
+              
  
-             </div>
+            
           
          </div>
 
@@ -265,7 +170,11 @@ $(".fa-bars").on('click', function() {
      </script>
 
 
+<script>
 
+$(".table-container").load("engine/read-report.php");
+
+</script>
 
 </body>
 </html>

@@ -37,11 +37,13 @@
          <div>
                  <img src="assets/images/IMG_E7548.jpg" alt="">
 
-                 <i id="startCamera" class="fa fa-plus"></i>
+                 <i id="startCall" class="fa fa-plus"></i>
 
-                 <i id="startRecording" class="fa fa-video-camera"></i>
-
+                 <!-- <i id="startRecording" class="fa fa-video-camera"></i> -->
+<!-- 
                  <i class="fa fa-play" id="playRecording" style="display:none;"></i>
+
+                 -->
 
           
 
@@ -49,9 +51,10 @@
 
         <div>
 
-            <i id="stopCamera" class="fa fa-close"></i>
-            <i id="stopRecording" class="fa fa-hand"></i>
-            <i class="fa fa-stop" id="downloadRecording" style="display:none;"></i>
+            <i id="endCall" class="fa fa-close"></i>
+          
+            <i id="closeChatButton" class="fa fa-hand"></i>
+            <!-- <i id="hangUp" class="fa fa-stop"></i> -->
                
 
 
@@ -68,9 +71,9 @@
 
 <div class="video-container">
 
-<video id="video" autoplay></video>
+<video id="localVideo" autoplay></video>
 
-<video id="recordedVideo" controls style="display:none;"></video>
+<video id="remoteVideo" autoplay></video>
 
 </div>
 
@@ -105,23 +108,9 @@
 
 
 <?php  include 'components/footer.php';  ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camera and Recording</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <button id="startCamera">Start Camera</button>
-    <button id="stopCamera">Stop Camera</button>
-  
-
-    <video id="video" autoplay></video>
 
 
-    <script>
+    <!-- <script>
       $(document).ready(function() {
         let stream = null; // Store the media stream globally
         let mediaRecorder = null; // Store the MediaRecorder instance
@@ -211,54 +200,44 @@
             URL.revokeObjectURL(url);
         });
       });
-    </script>
+    </script> -->
 
 
 
 
-
-
-<script>
+    <script>
+        const signalingServerUrl = 'ws://localhost:8080';
         const localVideo = document.getElementById('localVideo');
         const remoteVideo = document.getElementById('remoteVideo');
         const startCallButton = document.getElementById('startCall');
-        const hangUpButton = document.getElementById('hangUp');
-
+        const endCallButton = document.getElementById('endCall');
+        const closeChatButton = document.getElementById('closeChatButton');
         let localStream;
         let peerConnection;
-        const servers = null; // Use default STUN/TURN servers
-        const signalingServerUrl = 'ws://localhost:8080'; // WebSocket URL
+        const ws = new WebSocket(signalingServerUrl);
 
-        const signalingSocket = new WebSocket(signalingServerUrl);
-
-        signalingSocket.onmessage = async (message) => {
+        ws.onmessage = (message) => {
             const data = JSON.parse(message.data);
-            switch (data.type) {
-                case 'offer':
-                    await peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
-                    const answer = await peerConnection.createAnswer();
-                    await peerConnection.setLocalDescription(answer);
-                    signalingSocket.send(JSON.stringify({ type: 'answer', answer }));
-                    break;
-                case 'answer':
-                    await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
-                    break;
-                case 'candidate':
-                    await peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate));
-                    break;
+            if (data.offer) {
+                handleOffer(data.offer);
+            } else if (data.answer) {
+                handleAnswer(data.answer);
+            } else if (data.iceCandidate) {
+                handleICECandidate(data.iceCandidate);
             }
         };
 
-        startCallButton.onclick = async () => {
+        async function startCall() {
             localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
             localVideo.srcObject = localStream;
+            peerConnection = new RTCPeerConnection();
 
-            peerConnection = new RTCPeerConnection(servers);
-            peerConnection.onicecandidate = ({ candidate }) => {
-                if (candidate) {
-                    signalingSocket.send(JSON.stringify({ type: 'candidate', candidate }));
+            peerConnection.onicecandidate = (event) => {
+                if (event.candidate) {
+                    ws.send(JSON.stringify({ iceCandidate: event.candidate }));
                 }
             };
+
             peerConnection.ontrack = (event) => {
                 remoteVideo.srcObject = event.streams[0];
             };
@@ -267,21 +246,49 @@
 
             const offer = await peerConnection.createOffer();
             await peerConnection.setLocalDescription(offer);
-            signalingSocket.send(JSON.stringify({ type: 'offer', offer }));
-            
-            startCallButton.disabled = true;
-            hangUpButton.disabled = false;
-        };
+            ws.send(JSON.stringify({ offer: offer }));
+        }
 
-        hangUpButton.onclick = () => {
+        async function handleOffer(offer) {
+            peerConnection = new RTCPeerConnection();
+            peerConnection.onicecandidate = (event) => {
+                if (event.candidate) {
+                    ws.send(JSON.stringify({ iceCandidate: event.candidate }));
+                }
+            };
+
+            peerConnection.ontrack = (event) => {
+                remoteVideo.srcObject = event.streams[0];
+            };
+
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+            const answer = await peerConnection.createAnswer();
+            await peerConnection.setLocalDescription(answer);
+            ws.send(JSON.stringify({ answer: answer }));
+        }
+
+        async function handleAnswer(answer) {
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+        }
+
+        function handleICECandidate(iceCandidate) {
+            peerConnection.addIceCandidate(new RTCIceCandidate(iceCandidate));
+        }
+
+        function endCall() {
             peerConnection.close();
-            peerConnection = null;
-            startCallButton.disabled = false;
-            hangUpButton.disabled = true;
-        };
+            localStream.getTracks().forEach(track => track.stop());
+        }
+
+        function closeChat() {
+        endCall(); // End the current call
+        ws.close(); // Close the WebSocket connection
+    }
+
+        startCallButton.addEventListener('click', startCall);
+        endCallButton.addEventListener('click', endCall);
+        closeChatButton.addEventListener('click', closeChat);
     </script>
-
-
 
 
 

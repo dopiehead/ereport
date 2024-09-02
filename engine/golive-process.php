@@ -4,7 +4,7 @@
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
+    $data = json_decode(file_get_contents('php://localhost/ereport/golive.php'), true);
 
     // Store signaling messages in a temporary file or database
     $file = 'signaling_data.json';

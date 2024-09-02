@@ -21,30 +21,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $anonymous = $_POST['anonymous'] ?? '';
 
     // Handle multiple reportTo and reportCategory values
-    $selectedreportTo = isset($_POST['reportTo']) ? $_POST['reportTo'] : [];
-    $selectedreportCategory = isset($_POST['reportCategory']) ? $_POST['reportCategory'] : [];
+    $selectedreportTo = isset($_POST['reportTo']) ? implode(', ', $_POST['reportTo']) : '';
+    $selectedreportCategory = isset($_POST['reportCategory']) ? implode(', ', $_POST['reportCategory']) : '';
     
-    // Debugging output
-    // echo "<pre>";
-    // print_r($selectedreportTo);
-    // print_r($selectedreportCategory);
-    // echo "</pre>";
-
     // File upload handling
-    $imageFolder = "../report_uploads/";
+    $imageFolder = "report_uploads/";
     $basename = basename($_FILES['fileupload']['name']);
     $myimage = $imageFolder . $basename;
     $max_upload = 50 * 1024 * 1024; // 50MB limit
     $imageExtension = strtolower(pathinfo($myimage, PATHINFO_EXTENSION));
     $ImageSize = $_FILES['fileupload']['size'];
     $image_temp_name = $_FILES['fileupload']['tmp_name'];
-
-    // Debugging output
-    // echo "File Name: " . htmlspecialchars($basename) . "<br>";
-    // echo "File Extension: " . htmlspecialchars($imageExtension) . "<br>";
-    // echo "File Size: " . htmlspecialchars($ImageSize) . "<br>";
-    // echo "Max Upload Size: " . htmlspecialchars($max_upload) . "<br>";
-    // echo "Temporary File Name: " . htmlspecialchars($image_temp_name) . "<br>";
 
     // Allowed file extensions
     $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov', 'avi'];
@@ -62,25 +49,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 die("Prepare failed: " . $conn->error);
             }
 
-            // Insert multiple rows for each combination of reportTo and reportCategory
-            $success = true;
-            foreach ($selectedreportTo as $reportTo) {
-                foreach ($selectedreportCategory as $reportCategory) {
-                    // Sanitize input
-                    $reportTo = htmlspecialchars($reportTo, ENT_QUOTES, 'UTF-8');
-                    $reportCategory = htmlspecialchars($reportCategory, ENT_QUOTES, 'UTF-8');
+            // Sanitize input
+            $selectedreportTo = htmlspecialchars($selectedreportTo, ENT_QUOTES, 'UTF-8');
+            $selectedreportCategory = htmlspecialchars($selectedreportCategory, ENT_QUOTES, 'UTF-8');
 
-                    // Bind parameters and execute the statement
-                    $stmt->bind_param("isssssssssss", $user_id, $reporterName, $addressOffender, $eventDate, $eventTime, $eventDetails, $reportPurpose, $anonymous, $reportTo, $reportCategory, $myimage, $date);
-                    if (!$stmt->execute()) {
-                        echo "Error in adding report: " . $stmt->error;
-                        $success = false; // Set flag if any insert fails
-                    }
-                }
-            }
-
-            if ($success) {
+            // Bind parameters and execute the statement
+            $stmt->bind_param("issssssssss", $user_id, $reporterName, $addressOffender, $eventDate, $eventTime, $eventDetails, $reportPurpose, $anonymous, $selectedreportTo, $selectedreportCategory, $myimage, $date);
+            if ($stmt->execute()) {
                 echo "1"; // Success message
+            } else {
+                echo "Error in adding report: " . $stmt->error;
             }
 
             // Close statement

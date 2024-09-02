@@ -469,6 +469,8 @@ var formdata = new FormData();
           icon:"success",
         });
     //    $('#bom').load(location.href + " #my");
+    $("#reportForm")[0].reset();
+    $("input:file").val("");
 }
 
 else
