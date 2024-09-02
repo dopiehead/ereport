@@ -110,7 +110,15 @@ else{ ?>
          <div class="table-container">
 
 <!-------------------------  menu     -------------------------------->
-     
+<div class="d-flex justify-content-end aign-items-end">
+
+<button class="btn btn-info rounded-pill mr-3" onclick="btn_video()">Video</button>
+
+<button class="btn btn-primary rounded-pill" onclick="btn_picture()">Pictures</button>
+
+
+
+</div>  
 
 <div class="page_1">
 
@@ -254,9 +262,9 @@ else{ ?>
 <br><br>
 
  <div class="page_2">
-     
+  
 
- <div>
+ <div class="picture_upload">
 
 <h6 class="mb-2 mt-3 fw-bold">Picture Upload</h6>
 <label class="form-control p-5 w-100 text-center bg-light">
@@ -275,7 +283,7 @@ else{ ?>
 
 
 
-     <div>
+     <div class="video_upload">
 
          <h6 class="mb-2 mt-3 fw-bold">Video record Upload</h6>
          <label class="form-control p-5 w-100 text-center bg-light">
@@ -480,6 +488,22 @@ else
 
 </script>
 
+<script>
+
+  $(".picture_upload").hide();
+
+function btn_picture() {
+    $(".picture_upload").show();
+    $(".video_upload").hide();
+}
+
+function btn_video() {
+    $(".video_upload").show();
+    $(".picture_upload").hide();
+} 
+
+
+</script>
 
 
 </body>

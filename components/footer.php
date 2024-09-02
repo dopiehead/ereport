@@ -6,6 +6,8 @@
 <h5><b>Subscribe to our newsletter</b></h5>
 
 <br>
+<form method="POST" id="subcriptionForm">
+
 <div class="newsletter container ">
 
       <div class="newsletter-envelope section from-left mr-3">
@@ -21,9 +23,10 @@
 
              <a class="btn btn-cart form-control bg-transparent text-white border border-white border-2 mb-3 p-2 " onclick="btn_cat()">Select Categories</a>
                  
-            <input type="text" name="" placeholder="Enter your Email" class="form-control"><br>
+            <input type="text" name="email" placeholder="Enter your Email" class="form-control">
+            
+            <button class="btn btn-subscribe btn-danger mt-3 form-control">Subscribe</button>
 
-            <button type="submit" class="btn btn-danger form-control">Subscribe</button>
       
       </div>
 
@@ -132,55 +135,61 @@
     <h6>Choose category</h6>
 
         <div class="container newsletter-choose">
-             
+           
+
              <div class="first_slide">
-                  <span><input type="checkbox"><strong>bank</strong></span>
-                  <span><input type="checkbox"><strong>service provider</strong></span>
-                  <span> <input type="checkbox"><strong>electricity</strong></span>
-                  <span><input type="checkbox"><strong>Inventions</strong></span>
+         
+                  <span><input name="subscription_category[]" type="checkbox" value="bank"><strong>bank</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="service provider"><strong>service provider</strong></span>
+                  <span> <input name="subscription_category[]" type="checkbox" vaue="electricity"><strong>electricity</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="electricity"><strong>Inventions</strong></span>
              </div>
 
              <div class="first_slide">
-                  <span><input type="checkbox"><strong>wanted person</strong></span>
-                  <span><input type="checkbox"><strong>court matters</strong></span>
-                  <span> <input type="checkbox"><strong>relationship</strong></span>
-                  <span><input type="checkbox"><strong>stolen vehicles</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="wanted person"><strong>wanted person</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="court matters"><strong>court matters</strong></span>
+                  <span> <input name="subscription_category[]" type="checkbox" value="relationship"><strong>relationship</strong></span>
+
+                  <span><input  name="subscription_category[]" type="checkbox" value="stolen vehicles"><strong>stolen vehicles</strong></span>
              </div>
           
              <div class="first_slide">
-                  <span><input type="checkbox"><strong>spiritual</strong></span>
-                  <span><input type="checkbox"><strong>landlord</strong></span>
-                  <span> <input type="checkbox"><strong>individual</strong></span>
-                  <span><input type="checkbox"><strong>leadership</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="spiritual"><strong>spiritual</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="landlord"><strong>landlord</strong></span>
+                  <span> <input name="subscription_category[]" type="checkbox" value="individual"><strong>individual</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="leadership"><strong>leadership</strong></span>
             </div>
 
 
             <div class="second_slide">
-                  <span><input type="checkbox"><strong>Police</strong></span>
-                  <span><input type="checkbox"><strong>Teacher</strong></span>
-                  <span> <input type="checkbox"><strong>School</strong></span>
-                  <span><input type="checkbox"><strong>Hospital</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="police"><strong>Police</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="teacher"><strong>Teacher</strong></span>
+                  <span> <input name="subscription_category[]" type="checkbox" value="school"><strong>School</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="hospital"><strong>Hospital</strong></span>
             </div>
 
             <div class="second_slide">
-                 <span><input type="checkbox"><strong>Immigration</strong></span>
-                 <span><input type="checkbox"><strong>Custom</strong></span>
-                 <span><input type="checkbox"><strong>Civil Service</strong></span>
-                 <span><input type="checkbox"><strong>Army</strong></span>
+                 <span><input name="subscription_category[]" type="checkbox" value="immigration"><strong>Immigration</strong></span>
+                 <span><input name="subscription_category[]" type="checkbox" value="custom"><strong>Custom</strong></span>
+                 <span><input name="subscription_category[]" type="checkbox" value="civil Service"><strong>Civil Service</strong></span>
+                 <span><input name="subscription_category[]" type="checkbox" value="army"><strong>Army</strong></span>
             </div>
 
             <div class="second_slide">
-                 <span><input type="checkbox"><strong>Insurance</strong></span>
-                  <span><input type="checkbox"><strong>Pharmaceuticals</strong></span>
-                  <span><input type="checkbox"><strong>Hotels</strong></span>
-                  <span><input type="checkbox"><strong>As tip off gist</strong></span>
-                  <span><input type="text" placeholder="Others"></span>
+                 <span><input name="subscription_category[]" type="checkbox" value="insurance"><strong>Insurance</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="pharmaceuticals"><strong>Pharmaceuticals</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="hotels"><strong>Hotels</strong></span>
+                  <span><input name="subscription_category[]" type="checkbox" value="As tip off gist"><strong>As tip off gist</strong></span>
+                  <span><input name="subscription_category[]" type="text" placeholder="Others"></span>
             </div>
 
         </div>
+     
 
-        <button class="form-control btn btn-danger mt-4">Submit</button>
+        <button type="button" class="form-control btn btn-danger mt-4" onclick="btn_cat()">Submit</button>
+        <?php   include("components/loader.php");  ?>
 
+        </form>
   </div>
 
 
@@ -280,5 +289,44 @@ function next_cat(){
     $(".second_slide").show(); 
     $(".first_slide").hide();  
 }
+
+</script>
+
+
+
+<script>
+
+$(".btn-subscribe").click(function(e){
+e.preventDefault();
+let subcription = $("#subcriptionForm").serialize();
+$("#loading-image").show();
+$.ajax({
+      method:"POST",
+      url:"engine/subscription-process.php",
+      data:subcription,
+      success:function(response){
+        $("#loading-image").hide();
+        if(response==1){
+            swal({
+                  title: "Success!",
+                  text: "Your subscription has been successful!",
+                  icon: "success",
+                  buttons: false,
+                  timer: 2000
+                 });
+                 $("#subcriptionForm")[0].reset();
+                 $("input:checkbox").val("");
+        }
+
+        else{
+            swal("Error: " + response);
+        }
+      }
+});
+
+});
+
+
+
 
 </script>

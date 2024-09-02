@@ -212,6 +212,80 @@
         });
       });
     </script>
+
+
+
+
+
+
+<script>
+        const localVideo = document.getElementById('localVideo');
+        const remoteVideo = document.getElementById('remoteVideo');
+        const startCallButton = document.getElementById('startCall');
+        const hangUpButton = document.getElementById('hangUp');
+
+        let localStream;
+        let peerConnection;
+        const servers = null; // Use default STUN/TURN servers
+        const signalingServerUrl = 'ws://localhost:8080'; // WebSocket URL
+
+        const signalingSocket = new WebSocket(signalingServerUrl);
+
+        signalingSocket.onmessage = async (message) => {
+            const data = JSON.parse(message.data);
+            switch (data.type) {
+                case 'offer':
+                    await peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
+                    const answer = await peerConnection.createAnswer();
+                    await peerConnection.setLocalDescription(answer);
+                    signalingSocket.send(JSON.stringify({ type: 'answer', answer }));
+                    break;
+                case 'answer':
+                    await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
+                    break;
+                case 'candidate':
+                    await peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate));
+                    break;
+            }
+        };
+
+        startCallButton.onclick = async () => {
+            localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            localVideo.srcObject = localStream;
+
+            peerConnection = new RTCPeerConnection(servers);
+            peerConnection.onicecandidate = ({ candidate }) => {
+                if (candidate) {
+                    signalingSocket.send(JSON.stringify({ type: 'candidate', candidate }));
+                }
+            };
+            peerConnection.ontrack = (event) => {
+                remoteVideo.srcObject = event.streams[0];
+            };
+
+            localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+            const offer = await peerConnection.createOffer();
+            await peerConnection.setLocalDescription(offer);
+            signalingSocket.send(JSON.stringify({ type: 'offer', offer }));
+            
+            startCallButton.disabled = true;
+            hangUpButton.disabled = false;
+        };
+
+        hangUpButton.onclick = () => {
+            peerConnection.close();
+            peerConnection = null;
+            startCallButton.disabled = false;
+            hangUpButton.disabled = true;
+        };
+    </script>
+
+
+
+
+
+
 </body>
 </html>
 
