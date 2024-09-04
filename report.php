@@ -32,7 +32,7 @@
             
              <option value="video">Video</option>
 
-             <option value="audio">Audio</option>
+          
 
              <option value="news">News</option>
 
@@ -62,44 +62,8 @@
       
                </select>
              </div>
-                    <div class="container trending-section">
-                        <div class="post">
-                            <div class="post-image"><img src="https://placehold.co/600x400/000000/FFFFFF/png" alt="The post image"></div>
-                            <div class="calendar"><i class="fa fa-calendar"></i> FEBRUARY 28,2024 <i class="fa fa-user"></i> BY  <small style="color:red">ADMIN</small></div>
-                            <div class="post-title"><h3>Short Event title on Topic</h3></div>
-                            <div class="post-link"><a href="report-details.php">Read More <i class="fas fa-arrow-right"></i></a></div>
-                        </div>
-                
-                        <div class="post">
-                            <div class="post-image"><img src="https://placehold.co/600x400/000000/FFFFFF/png" alt="The post image"></div>
-                            <div class="calendar"><i class="fa fa-calendar"></i> FEBRUARY 28,2024 <i class="fa fa-user"></i> BY  <small style="color:red">ADMIN</small></div>
-                            <div class="post-title"><h3>Short Event title on Topic</h3></div>
-                            <div class="post-link"><a href="#">Read More <i class="fas fa-arrow-right"></i></a></div>
-                        </div>
-                
-                        <div class="post">
-                            <div class="post-image"><img src="https://placehold.co/600x400/000000/FFFFFF/png" alt="The post image"></div>
-                            <div class="calendar"><i class="fa fa-calendar"></i> FEBRUARY 28,2024 <i class="fa fa-user"></i> BY  <small style="color:red">ADMIN</small></div>
-                            <div class="post-title"><h3>Short Event title on Topic</h3></div>
-                           <div class="post-link"><a href="#">Read More <i class="fas fa-arrow-right"></i></a></div>
-                        </div>
-                       
-                        <div class="post">
-
+<div class="trending-home">                
                         
-                            <div class="post-image"><img src="https://placehold.co/600x400/000000/FFFFFF/png" alt="The post image"></div>
-                            <div class="calendar"><i class="fa fa-calendar"></i> FEBRUARY 28,2024 <i class="fa fa-user"></i> BY  <small style="color:red">ADMIN</small></div>
-                            <div class="post-title"><h3>Short Event title on Topic</h3></div>
-                            
-                            <div class="post-link"><a href="#">Read More <i class="fas fa-arrow-right"></i></a></div>
-                        </div>
-                
-                        <div class="post">
-                            <div class="post-image"><img src="https://placehold.co/600x400/000000/FFFFFF/png" alt="The post image"></div>
-                            <div class="calendar"><i class="fa fa-calendar"></i> FEBRUARY 28,2024 <i class="fa fa-user"></i> BY  <small style="color:red">ADMIN</small></div>
-                            <div class="post-title"><h3>Short Event title on Topic</h3></div>
-                            <div class="post-link"><a href="#">Read More <i class="fas fa-arrow-right"></i></a></div>
-                        </div>
                     </div>
                 </div>
                 <!--- end of each user item container -->
@@ -119,12 +83,18 @@
         <img src="assets/images/ads/ad4.png" alt="">
     
         </div>
-        </div>
+        </div>      
+    
+    </div>
 
 
 <?php  include 'components/footer.php'; ?>
 
+<script>
+$(".trending-home").load("engine/report-read-process.php");
 
+
+</script>
 
 
 </body>

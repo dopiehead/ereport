@@ -1,3 +1,48 @@
+<?php 
+if(isset($_GET['id']) && !empty($_GET['id'])){
+   $id = $_GET['id'];
+include_once('engine/configure.php'); 
+$conn = new Database();
+$blacklist = "select * from user_profile where id = ? and blacklist = 1";
+$stmt = $conn->prepare($blacklist);
+      if($stmt === false){
+         echo "Failed to prepare statement";
+             }
+
+      else{
+           $stmt->bind_param("i",$id);
+           $stmt->execute();
+
+             if($stmt->execute()===false){
+                  echo"Failed to execute statement";
+              }
+
+              else{
+                $result = $stmt->get_result(); 
+
+                while ($row = $result->fetch_assoc()) {
+
+                    $name = $row['name'];
+                    $image = "dashboard/".$row['img_upload'];
+                    $email = $row['email'];
+                    $location = $row['location'];
+
+                }
+
+              }
+
+          }
+
+}
+
+
+
+?>
+
+
+
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +66,7 @@
     <div class="row">
         <div class="col-md-8">
 
-         <img src="https://placehold.co/600x400.png" alt="user-photo">
+         <img src="<?php echo $image ?>" alt="user-photo">
 
         </div>
         <div  class="col-md-4">
@@ -29,14 +74,14 @@
      
            <div class='wanted_info'>
 
-                <p><i class="fa fa-user-alt"></i> Name</p><br>
+                <p><i class="fa fa-user-alt"></i> Name: <?php echo$name; ?></p><br>
 
-                <p><i class="fa fa-map-marker"></i> location:</p><br>
+                <p><i class="fa fa-map-marker"></i> Location: <?php echo $location ?></p><br>
 
-                <p><i class="fa fa-envelope"></i> Email:</p><br>
+                <p><i class="fa fa-envelope"></i> Email: <?php echo $email ?></p><br>
   
          </div><br>
-
+                <b class="text-center mt-2 fw-bold">Reason for Blacklist</b><br>
                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui eveniet quis sunt, delectus labore dolorem veritatis perferendis voluptate reprehenderit quam molestias facere veniam vitae beatae dolorum nam, minima maiores. Voluptas!</p>
 
         </div>
@@ -53,7 +98,7 @@
 
 
 <div class="more_pictures">
-<ul>
+<ul class="d-none">
 
   <li><img src="https://placehold.co/600x400.png" alt="image-x"></li> 
 
@@ -150,40 +195,52 @@
 
 <br>
 
-<h3 style="ont-weight:bold;">Blacklisted<span class="see_more">See more</span></h3><br>
+<h3 style="font-weight:bold;">Blacklisted<span class="see_more"><a href="blacklist.php">See more</a></span></h3><br>
 
 <div class="menu_wanted_container">
 
-    <div class="menu_wanted">
-        <img src="https://placehold.co/600x400.png" alt="">
-    </div>
+<?php 
+
+$blacklist_all = "select * from user_profile where blacklist = 1";
+$stmt = $conn->prepare($blacklist_all);
+      if($stmt === false){
+         echo "Failed to prepare statement";
+             }
+
+      else{
+          
+           $stmt->execute();
+
+             if($stmt->execute()===false){
+                  echo"Failed to execute statement";
+              }
+
+              else{
+                $result = $stmt->get_result(); 
+
+                while ($data = $result->fetch_assoc()) {
+
+                    $name = $data['name'];
+                    $image = "dashboard/".$data['img_upload'];
+                    $email = $data['email'];
+                    $location = $data['location'];
+?>
 
     <div class="menu_wanted">
-         <img src="https://placehold.co/600x400.png" alt="">
+        <a href="blacklist-details.php?id=<?php echo$row['id']?>"><img src="<?php echo$image ?>" alt=""></a>
     </div>
 
-    <div class="menu_wanted">
-        <img src="https://placehold.co/600x400.png" alt="">
-    </div>
+    <?php               }
 
-    <div class="menu_wanted">
-         <img src="https://placehold.co/600x400.png" alt="">
-    </div>
+}
 
-    <div class="menu_wanted">
-         <img src="https://placehold.co/600x400.png" alt="">
-    </div>
-
-    <div class="menu_wanted">
-        <img src="https://placehold.co/600x400.png" alt="">
-    </div>
-
-    <div class="menu_wanted">
-         <img src="https://placehold.co/600x400.png" alt="">
-    </div>
+}
 
 
 
+
+
+?>
         </div>
 
 
