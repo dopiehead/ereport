@@ -26,13 +26,11 @@
 
 <div class="container search-container">
      
-      <input type="text" name="" placeholder="Search for reports...">
+      <input type="text" name="q" id="q" placeholder="Search for reports...">
               
         <select name="newsType" id="newsType">
             
              <option value="video">Video</option>
-
-          
 
              <option value="news">News</option>
 
@@ -40,7 +38,7 @@
 
 </div>
 
-<br><br>  
+<br>
 <div>
 
 <div class="blog-post-container">
@@ -91,7 +89,55 @@
 <?php  include 'components/footer.php'; ?>
 
 <script>
+$("#loading-image").hide();
 $(".trending-home").load("engine/report-read-process.php");
+$("#q").on('keyup',function() {
+var x = $('#q').val();
+if (x=='') {
+$("#reset").hide();
+}
+else{
+$("#reset").show();
+}
+getData(x);
+});
+
+
+
+$(document).on('change','.sort',function(){
+var sort = $(".sort").val();
+var x = $('#q').val();
+getData(x,sort);
+
+});
+
+
+
+
+$(document).on('click','.btn-success',function(){
+var page = $(this).attr('id');
+var x = $('#q').val();
+var sort = $(".sort").val();
+getData(x,sort,page);
+
+});
+
+
+function getData(x,sort,page) {
+$.ajax({
+url:"engine/report-read-process.php",
+type:"POST",
+data:{'q':x,'sort':sort,'page':page},
+success:function(data) {
+$("#loading-image").hide();
+$(".trending-home").html(data).show();
+}
+
+});
+
+};
+
+
 
 
 </script>

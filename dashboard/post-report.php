@@ -112,10 +112,6 @@ else{ ?>
 <!-------------------------  menu     -------------------------------->
 <div class="d-flex justify-content-end aign-items-end">
 
-<button class="btn btn-info rounded-pill mr-3" onclick="btn_video()">Video</button>
-
-<button class="btn btn-primary rounded-pill" onclick="btn_picture()">Pictures</button>
-
 
 
 </div>  
@@ -487,23 +483,6 @@ else
         });
  }
     });
-
-</script>
-
-<script>
-
-  $(".picture_upload").hide();
-
-function btn_picture() {
-    $(".picture_upload").show();
-    $(".video_upload").hide();
-}
-
-function btn_video() {
-    $(".video_upload").show();
-    $(".picture_upload").hide();
-} 
-
 
 </script>
 

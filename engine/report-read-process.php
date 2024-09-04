@@ -37,7 +37,7 @@ $sql = "SELECT * FROM report where pending ='0'";
 if (isset($_POST['q']) && !empty($_POST['q'])) {
 $search = explode(" ",$_POST['q']) ;
 foreach ($search as $text) {
-$sql .= " AND(`eventDetails` LIKE '%".$text."%' OR `reportPurpose` LIKE '%".$text."%' OR `reportTo` LIKE '%".$text."%' OR `reportCategory` LIKE '%".$text."%' OR `addressOffender` LIKE '%".$text."%')";
+$sql .= " AND(`eventDetails` LIKE '%".$text."%' OR `reportPurpose` LIKE '%".$text."%' OR `reportTo` LIKE '%".$text."%' OR `reportCategory` LIKE '%".$text."%' OR `addressOffender` LIKE '%".$text."%'  OR `reporterName` LIKE '%".$text."%')";
 
     } 
 }
@@ -60,9 +60,7 @@ if (!$stmt->execute()) {
             }
 
             // Ensure the thumbnail is generated
-            if (!file_exists($thumbnailPath)) {
-                generateThumbnail($videoPath, $thumbnailPath);
-            }
+       
         ?>
               <div class="post">
 
@@ -74,7 +72,7 @@ if (!$stmt->execute()) {
                     <?php echo htmlspecialchars(truncateToWordsUsingSubstr($row['eventDetails'])); ?>
                 </div>
                 <div class="calendar"><i class="fa fa-calendar"></i><?php echo htmlspecialchars($row['eventDate']); ?><i class="fa fa-user"></i> BY  <small style="color:red"><?php echo $row['reporterName'];?></small></div>
-                <div class="post-link"><a href="<?php echo $row['id'] ?>">Read More <i class="fas fa-arrow-right"></i></a></div>
+                <div class="post-link"><a href="report-details.php?id=<?php echo $row['id'] ?>">Read More <i class="fas fa-arrow-right"></i></a></div>
                 
              </div>
            
@@ -174,36 +172,6 @@ if ($page < $total_num_page) {
 
 
  </div>
-
- <div class="popup" id="popup">
-
-     <a class="close" id="close">&times;</a>
-
-     <div class="video-player">
-
- 
-     </div>
-
- </div>
-
-<script>
-$(document).on('click','.btn-play',function(){
-let id = $(this).attr('id');
-$.ajax({
-url:"uploaded-video.php",
-method:"POST",
-data:{'id':id},
-success:function(data){
-$(".popup").show();
-$(".video-player").html(data);
-}
-});
-});
-$(document).on('click','.close',function(){
-    $(".popup").hide();
-});
-
-</script>
 
 <br><br><br><br>
 <br><br><br><br>

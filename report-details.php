@@ -17,6 +17,7 @@ else{
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Reports / News</title>
    <link href="https://fonts.cdnfonts.com/css/helvetica-neue-55" rel="stylesheet">
    <?php  include 'components/links.php'; ?>
@@ -82,7 +83,7 @@ else{
              <option value="">Choose Category</option>  
              <option value="positive">Positive Comments</option>
              <option value="negative">Negative Comments</option> 
-             <optionn value="suggestions">Suggestions</option>  
+             <option value="suggestions">Suggestions</option>  
          </select>
 
      </div>
@@ -138,6 +139,7 @@ else{
 
              </div>   
              
+            <div class="col-md-6">
              <div class="other-news">
 
                  <div>
@@ -388,14 +390,18 @@ else{
      </div>
 
 </div>
+
+</div>
 <br><br>
 <?php  include 'components/footer.php'; ?>
 
 <!-- Include jQuery and SweetAlert2 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(document).ready(function() {
     $("#comment-show").load("engine/view-comments.php");
+
     $(document).on("click", '.reply', function() {
         var comment_id = $(this).attr('id');
         $('#comment_id').val(comment_id);  // Set the comment ID in the hidden input field
@@ -529,6 +535,24 @@ $(document).on('click', '.dislikes', function() {
                 icon: "error",
             });
         }
+    });
+});
+
+            $(document).on('click', '.btn-play', function(){
+                let id = $(this).attr('id');
+                $.ajax({
+                    url: "uploaded-video.php",
+                    method: "POST",
+                    data: { 'id': id },
+                    success: function(data){
+                        $(".popup").show();
+                        $(".video-player").html(data);
+                    }
+                });
+            });
+
+            $(document).on('click', '.close', function(){
+                $(".popup").hide();
     });
 });
 </script>

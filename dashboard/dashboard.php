@@ -126,15 +126,6 @@ else{ ?>
 
          </div>
 
-   
-         
-         
-         
-        
-
-              
- 
-            
           
          </div>
 
@@ -189,9 +180,7 @@ $(document).on('click','.btn-success',function(){
 var page = $(this).attr('id');
 var x = $('#q').val();
 getData(x,page);
-
 });
-
 
 
 function getData(x,page) {
@@ -202,12 +191,9 @@ data:{'q':x,'page':page},
 success:function(data) {
 $("#loading-image").hide();
 $(".table-container").html(data).show();
-
 }
 
-
 });
-
 
 };
 </script>
