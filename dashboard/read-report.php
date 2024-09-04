@@ -1,7 +1,7 @@
 <?php
 session_start();
-include('../../engine/configure.php');
-require '../vendor/autoload.php'; // Ensure Composer's autoload is included
+include('configure.php');
+require 'vendor/autoload.php'; // Ensure Composer's autoload is included
 
 use FFMpeg\FFMpeg;
 use FFMpeg\FFProbe;
@@ -36,8 +36,26 @@ $total_row = $total_result->fetch_assoc();
 $total_records = $total_row['total'];
 $total_num_page = ceil($total_records / $num_per_page);
 
-$sql = "SELECT * FROM report WHERE user_id = ? LIMIT ?, ?";
+
+$sql = "SELECT * FROM report WHERE user_id = ? ";
+
+
+if (isset($_POST['q']) && !empty($_POST['q'])) {
+
+    $search = explode(" ",$_POST['q']) ;
+
+   foreach ($search as $text) {
+
+      $sql .= " AND (`eventDetails` LIKE '%".$text."%' OR `reportPurpose` LIKE '%".$text."%' OR `reportTo` LIKE '%".$text."%' OR `reportCategory` LIKE '%".$text."%' OR `addressOffender` LIKE '%".$text."%')";
+
+    } 
+}
+
+
+$sql .= "LIMIT ?, ?" ;
+
 $stmt = $conn->prepare($sql);
+
 
 
 
@@ -71,9 +89,9 @@ if (!$stmt->execute()) {
         while ($row = $result->fetch_assoc()) {
             $videoPath = $row['fileupload'];
             // Generate thumbnail path based on file extension
-            $thumbnailPath = './thumbnails/' . basename($videoPath, '.mp4') . '.jpg';
+            $thumbnailPath = 'thumbnails/' . basename($videoPath) . '.jpg';
             if (pathinfo($videoPath, PATHINFO_EXTENSION) === 'mov') {
-                $thumbnailPath = './thumbnails/' . basename($videoPath, '.mov') . '.jpg';
+                $thumbnailPath = 'thumbnails/' . basename($videoPath) . '.jpg';
             }
 
             // Ensure the thumbnail is generated
@@ -84,7 +102,7 @@ if (!$stmt->execute()) {
             <tr>
                 <td style="padding:20px;font-size:14px;"><input type="checkbox"></td>
                 <td style="padding:20px;font-size:14px;">
-                    <img src="<?php echo htmlspecialchars($thumbnailPath); ?>" alt="Thumbnail" width="100">
+                    <a class="btn-play" id="<?php echo$row['id'] ?>"><img src="<?php echo htmlspecialchars($thumbnailPath); ?>" alt="Thumbnail" width="100"></a>
                 </td>
                 <td style="padding:20px;font-size:14px;"><?php echo htmlspecialchars(truncateToWordsUsingSubstr($row['eventDetails'])); ?></td>
                 <td style="padding:20px;font-size:14px;"><?php echo htmlspecialchars($row['addressOffender']); ?></td>
@@ -125,7 +143,7 @@ function generateThumbnail($videoPath, $thumbnailPath, $time = '00:00:01') {
     try {
         $video = $ffmpeg->open($videoPath);
         $video->frame(\FFMpeg\Coordinate\TimeCode::fromSeconds(1))->save($thumbnailPath);
-        echo "Thumbnail generated successfully: $thumbnailPath<br>";
+        
     } catch (\Exception $e) {
         echo "Failed to generate thumbnail for $videoPath. Error: " . $e->getMessage() . "<br>";
     }
@@ -195,3 +213,33 @@ if ($page < $total_num_page) {
 
 
         </div>
+
+ <div class="popup" id="popup">
+
+     <a class="close" id="close">&times;</a>
+
+     <div class="video-player">
+
+ 
+     </div>
+
+ </div>
+
+<script>
+$(document).on('click','.btn-play',function(){
+let id = $(this).attr('id');
+$.ajax({
+url:"uploaded-video.php",
+method:"POST",
+data:{'id':id},
+success:function(data){
+$(".popup").show();
+$(".video-player").html(data);
+}
+});
+});
+$(document).on('click','.close',function(){
+    $(".popup").hide();
+});
+
+</script>

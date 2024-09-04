@@ -62,7 +62,7 @@ $session->checkLogin(); // Check if the user is logged in
          
                           <i class="fa fa-bars"></i>
 
-                          <input type="search" placeholder="Search">
+                          <input type="search" id="q" name="q" placeholder="Search">
 
                      </div>
 
@@ -83,7 +83,7 @@ $session->checkLogin(); // Check if the user is logged in
 $extension = strtolower(pathinfo($_SESSION['img'],PATHINFO_EXTENSION));
 $image_extension  = array('jpg','jpeg','png');
 if (!in_array($extension , $image_extension)) {
-    $_SESSION['img'] = "<i style='font-size:20px;color:black;' class='fa fa-user-alt profile_pic' ></i>";
+  echo"<i style='font-size:20px;color:black;' class='fa fa-user-alt profile_pic' ></i>";
 echo$_SESSION['img']; }
 else{ ?>
   
@@ -170,10 +170,46 @@ $(".fa-bars").on('click', function() {
      </script>
 
 
-<script>
 
-$(".table-container").load("engine/read-report.php");
 
+<script type="text/javascript">
+
+$("#loading-image").hide();
+$(".table-container").load("read-report.php?page=1");
+$("#q").on('keyup',function() {
+var x = $('#q').val();
+if (x=='') {$("#reset").hide();}
+else{
+$("#reset").show();
+}
+getData(x);
+});
+
+$(document).on('click','.btn-success',function(){
+var page = $(this).attr('id');
+var x = $('#q').val();
+getData(x,page);
+
+});
+
+
+
+function getData(x,page) {
+$.ajax({
+url:"read-report.php",
+type:"POST",
+data:{'q':x,'page':page},
+success:function(data) {
+$("#loading-image").hide();
+$(".table-container").html(data).show();
+
+}
+
+
+});
+
+
+};
 </script>
 
 </body>

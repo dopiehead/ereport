@@ -45,7 +45,7 @@ else{
              
          <input type="hidden" name="complain_id" id="complain_id"> 
 
-            <input type="hidden" name="user_name" id="user_name" value="<?php echo$user_name?>">
+            <input type="hidden" name="name" id="name" value="<?php echo$user_name?>">
 
             <input type="hidden" name="user_id" id="user_id" value="<?php echo$user_id ?>"><br>
 
@@ -86,7 +86,7 @@ else{
 <?php include 'components/footer.php'; ?>
 <script>
 $(document).ready(function() {
-    $("#complain-comment-section").load("engine/view-complains.php");
+    $("#complain-comment-section").load("engine/view-complain.php");
     $(document).on("click", '.reply', function() {
         var comment_id = $(this).attr('id');
         $('#complain_id').val(complain_id);  // Set the comment ID in the hidden input field
@@ -112,7 +112,7 @@ $('#complainForm').on('submit', function(e) {
 
                 if (response == 1) {
                     // On success, reload comments and reset form
-                    $("#complain-comment-section").load("engine/view-complains.php");
+                    $("#complain-comment-section").load("engine/view-complain.php");
 
                     swal({
                         text: "Complain added successfully",
@@ -148,7 +148,7 @@ $('#complainForm').on('submit', function(e) {
 <script>
 $(document).on('click', '.likes', function() {
     var user_id = "<?php echo $user_id; ?>";
-    var comment_id = $(this).attr('id');
+    var complain_id = $(this).attr('id');
     
     $.ajax({
         type: "POST",

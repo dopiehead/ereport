@@ -12,6 +12,16 @@ $password = $_POST['password'] ?? '';
 $cpassword = $_POST['cpassword'] ?? '';
 $verified = $_POST['verified'] ?? '0'; // Default to '0' if not set
 $img_upload = $_POST['img_upload'] ??'0';
+$blacklist = $_POST['blacklist'] ??'0';
+$country = $_POST['country'] ??'0';
+$whatsapp = $_POST['whatsapp'] ??'0';
+$location = $_POST['location'] ??'0';
+$facebook = $_POST['facebook'] ??'0';
+$twitter = $_POST['twitter'] ??'0';
+$linkedin = $_POST['linkedin'] ??'0';
+$instagram = $_POST['instagram'] ??'0';
+
+
 $date = date("D, F d, Y g:iA", strtotime('+1 hours'));
 $vkey = md5(time() . $email);
 

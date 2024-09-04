@@ -337,7 +337,7 @@ else
   $('#btn-submit').on('click',function(){
     $.ajax({
         type: "POST",
-        url: "engine/edit-page.php",
+        url: "edit-page.php",
         data:  $("#editpage-details").serialize(),
         cache:false,
         contentType: "application/x-www-form-urlencoded",

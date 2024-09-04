@@ -38,9 +38,23 @@
 
       <input type="password" name="cpassword" class="form-control" placeholder="Confirm your Password"><br>
 
-      <input type="hidden" name="verified" id="verified" value="0">
-
-      <input type="hidden" name="blacklist" id="blacklist" value="0">
+      <input type="hidden" name="blacklist" value="0">
+   
+      <input type="hidden" name="country" value="0">
+   
+      <input type="hidden" name="whatsapp" value="0">
+   
+      <input type="hidden" name="location" value="0">
+   
+      <input type="hidden" name="facebook" value="0">
+   
+      <input type="hidden" name="twitter" value="0">
+   
+      <input type="hidden" name="linkedin" value="0">
+  
+      <input type="hidden" name="instagram" value="0">
+   
+      <input type="hidden" name="verified" value="0">
 
       <input type="hidden" name="img_upload" id="img_upload" value="0">
 

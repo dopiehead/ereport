@@ -57,10 +57,11 @@ if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
          <?php echo$img ?><span class="user_name"><?php echo$name?></span>
             
          <form  id="protestForm">
+         <input type="hidden" name="protest_id" id="protest_id">
 
             <input type="hidden" name="user_id" id="user_id" value="<?php echo$user_id ?>"><br>
 
-            <input type="hidden" name="user_name" id="user_name" value="<?php echo$name; ?>">
+            <input type="hidden" name="name" id="user_name" value="<?php echo$name; ?>">
 
             <input type="hidden" name="user_email" id="user_email" value="<?php echo$id; ?>"><br>
 
@@ -78,7 +79,7 @@ if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
          </div>
        <br><br>
         
-         <div class="protest-comment-section">
+         <div class="protest-comment-section" id="protest-comment-section">
                <div class="user-container">        
                      <div>
                           <img src="assets/images/IMG_E7548.jpg" alt=""> 
@@ -103,10 +104,10 @@ if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
 
 <script>
 $(document).ready(function() {
-    $("#protest-comment-section").load("engine/view-comments.php");
+    $("#protest-comment-section").load("engine/view-protest.php");
     $(document).on("click", '.reply', function() {
-        var comment_id = $(this).attr('id');
-        $('#protest_id').val(comment_id);  // Set the comment ID in the hidden input field
+        var protest_id = $(this).attr('id');
+        $('#protest_id').val(protest_id);  // Set the comment ID in the hidden input field
         $("#name").focus();  // Focus the name input field
     
     });
@@ -129,7 +130,7 @@ $('#protestForm').on('submit', function(e) {
 
                 if (response == 1) {
                     // On success, reload comments and reset form
-                    $("#protest-comment-section").load("engine/view-comments.php");
+                    $("#protest-comment-section").load("engine/view-protest.php");
 
                     swal({
                         text: "Protest added successfully",
@@ -211,12 +212,12 @@ $(document).on('click', '.likes', function() {
 <script>
 $(document).on('click', '.dislikes', function() {
     var user_id = "<?php echo $user_id; ?>";
-    var comment_id = $(this).attr('id');
+    var protest_id = $(this).attr('id');
     
     $.ajax({
         type: "POST",
         url: "engine/update-protest-dislikes.php",
-        data: { 'user_id': user_id, 'comment_id': comment_id },
+        data: { 'user_id': user_id, 'protest_id': protest_id },
         success: function(response) {
             if (response == 1) {
                 swal({

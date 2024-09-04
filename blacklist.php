@@ -30,7 +30,8 @@
 
     <div class='' style="background:rgba(192,192,192,0.5);padding:8px;">
 
-    <label for="filter_by"><b style="font-size:14px;">Filter by</b></label>&nbsp;&nbsp;&nbsp;<input style="border:1px solid transparent;box-shadow:0px 0px 5px rgba(0,0,0,0.1);font-size:18px;width:85%;" type="search" class="" placeholder="Name or Location" >
+    <label for="filter_by"><b style="font-size:14px;">Filter by</b></label>&nbsp;&nbsp;&nbsp;
+    <input name="q" id="q" style="border:1px solid transparent;box-shadow:0px 0px 5px rgba(0,0,0,0.1);font-size:18px;" type="search" class="w-85 bg-dark text-white" placeholder="Name or Location" >
 
   </div>
 
@@ -47,7 +48,7 @@
          <b>Sort by</b>
        </span>
          <b>
-     <select  style="float:right;border:1px solid transparent;box-shadow:0px 0px 4px rgba(0,0,0,0.1);" name="" id="">
+     <select  style="float:right;border:1px solid transparent;box-shadow:0px 0px 4px rgba(0,0,0,0.1);" name="sort" id="sort">
        <option value="newest">Newest</option>
        <option value="oldest">Oldest</option>
      </select>
@@ -55,113 +56,10 @@
    </h6>
 </div>
 
-<div class="container">
-
-<div id='missing-layout'>
-<figure>
-<a  href=""><img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150"></a><br>
-<figcaption>
-<a href="blacklist-details.php"><b>Catherine Isidiaka</b></a>
-</figcaption>
-</figure>
-
-<figure>
-<a href=""><img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150"></a>
-<figcaption>
-<a href=""><b>Kayode Thomas</b></a>
-</figcaption>
-</figure>
-
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
+<div class="container" id="blacklisted">
 
 
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
 
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
-
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
-
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
-
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
-
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
-
-
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
-
-
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
-
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
-
-
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
-
-
-<figure>
-<img src='https://placehold.co/600x400/000000/FFFFFF/png' width="180" height="150">
-<figcaption>
-<b>Kayode Thomas</b>
-</figcaption>
-</figure>
-
-</div>
 </div>
 </div>
 </div>
@@ -171,3 +69,45 @@
 <?php  include 'components/footer.php';  ?>
 </body>
 </html>
+
+
+
+<script type="text/javascript">
+
+$("#loading-image").hide();
+$("#blacklisted").load("engine/blacklist-process.php");
+$("#q").on('keyup',function() {
+var x = $('#q').val();
+if (x=='') {$("#reset").hide();}
+else{
+$("#reset").show();
+}
+getData(x);
+});
+
+$(document).on('click','.btn-success',function(){
+var page = $(this).attr('id');
+var x = $('#q').val();
+getData(x,page);
+
+});
+
+
+
+function getData(x,page) {
+$.ajax({
+url:"read-report.php",
+type:"POST",
+data:{'q':x,'page':page},
+success:function(data) {
+$("#loading-image").hide();
+$(".table-container").html(data).show();
+
+}
+
+
+});
+
+
+};
+</script>

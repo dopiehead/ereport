@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and sanitize input
     $comment_id = intval($_POST['comment_id']);
     $user_id = intval($_POST['user_id']);
-    $date = date("Y-m-d H:i:s"); // Using a standard format for date and time
+    $date = date("D, F d, Y g:iA"); // Using a standard format for date and time
 
     // Check if user has already liked this comment
     $checkLikeQuery = "SELECT COUNT(*) FROM report_likes_unlikes WHERE user_id = ? AND comment_id = ?";

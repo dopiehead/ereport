@@ -7,10 +7,10 @@ date_default_timezone_set('Africa/Lagos');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve user inputs
     $user_id = intval($_POST['user_id']); // Ensure user_id is an integer
-    $comment = htmlspecialchars(trim($_POST['comment'])); // Sanitize and trim comment
-    $comment_sender_name = htmlspecialchars(trim($_POST['name'])); // Sanitize and trim sender name
-    $comment_id = intval($_POST['comment_id']); // Ensure comment_id is an integer
-    $comment_category = htmlspecialchars(trim($_POST['comment_category'])); // Sanitize and trim category
+    $protest = htmlspecialchars(trim($_POST['protest'])); // Sanitize and trim comment
+    $protest_sender_name = htmlspecialchars(trim($_POST['name'])); // Sanitize and trim sender name
+    $protest_id = intval($_POST['protest_id']); // Ensure comment_id is an integer
+    // Sanitize and trim category
     
     // Handle file upload
     $imageFolder = "../report-uploads/";
@@ -27,8 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $date = date("D, F d, Y g:iA");
 
             // Prepare and execute the SQL statement
-            $stmt = $conn->prepare("INSERT INTO comments (user_id, comment, parent_comment_id, comment_category, fileupload, comment_sender_name, date) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("issssss", $user_id, $comment, $comment_id, $comment_category, $myimage, $comment_sender_name, $date);
+            $stmt = $conn->prepare("INSERT INTO protest (user_id, protest, parent_protest_id, fileupload, protest_sender_name, date) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("isisss", $user_id, $protest, $protest_id,$myimage, $protest_sender_name, $date);
 
             if ($stmt->execute()) {
                 echo "1";
@@ -37,13 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             $stmt->close();
-        } else {
-            echo "Failed to upload file.";
-        }
-    } else {
-        echo "Invalid file type or size.";
-    }
-
+        } 
+    } 
     $conn->close();
 }
 ?>

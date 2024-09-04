@@ -447,7 +447,7 @@ var formdata = new FormData();
    $.ajax({
            type: "POST",
 
-           url: "engine/post-report-process.php",
+           url: "post-report-process.php",
 
            data:new FormData(this),
 
@@ -468,7 +468,7 @@ var formdata = new FormData();
           text:"Report has been submitted successfully",
           icon:"success",
         });
-    //    $('#bom').load(location.href + " #my");
+       $('#bom').load(location.href + " #my");
     $("#reportForm")[0].reset();
     $("input:file").val("");
 }
@@ -480,7 +480,7 @@ else
             text:response
 
            });
-            $("#reportForm")[0].reset();      
+            // $("#reportForm")[0].reset();      
 
             }
  }

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../../engine/configure.php');
+include('configure.php');
 error_reporting(E_ALL ^ E_NOTICE);
 
 $conn = new Database();
@@ -11,6 +11,8 @@ $user_id = $_SESSION['id'];
 
 // Check if the request method is POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
     // Retrieve user inputs
     $reporterName = $_POST["reporterName"] ?? '';
     $addressOffender = $_POST['addressOffender'] ?? '';
@@ -23,8 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle multiple reportTo and reportCategory values
     $selectedreportTo = isset($_POST['reportTo']) ? implode(', ', $_POST['reportTo']) : '';
     $selectedreportCategory = isset($_POST['reportCategory']) ? implode(', ', $_POST['reportCategory']) : '';
-    
-    // File upload handling
+   // File upload handling
     $imageFolder = "report_uploads/";
     $basename = basename($_FILES['fileupload']['name']);
     $myimage = $imageFolder . $basename;
@@ -33,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ImageSize = $_FILES['fileupload']['size'];
     $image_temp_name = $_FILES['fileupload']['tmp_name'];
 
-    // Allowed file extensions
+
+    // Allowed file exte nsions
     $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov', 'avi'];
 
     // Validate the file upload
@@ -54,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $selectedreportCategory = htmlspecialchars($selectedreportCategory, ENT_QUOTES, 'UTF-8');
 
             // Bind parameters and execute the statement
-            $stmt->bind_param("issssssssss", $user_id, $reporterName, $addressOffender, $eventDate, $eventTime, $eventDetails, $reportPurpose, $anonymous, $selectedreportTo, $selectedreportCategory, $myimage, $date);
+            $stmt->bind_param("isssssssssss", $user_id, $reporterName, $addressOffender, $eventDate, $eventTime, $eventDetails, $reportPurpose, $anonymous, $selectedreportTo, $selectedreportCategory, $myimage, $date);
             if ($stmt->execute()) {
                 echo "1"; // Success message
             } else {

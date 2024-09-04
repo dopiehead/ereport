@@ -28,7 +28,7 @@
        
        <label for="password">Password</label>
       <input type="password" name="password" id="password" class="form-control" placeholder="Enter your Password"><br>
-
+   
       <button class="btn btn-danger btn-signin form-control">Sign in</button>
 
       <?php include 'components/loader.php'; ?>

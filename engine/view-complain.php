@@ -3,7 +3,7 @@ include('configure.php');
 $conn = new Database();
 
 // Fetch comments
-$query = "SELECT * FROM complain WHERE parent_complain_id = '0' ORDER BY comment_id DESC";
+$query = "SELECT * FROM complain WHERE parent_complain_id = '0' ORDER BY complain_id DESC";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -71,7 +71,7 @@ function time_ago($date) {
 
 // Function to fetch and display reply comments
 function get_reply_comment($conn, $parent_id = 0, $marginleft = 0) {
-    $query = "SELECT * FROM comments WHERE parent_comment_id = ?";
+    $query = "SELECT * FROM complain WHERE parent_complain_id = ?";
     $statement = $conn->prepare($query);
     $statement->bind_param('i', $parent_id); // Bind integer parameter
     $statement->execute();

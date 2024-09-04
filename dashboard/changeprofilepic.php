@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../../engine/configure.php');
+include('configure.php');
 error_reporting(E_ALL ^ E_NOTICE);
 
 $conn = new Database();
@@ -9,7 +9,7 @@ date_default_timezone_set('Africa/Lagos');
 $user_id = $_SESSION['id'];
 $myid = $_POST['id'];
 
-$imageFolder = "../uploads/";
+$imageFolder = "uploads/";
 $basename = basename($_FILES["fileupload"]["name"]);
 $myimage = $imageFolder . $basename;
 $imageExtension = strtolower(pathinfo($myimage, PATHINFO_EXTENSION));

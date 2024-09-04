@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Prepare and execute the SQL statement
             $stmt = $conn->prepare("INSERT INTO comments (user_id, comment, parent_comment_id, comment_category, fileupload, comment_sender_name, date) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("issssss", $user_id, $comment, $comment_id, $comment_category, $myimage, $comment_sender_name, $date);
+            $stmt->bind_param("isissss", $user_id, $comment, $comment_id, $comment_category, $myimage, $comment_sender_name, $date);
 
             if ($stmt->execute()) {
                 echo "1";

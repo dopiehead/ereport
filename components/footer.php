@@ -322,7 +322,7 @@ $.ajax({
             swal({
 
                 title: "Error!",
-                text: response,
+                text: "Subscription Error",
                 icon: "error",
                 buttons: false,
                 timer: 2000

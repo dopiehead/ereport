@@ -31,7 +31,7 @@ while ($row = $result->fetch_assoc()) {
             </div>
         </div>
     </div><hr>';
-    $output .= get_reply_comment($conn, $row["comment_id"]);
+    $output .= get_reply_comment($conn, $row["protest_id"]);
 }
 
 echo $output;
