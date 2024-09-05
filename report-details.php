@@ -1,4 +1,16 @@
-<?php session_start(); // Start the session
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Reports / News</title>
+   <link href="https://fonts.cdnfonts.com/css/helvetica-neue-55" rel="stylesheet">
+   <?php  include 'components/links.php'; ?>
+<link rel="stylesheet" href="css/report-details.css"> 
+</head>
+<body>
+<?php  include 'components/layout.php'; ?>
+<?php  // Start the session
 
 if (isset($_SESSION['name']) && $_SESSION['name'] !== "") {
    $user_name =  $_SESSION['name']; 
@@ -12,19 +24,67 @@ else{
 }
 ?>
 
+<?php 
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $id = (int)$_GET['id']; // Ensure $id is an integer to prevent SQL injection
+
+    include('engine/configure.php');
+    $conn = new Database();
+
+    // Prepare the SQL statement
+    $sql = "SELECT * FROM report WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    
+    if ($stmt === false) {
+        die("Failed to prepare statement: " . $stmt->error); // Display the actual error
+    }
+
+    // Bind the parameter
+    $stmt->bind_param("i", $id);
+
+    // Execute the statement
+    if ($stmt->execute() === false) {
+        die("Failed to execute statement: " . $stmt->error); // Display the actual error
+    }
+
+    // Get the result set
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $title = htmlspecialchars(substr($row['eventDetails'], 0, 15)); // Use htmlspecialchars to prevent XSS
+            $content = htmlspecialchars($row['eventDetails']);
+            $date = htmlspecialchars($row['eventDate']);
+            $author = htmlspecialchars($row['reporterName']);          
+            $category = explode(" ", htmlspecialchars($row['reportCategory']));
+            
+            foreach ($category as $report) {
+                echo htmlspecialchars($report) . "<br>";
+            }
+            
+            $image = "uploads/" . htmlspecialchars($row['fileupload']);
+            echo "<div><h2>$title</h2><p>$content</p><p>Date: $date</p><p>Author: $author</p><img src='$image' alt='Report Image'></div>";
+        }
+    } else {
+        echo "No reports found for the given ID.";
+    }
+
+    // Close the statement and connection
+    $stmt->close();
+    $conn->close();
+} else {
+    echo "Invalid or missing ID.";
+}
+?>
 
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Reports / News</title>
-   <link href="https://fonts.cdnfonts.com/css/helvetica-neue-55" rel="stylesheet">
-   <?php  include 'components/links.php'; ?>
-<link rel="stylesheet" href="css/report-details.css"> 
-</head>
-<body>
-<?php  include 'components/layout.php'; ?>
+
+
+
+
+
+
+
 
 <!-- <div class="hero-section">
 
