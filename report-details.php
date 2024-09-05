@@ -1,4 +1,4 @@
-
+<?php session_start(); ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,10 +12,10 @@
 <?php  include 'components/layout.php'; ?>
 <?php  // Start the session
 
-if (isset($_SESSION['name']) && $_SESSION['name'] !== "") {
+if (isset($_SESSION['name']) && $_SESSION['name'] != "") {
    $user_name =  $_SESSION['name']; 
    $user_id =  $_SESSION['id']; 
-   $img_upload = $_SESSION['img']; 
+  
 
 } 
 else{
@@ -28,7 +28,7 @@ else{
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id']; // Ensure $id is an integer to prevent SQL injection
 
-    include('engine/configure.php');
+    include_once('engine/configure.php');
     $conn = new Database();
 
     // Prepare the SQL statement
@@ -121,14 +121,17 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
              
            <figure>
             <span>Featured Story</span>
-              <img src="<?php echo $row['fileupload'] ?>" alt="">
+              
+              <?php $thumbnailPath = 'dashboard/thumbnails/' . basename($image) . '.jpg';
+              ?>
+              <img src ="<?php echo $thumbnailPath ?>" >
               <figcaption>
-                <b><?php echo$row['title'] ?></b>       
+                <b><?php echo$title?></b>       
               </figcaption>
              
            </figure>
 <br>
-           <p class="p_details"><?php echo $row['eventDetails']; ?></p>
+           <p class="p_details"><?php echo $content; ?></p>
          
 <!----------------------comment---------------------->
 <div class="comment-button">
@@ -148,10 +151,22 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
      </div>
 
-      <div class="commenter"><img class="reporter" src="<?php echo $_SESSION['img']?>" alt=""> <span><?php echo $user_name; ?></span></div>
+      <div class="commenter">
+        
+      <?php 
+      if(isset($_SESSION['id'])){?>
+ <img class="reporter" src="<?php echo $_SESSION['img'] ?>" alt=""> <span><?php echo $user_name; ?></span>
+      <?php } else{ ?>
+
+        <div class="d-none">
+        <img class="reporter" src="<?php echo $_SESSION['img'] ?>" alt=""> <span><?php echo $user_name; ?></span>
+        </div>
+      <?php } ?>
+
+     </div>
         
 
-       <input type="hidden" name="comment_id" id="comment_id">
+       <input type="hidden" name="comment_id" id="comment_id" value="<?php echo $id ?>">
 
        <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
 
@@ -163,8 +178,16 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     
      <div class="button-comments">
 
-     <input type="file" name='fileupload' id='fileupload' class="btn bg-primary mr-1 border border-0 rounded-pill btn-file">
-     <input type="submit" class="btn btn-success" value="Send">
+     <!-- <input type="file" name='fileupload' id='fileupload' class="btn bg-primary mr-1 border border-0 rounded-pill btn-file"> -->
+     
+     <?php
+     if(isset($_SESSION['id'])){?>
+        <input type="submit" class="btn btn-success" value="Send">
+     <?php }else{?>
+        <a href="login.php?details=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>" class="btn btn-success">Login to continue</a>
+     <?php } ?>
+
+
      </div>
 
     </form>
@@ -176,69 +199,80 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         
         </div>
 
-
-
-
         <div class="col-md-6" >
 
-             <div class="other-news">
+        <?php 
 
-                 <div>
-                  <img src="assets/images/blog-y.jpg" alt="">
-                 </div>
+    $conn = new Database();
 
-                 <div class="other-news-details">
-                    <div>
-                          <small>21 Aug 2024</small>
+    // Prepare the SQL statement
+    $get_all = "SELECT * FROM report order by id desc limit 4";
+    $getreport = $conn->prepare($get_all);
+    
+    if ($getreport === false) {
+        die("Failed to prepare statement: " . $getreport->error); // Display the actual error
+    }
 
-                          <small>10 min read</small>
+    // Bind the parameter
+   
+
+    // Execute the statement
+    if ($getreport->execute() === false) {
+        die("Failed to execute statement: " . $getreport->error); // Display the actual error
+    }
+
+    // Get the result set
+    $result_report = $getreport->get_result();
+    
+    if ($result_report->num_rows > 0) {
+        while ($data = $result_report->fetch_assoc()) { 
+            
+            $thumbnailPath_all = 'dashboard/thumbnails/' . basename($data['fileupload']) . '.jpg';
+            $image = "uploads/" . htmlspecialchars($data['fileupload']); 
+       
+
+         
+
+            ?>
+    
+    
+
+     <div class="other-news">
+
+            <div> 
+                  
+                  <img src ="<?php echo $thumbnailPath_all ?>" alt="">
+             </div>
+
+             <div class="other-news-details">
+                     <div>
+                        <small><?php echo $data['date'] ?></small>
+
+                        <small>10 min read</small>
                      </div>
 
-                     <h6>Topic of Discussion</h6>
-                 </div>
+                        <h6><?php echo htmlspecialchars(substr($data['eventDetails'], 0, 15));?></h6>
+             </div>
 
-             </div>   
-             
-            <div class="col-md-6">
-             <div class="other-news">
+     </div>     
+          
+            
+           
+   <?php 
 
-                 <div>
-                  <img src="assets/images/blog-y.jpg" alt="">
-                 </div>
+        }
+    } else {
+        echo "No report(s) found .";
+    }
 
-                 <div class="other-news-details">
-                    <div>
-                          <small>21 Aug 2024</small>
+    // Close the statement and connection
+    $getreport->close();
+    $conn->close();
 
-                          <small>10 min read</small>
-                     </div>
-
-                     <h6>Topic of Discussion</h6>
-                 </div>
-
-             </div> 
-
-             <div class="other-news">
-
-                 <div>
-                  <img src="assets/images/blog-y.jpg" alt="">
-                 </div>
-
-                 <div class="other-news-details">
-                    <div>
-                          <small>21 Aug 2024</small>
-
-                          <small>10 min read</small>
-                     </div>
-
-                     <h6>Topic of Discussion</h6>
-                 </div>
-
-             </div> 
-
-
-
-               <div class="comment-show" id="comment-show">
+?>
+  
+   
+    <div class="comment-show" id="comment-show">
 
 
                 
@@ -255,6 +289,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         </div>
 
 </div>
+
+</div>
+
 <br>
 
 <div class="container">

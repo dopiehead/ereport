@@ -1,5 +1,4 @@
-<?php
-session_start();
+<?php session_start();
 include('configure.php');
 error_reporting(E_ALL ^ E_NOTICE);
 

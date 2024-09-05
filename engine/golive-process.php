@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php
 // A simple example for handling signaling messages.
 // In a real-world application, use a WebSocket server for better performance.

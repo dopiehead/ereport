@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <div id='missing-layout'>
 
 <?php 

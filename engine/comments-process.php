@@ -1,4 +1,6 @@
-<?php
+<?php session_start(); ?>
+
+<?php 
 include('configure.php');
 $conn = new Database();
 date_default_timezone_set('Africa/Lagos');
