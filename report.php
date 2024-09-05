@@ -51,13 +51,13 @@
 
               <div class="container time_posted">
                 
-                <select name="date_posted" id="date_posted" class="date_posted">
+                <select name="sort" id="sort" class="sort">
                   
-                   <option value="video">Recently added</option>
+                   <option value="recently_added">Recently added</option>
       
-                   <option value="audio">Most viewed</option>
+                   <option value="most_viewed">Most viewed</option>
       
-                   <option value="news">Most comment</option>
+                   <option value="most_comment">Most comment</option>
       
                </select>
              </div>

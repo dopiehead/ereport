@@ -41,6 +41,24 @@ $sql .= " AND(`eventDetails` LIKE '%".$text."%' OR `reportPurpose` LIKE '%".$tex
 
     } 
 }
+
+if(isset($_POST['sort'])){
+    $sort = $_POST['sort'];
+    if($sort=='recently_added'){
+        $sql.=" ORDER BY date DESC";
+    }
+
+    if($sort=='most_viewed'){
+        $sql.=" ORDER BY views DESC";
+    }
+
+    if($sort=='most_comment'){
+        $sql.=" ORDER BY comments DESC";
+    }
+}
+
+
+
 $sql .= "LIMIT ?, ?" ;
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ii",$initial_page, $num_per_page);
@@ -55,10 +73,7 @@ if (!$stmt->execute()) {
            
             // Generate thumbnail path based on file extension
             $thumbnailPath = 'dashboard/thumbnails/' . basename($videoPath) . '.jpg';
-            if (pathinfo($videoPath, PATHINFO_EXTENSION) === 'mov') {
-                $thumbnailPath = 'dashboard/thumbnails/' . basename($videoPath) . '.jpg';
-            }
-
+            
             // Ensure the thumbnail is generated
        
         ?>
@@ -87,27 +102,9 @@ $stmt->close();
 $total_stmt->close();
 $conn->close(); // Make sure to close the connection
 
-function generateThumbnail($videoPath, $thumbnailPath, $time = '00:00:01') {
-    global $ffmpeg;
 
-    // Check if the video file exists
- 
-    // Ensure the thumbnails directory exists and is writable
-    $thumbnailDir = dirname($thumbnailPath);
-    if (!is_dir($thumbnailDir)) {
-        mkdir($thumbnailDir, 0755, true); // Create the directory if it does not exist
-    }
 
-    try {
-        $video = $ffmpeg->open($videoPath);
-        $video->frame(\FFMpeg\Coordinate\TimeCode::fromSeconds(1))->save($thumbnailPath);
-        
-    } catch (\Exception $e) {
-      
-    }
-}
-
-function truncateToWordsUsingSubstr($string, $wordLimit = 30) {
+function truncateToWordsUsingSubstr($string, $wordLimit = 1) {
     // Split the string into an array of words
     $words = explode(' ', $string);
 
