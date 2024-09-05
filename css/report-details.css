@@ -122,6 +122,19 @@ height:120px;
        color:grey;
          }
 
+         
+    .top_stories div{
+        width:270px !important;
+        height:230px !important;
+         }
+          
+         .top_stories div img{
+            width:100% !important; 
+            height:100%;
+            object-fit: cover;
+             }
+
+
          .latest_stories {
           display:flex;
           justify-content:space-around;

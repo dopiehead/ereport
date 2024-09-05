@@ -28,7 +28,7 @@ else{
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id']; // Ensure $id is an integer to prevent SQL injection
 
-    include_once('engine/configure.php');
+    include('engine/configure.php');
     $conn = new Database();
 
     // Prepare the SQL statement
@@ -71,14 +71,48 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     // Close the statement and connection
     $stmt->close();
-    $conn->close();
+    
 } else {
     echo "Invalid or missing ID.";
 }
 ?>
 
 
+<?php
 
+function time_ago($date) {
+    // Create DateTime objects for the current time and the input date
+    $now = new DateTime();
+    $ago = new DateTime($date);
+    
+    // Subtract 1 hour from the current time
+    $now->modify('-1 hour');
+    
+    // Calculate the time difference
+    $interval = $now->diff($ago);
+    
+    // Determine the time ago
+    if ($interval->y > 0) {
+        return ($interval->y == 1) ? "A year ago" : $interval->y . " years ago";
+    } elseif ($interval->m > 0) {
+        return ($interval->m == 1) ? "A month ago" : $interval->m . " months ago";
+    } elseif ($interval->d > 0) {
+        return ($interval->d == 1) ? "Yesterday" : $interval->d . " days ago";
+    } elseif ($interval->h > 0) {
+        return ($interval->h == 1) ? "An hour ago" : $interval->h . " hours ago";
+    } elseif ($interval->i > 0) {
+        return ($interval->i == 1) ? "A minute ago" : $interval->i . " minutes ago";
+    } else {
+        return ($interval->s <= 5) ? "Just now" : $interval->s . " seconds ago";
+    }
+}
+
+
+
+
+
+
+?>
 
 
 
@@ -203,8 +237,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
         <?php 
 
-    $conn = new Database();
-
+     
+     $conn = new Database();
     // Prepare the SQL statement
     $get_all = "SELECT * FROM report order by id desc limit 4";
     $getreport = $conn->prepare($get_all);
@@ -307,7 +341,17 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <img src="assets/images/ads/ad4.png" alt="">
     
         </div>
+        <?php
+    
+    $conn = new Database();
+     
+    $topdiscussions = $conn->prepare("SELECT * FROM report order by views, date desc limit 8");
+     
+    $topdiscussions->execute();
 
+    $topstories = $topdiscussions->get_result();
+
+    ?>
 
 
 <br>
@@ -315,74 +359,86 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
      <div class="top_stories">
 
-        <div>
-           <img src="assets/images/blog-x.jpg" alt="">
-           <h6>Topic of Discussion</h6>
-           <small>Essential news <i class="fa fa-check"></i> </small>
-           <small>23k views .2 Days ago</small>
-        </div>
+ 
+<?php
+    while ($datatopstories= $topstories->fetch_assoc()){
+            $thumbnailPath_topstories = 'dashboard/thumbnails/' . basename($datatopstories['fileupload']) . '.jpg';
+            $image = "uploads/" . htmlspecialchars($datatopstories['fileupload']); 
+            ?>
 
-        <div>
-           <img src="assets/images/blog-x.jpg" alt="">
-           <h6>Topic of Discussion</h6>
+         <div>
+           <img src="<?php echo htmlspecialchars($thumbnailPath_topstories) ?>" alt="">
+           <h6><?php echo substr($datatopstories['eventDetails'],0,15) ?></h6>
            <small>Essential news <i class="fa fa-check"></i> </small>
-           <small>23k views .2 Days ago</small>
-        </div>
-
-        <div>
-           <img src="assets/images/blog-x.jpg" alt="">
-           <h6>Topic of Discussion</h6>
-           <small>Essential news <i class="fa fa-check"></i> </small>
-            <small>23k views .2 Days ago</small>
-        </div>
-
-        <div>
-           <img src="assets/images/blog-x.jpg" alt="">
-           <h6>Topic of Discussion</h6>
-           <small>Essential news <i class="fa fa-check"></i> </small>
-           <small>23k views .2 Days ago</small>
-        </div>
-
-        <div>
-           <img src="assets/images/blog-x.jpg" alt="">
-           <h6>Topic of Discussion</h6>
-           <small>Essential news <i class="fa fa-check"></i> </small>
-           <small>23k views .2 Days ago</small>
-        </div>
-
-        <div>
-           <img src="assets/images/blog-x.jpg" alt="">
-           <h6>Topic of Discussion</h6>
-           <small>Essential news <i class="fa fa-check"></i> </small>
-           <small>23k views .2 Days ago</small>
+           <small><?php echo$datatopstories['views']." views"." ". time_ago($datatopstories['date']) ?></small>
         </div>
 
 
+    <?php } ?>
 
     </div>
 
 
-     <br><br>
+     <br><br>  <br><br>  
   
-      <h6><b>Latest Stories</b></h6><br>
-         
+      <h6><b>Latest Stories</b></h6>
+      <?php
+    
+    $conn = new Database();
+     
+    $latestdiscussions = $conn->prepare("SELECT * FROM report order by id desc limit 1");
+     
+    $latestdiscussions->execute();
+
+    $lateststories =  $latestdiscussions->get_result();
+
+while ($datalateststories= $lateststories->fetch_assoc()){
+        $thumbnailPath_lateststories = 'dashboard/thumbnails/' . basename($datalateststories['fileupload']) . '.jpg';
+        $image = "uploads/" . htmlspecialchars($datalateststories['fileupload']); 
+        $reportername = $datalateststories['reporterName'];
+        $details = $datalateststories['eventDetails'];
+        $date = $datalateststories['date'];
+        $reporterid = $datalateststories['user_id'];
+
+   } ?>
+      
+      <?php
+    
+    $conn = new Database();
+     
+    $latestdiscussionsreporter = $conn->prepare("SELECT * FROM user_profile where id =?");
+
+    $latestdiscussionsreporter->bind_param("i",$reporterid);
+     
+    $latestdiscussionsreporter->execute();
+
+    $lateststoriesreporter =  $latestdiscussionsreporter->get_result();
+
+while ($datalateststoriesreporter= $lateststoriesreporter->fetch_assoc()){
+       
+        $reporterpic = $datalateststoriesreporter['img_upload'];
+
+   } ?>    
+
+
+
 
      <div class="row">
 
          <div class="col-md-6 latest_stories">
           
              <div>
-                 <img class="reporter" src="assets/images/IMG_E7548.jpg" alt="">
+                 <img class="reporter" src="<?php echo$reporterpic  ?>" alt="">
           
-                 <span class="reporter_name">Adewale Musa</span> <br>
+                 <span class="reporter_name"><?php echo htmlspecialchars($reportername) ?></span> <br>
 
                  <h6>Top reports in your area</h6>
 
-                 <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, incidunt debitis. Maiores vero iste tenetur eligendi delectus id in iure velit adipisci, eius quasi molestiae magnam, nam, perspiciatis possimus reprehenderit!</small>
+                 <small><?php  echo htmlspecialchars($details) ?></small>
 <br><br>
                  <div class="read">
                                    
-                     <p>July 20th 2024</p>
+                     <p><?php  echo htmlspecialchars(time_ago($date)) ?></p>
 
                      <p>10 min read</p>
             
@@ -392,7 +448,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
              <div class="latest_stories_img">
 
-                 <img src="assets/images/blog-z.jpg" alt="">
+                 <img src="<?php echo  $thumbnailPath_lateststories ?>" alt="">
 
              </div>
 
@@ -404,60 +460,50 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
          <div class="col-md-6" class="upcoming_streams">
 
+         <?php  
 
-                       
-                 <div class="upcoming_details">
+$conn = new Database();
+
+$upcoming = "SELECT * FROM report ORDER BY views ASC, date DESC LIMIT 2";
+
+$statement = $conn->prepare($upcoming);
+
+$statement->execute();
+
+$result = $statement->get_result();
+
+while($rowupcoming = $result->fetch_assoc()){
+
+    // Correcting the path for the thumbnail image
+    $thumbnailPath_upcoming = 'dashboard/thumbnails/' . basename($rowupcoming['fileupload']) . '.jpg';
+    $image = "uploads/" . htmlspecialchars($rowupcoming['fileupload']); 
+?>
+ 
+ <div class="upcoming_details">
                    
-                     <div>
-                         <img src="assets/images/blog.jpg" alt="">
-                     </div>
+    <div>
+        <img src="<?php echo htmlspecialchars($thumbnailPath_upcoming); ?>" alt="Thumbnail">
+    </div>
 
-                     <div>
-                        
-                         <div class="upcoming_read">
+    <div>
+        <div class="upcoming_read">
+            <p><?php echo htmlspecialchars($rowupcoming["date"]); ?></p> 
+            <p>10 mins read</p>
+        </div> 
+        <h6>Topic of Discussion</h6>
+    </div>
 
-                                <p>Aug 21 2024</p>
-                                <p>10 mins read</p>
+ </div>
 
-                          </div> 
-
-                        <h6>Topic of Discussion</h6>
-
-                     </div>
-
-                 </div>
-
-
-
-
-                 <div class="upcoming_details">
-                   
-                   <div>
-                       <img src="assets/images/blog.jpg" alt="">
-                   </div>
-
-                   <div>
-                      
-                       <div class="upcoming_read">
-
-                              <p>Aug 21 2024</p>
-                              <p>10 mins read</p>
-
-                        </div> 
-
-                      <h6>Topic of Discussion</h6>
-
-                   </div>
-
-               </div>
+<?php
+}
+?>
+             
+               
 
 
 
-
-
-
-
-
+<!-- 
                  <div class="upcoming_details">
                    
                    <div>
@@ -477,7 +523,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                    </div>
 
-               </div>
+               </div> -->
+
+
+
+
+
+
+
 
 
 
@@ -651,7 +704,7 @@ $(document).on('click', '.dislikes', function() {
             $(document).on('click', '.close', function(){
                 $(".popup").hide();
     });
-});
+
 </script>
             
 
