@@ -59,11 +59,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             $category = explode(" ", htmlspecialchars($row['reportCategory']));
             
             foreach ($category as $report) {
-                echo htmlspecialchars($report) . "<br>";
+               $news = htmlspecialchars($report) . "<br>";
             }
             
             $image = "uploads/" . htmlspecialchars($row['fileupload']);
-            echo "<div><h2>$title</h2><p>$content</p><p>Date: $date</p><p>Author: $author</p><img src='$image' alt='Report Image'></div>";
+            
         }
     } else {
         echo "No reports found for the given ID.";
@@ -121,14 +121,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
              
            <figure>
             <span>Featured Story</span>
-              <img src="assets/images/group.jpg" alt="">
+              <img src="<?php echo $row['fileupload'] ?>" alt="">
               <figcaption>
-                <b>Topic of Discussion</b>       
+                <b><?php echo$row['title'] ?></b>       
               </figcaption>
              
            </figure>
 <br>
-           <p class="p_details">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, expedita! Ut, ex expedita nesciunt beatae blanditiis aliquam enim facilis possimus, consequatur eius soluta neque? Ex dicta nostrum earum quae porro?</p>
+           <p class="p_details"><?php echo $row['eventDetails']; ?></p>
          
 <!----------------------comment---------------------->
 <div class="comment-button">
