@@ -11,27 +11,29 @@ $result = $stmt->get_result();
 
 $output = '';
 while ($row = $result->fetch_assoc()) {
-    $output .= '<div class="comment-box">
-        <img src="assets/images/IMG_E7548.jpg" alt="">
-        <span class="status"><i class="fa fa-circle"></i></span>
-        <span class="commenter-name">' . htmlspecialchars($row["complain_sender_name"]) . '</span>
-        <p>' . htmlspecialchars($row["complain"]) . '</p>
-        <div class="comment-options">
-            <div class="smiley"><i class="fa-regular fa-face-smile"></i></div>
-            <div class="comment-likes">
-                <i id="' . $row['complain_id'] . '" class="likes fa-regular fa-thumbs-up"></i>' . $row["likes"] . '
-            </div>
-            <div class="comment-ban">
-                <i id="' . $row['complain_id'] . '" class="dislikes fa fa-ban"></i>' . $row["unlikes"] . '
-            </div>
-            <div class="comment-reply">
-                <button type="button" class="btn btn-default reply" id="' . $row["complain_id"] . '" onClick="reply()">Reply</button>
-            </div>
-            <div class="comment_reply_time">
-                <span class="comment-time">' . htmlspecialchars(time_ago($row['date'])) . '</span>
-            </div>
+    $output .= '<div class="user-container">
+        <div>
+           <img src="assets/images/IMG_E7548.jpg" alt="">
+           <span class="user_name">' . htmlspecialchars($row["complain_sender_name"]) . '</span>
         </div>
-    </div><hr>';
+
+         <div>
+            <span class="user_time">' . htmlspecialchars(time_ago($row['date'])) . '</span>
+         </div>
+
+         </div>
+
+        <p>' . htmlspecialchars($row["complain"]) . '</p>
+
+  <span class="heart p-4 likes"> <i id="' . $row['complain_id'] . '" class="likes fa-regular fa-thumbs-up"></i>' . $row["likes"] . '</span>   
+  
+  <span class="hand p-3 dislikes"> <i id="' . $row['complain_id'] . '" class="dislikes fa fa-hand"></i>' . $row["unlikes"] . '</span> 
+  
+  <span class="reply p-3"><a class="reply"  id="' . $row["complain_id"] . '"  onClick="reply()">Reply</a></span>
+
+  </div>
+
+  </div><hr>';
     $output .= get_reply_comment($conn, $row["complain_id"]);
 }
 
@@ -83,27 +85,29 @@ function get_reply_comment($conn, $parent_id = 0, $marginleft = 0) {
     
     if ($count > 0) {
         while ($row = $result->fetch_assoc()) {
-            $output .= '<div class="comment-box" style="margin-left:' . $marginleft . 'px">
-                <img src="assets/images/IMG_E7548.jpg" alt="">
-                <span class="status"><i class="fa fa-circle"></i></span>
-                <span class="commenter-name">' . htmlspecialchars($row["complain_sender_name"]) . '</span>
-                <p>' . htmlspecialchars($row["complain"]) . '</p>
-                <div class="comment-options">
-                    <div class="smiley"><i class="fa-regular fa-face-smile"></i></div>
-                    <div class="comment-likes">
-                        <i id="' . $row['complain_id'] . '" class="likes fa-regular fa-thumbs-up"></i>' . $row["likes"] . '
-                    </div>
-                    <div class="comment-ban">
-                        <i id="' . $row['complain_id'] . '" class="dislikes fa fa-ban"></i>' . $row["unlikes"] . '
-                    </div>
-                    <div class="comment-reply">
-                        <button type="button" class="btn btn-default reply" id="' . $row["comment_id"] . '" onClick="reply()">Reply</button>
-                    </div>
-                    <div class="comment_reply_time">
-                        <span class="comment-time">' . htmlspecialchars(time_ago($row['date'])) . '</span>
-                    </div>
-                </div>
-            </div><hr>';
+            $output .= '<div class="user-container" style="margin-left:' . $marginleft . 'px">
+                  <div>
+           <img src="assets/images/IMG_E7548.jpg" alt="">
+           <span class="user_name">' . htmlspecialchars($row["complain_sender_name"]) . '</span>
+        </div>
+
+         <div>
+            <span class="user_time">' . htmlspecialchars(time_ago($row['date'])) . '</span>
+         </div>
+
+         </div>
+
+        <p>' . htmlspecialchars($row["complain"]) . '</p>
+
+  <span class="heart p-4 likes"> <i id="' . $row['complain_id'] . '" class="likes fa-regular fa-thumbs-up"></i>' . $row["likes"] . '</span>   
+  
+  <span class="hand p-3 dislikes"> <i id="' . $row['complain_id'] . '" class="dislikes fa fa-hand"></i>' . $row["unlikes"] . '</span> 
+  
+  <span class="reply p-3"><a class="reply"  id="' . $row["complain_id"] . '"  onClick="reply()">Reply</a></span>
+
+  </div>
+
+  </div><hr>';
             $output .= get_reply_comment($conn, $row["coomplain_id"], $marginleft + 25);
         }
     }

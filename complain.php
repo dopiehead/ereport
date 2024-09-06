@@ -39,8 +39,12 @@ else{
             
          <div class="complain-comment-container mx-3">
 
-         <img class="user_image mr-2 mb-2" src="assets/images/IMG_E7548.jpg" alt=""><span class="user_name">Name</span>
-        
+        <?php if(isset($_SESSION['id']) && file_exists($_SESSION['img'])){?>
+            <img class="user_image mr-2 mb-2" src="<?php echo$_SESSION['img'] ?>" alt=""><span class="user_name"><?php echo $_SESSION['name'] ?></span>        
+        <?php } else { ?>
+             <i class="fa fa-user-alt user_image mr-2 mb-2"></i> <span class="user_name">John Smith</span>        
+        <?php }?>
+       
          <form id="complainForm">
              
          <input type="hidden" name="complain_id" id="complain_id"> 
@@ -52,10 +56,19 @@ else{
             <textarea name="complain" style="font-size:13px;" id="complain" class="form-control" wrap="physical" placeholder="...Write a complain" rows="5" ></textarea> 
 
             <div class="d-flex justify-content-space-between align-items-center">
+
+            <?php if(isset($_SESSION['id'])){ ?>
             <button class="btn-comment mt-3 w-50 mr-3">Post <i class="fa fa-chevron-right"></i></button>
-            <label class="btn-comment mt-3 w-50 p-1 d-flex justify-content-center align-items-center gap-5">
-               Upload Photo<i class="fa fa-camera ml-3"></i>
-               <input type="file" name="fileupload" id="fileupload" class="d-none">
+       <?php } else{ ?> 
+        <a href="sign-in.php?details='<?php echo urlencode($_SERVER['REQUEST_URI'])?>'" class="btn btn-primary mt-3 w-50 mr-3">login to continue <i class="fa fa-chevron-right"></i></a>
+           <?php } ?>
+
+            <label class="btn-comment mt-3 w-50 p-2 d-flex justify-content-center align-items-center gap-5">
+              <span id="file-label"> Upload Photo<i class="fa fa-camera ml-3"></i></span> <span id="fileName">
+    
+    </span>
+               <input type="file" name="fileupload" id="fileupload" class="d-none" accept="image/*"  onchange="updateFileName(this)">
+               
 </label>
             <form>
          </div>
@@ -72,7 +85,7 @@ else{
                      </div>
                </div>
               <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio adipisci laboriosam odio voluptas cum blanditiis provident laudantium aperiam a sunt! Libero minus corrupti animi inventore tenetur velit, modi veniam id.</p>
-              <span class="heart p-4 likes"><i class="fa fa-heart"></i> </span>   <span class="hand p-3 dislikes"><i class="fa fa-hand"></i> </span> <span class="reply p-3"><a class="reply">Reply</a></span>
+            
          
          </div>
 
@@ -223,6 +236,24 @@ $(document).on('click', '.dislikes', function() {
     });
 });
 </script>
-            
+           
+
+
+<script type="text/javascript">
+  
+function updateFileName(input) {
+var fileName = input.files[0].name;
+  document.getElementById('file-label').innerText = fileName;
+}
+
+</script>
+
+
+
+
+
+
+
+
 </body>
 </html>

@@ -8,16 +8,16 @@ class UserAuth {
        // Start the session at the beginning
     }
 
-    public function register($name, $email, $password, $img_upload, $country, $whatsapp, $location, $facebook, $twitter, $linkedin, $instagram, $verified, $blacklist, $date, $vkey) {
+    public function register($name, $email, $password, $img_upload, $country, $whatsapp , $location, $facebook, $twitter, $linkedin, $instagram, $blacklist, $date, $verified, $vkey) {
         $hash_password = password_hash($password, PASSWORD_BCRYPT);
-        $sql = "INSERT INTO user_profile (name, email, password, img_upload, verified, country, whatsapp, location, facebook, twitter, linkedin, instagram, veriied, blacklist, date, vkey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO user_profile (name, email, password, img_upload, country, whatsapp, location, facebook, twitter, linkedin, instagram, blacklist, date, verified, vkey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         
         if ($stmt === false) {
             throw new Exception("Failed to prepare SQL statement.");
         }
 
-        $stmt->bind_param("ssssssssssssiiss", $name, $email, $hash_password, $img_upload, $country, $whatsapp, $location, $facebook, $twitter, $linkedin, $instagram, $verified, $blacklist, $date, $vkey);
+        $stmt->bind_param("sssssssssssiiss", $name, $email, $hash_password, $img_upload, $country, $whatsapp, $location, $facebook, $twitter, $linkedin, $instagram, $blacklist, $date, $verified, $vkey);
         $success = $stmt->execute();
         $stmt->close();
         

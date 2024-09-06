@@ -25,7 +25,7 @@
 
      </div>
 
-     <div class="form-container">
+     <div class="form-container mt-5">
 
      <form id="create-account">
 
@@ -38,6 +38,8 @@
       <input type="password" name="password" class="form-control" placeholder="Enter your Password"><br>
 
       <input type="password" name="cpassword" class="form-control" placeholder="Confirm your Password"><br>
+
+      <input type="hidden" name="img_upload" id="img_upload" value="0">
 
       <input type="hidden" name="blacklist" value="0">
    
@@ -57,8 +59,7 @@
    
       <input type="hidden" name="verified" value="0">
 
-      <input type="hidden" name="img_upload" id="img_upload" value="0">
-
+    
       <button class="btn btn-danger btn-signup form-control">Sign Up</button>
        
       <?php include 'components/loader.php'; ?>

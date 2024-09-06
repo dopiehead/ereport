@@ -1,6 +1,6 @@
 .header{
 color:rgb(223, 223, 223);
-padding:3px;
+padding:0;
 position:fixed;
 top:0;
 width:100%;
@@ -17,6 +17,19 @@ align-items: center;
 
 
 }
+
+
+.header ul .logo{
+margin-left: -35px;
+   
+       }
+
+.header ul .logo a img{
+    height:90px;
+    width:120px;
+    object-fit:cover;
+   
+       }
 
 .header ul li{
 list-style:none;
@@ -80,7 +93,7 @@ display:none;
 
 @media only screen and (max-width: 789px) {
     .header ul .logo{
-     margin-left:-50px;
+     margin-left:-70px;
      z-index:9;
     
         }
@@ -120,7 +133,7 @@ color: rgb(7, 5, 112);
 }
 
 .header ul .logo a:hover{
-    background-color:white !important;
+  
     color:blue !important;
     text-decoration: none  !important;
     transition: background-color 0.3s ease;

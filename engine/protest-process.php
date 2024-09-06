@@ -7,14 +7,14 @@ date_default_timezone_set('Africa/Lagos');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve user inputs
     $user_id = intval($_POST['user_id']); // Ensure user_id is an integer
-    $protest = htmlspecialchars(trim($_POST['protest'])); // Sanitize and trim comment
-    $protest_sender_name = htmlspecialchars(trim($_POST['name'])); // Sanitize and trim sender name
+    $protest = htmlspecialchars(trim($_POST['protest'])) ?? null ; // Sanitize and trim comment
+    $protest_sender_name = htmlspecialchars(trim($_POST['name'])) ?? null ; // Sanitize and trim sender name
     $protest_id = intval($_POST['protest_id']); // Ensure comment_id is an integer
     // Sanitize and trim category
     
     // Handle file upload
     $imageFolder = "../report-uploads/";
-    $basename = basename($_FILES["fileupload"]["name"]);
+    $basename = basename($_FILES["fileupload"]["name"]) ?? null ;
     $myimage = $imageFolder . $basename;
     $imageExtension = strtolower(pathinfo($myimage, PATHINFO_EXTENSION));
     $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif']; // Example allowed extensions

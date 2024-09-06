@@ -2,7 +2,7 @@
  <div class="header">
 
      <ul>
-         <li class="logo"><a href="index.php">LOGO</a></li>
+         <li class="logo"><a href="index.php"><img src="logo.png"></a></li>
          <li style="visibility:hidden"><a href="#">home</a></li>
          <li class="faq"><a href="faq.php">faq</a></li>
          <li class="categories"><a href="categories.php">categories</a></li>

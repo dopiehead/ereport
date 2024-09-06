@@ -143,7 +143,16 @@ else{ ?>
 
      <div class="row">
 
-         <div class="col-md-6">
+         <div class="col-md-4">
+
+         <label for="Title of Event"  class="mb-2 mt-3 fw-bold">Title of Event</label>
+
+         <input type="text" name="eventTitle" class="form-control" placeholder="Event title">
+
+        </div>
+
+
+         <div class="col-md-4">
 
               <label for="Date of Event"  class="mb-2 mt-3 fw-bold">Date of Event</label>
  
@@ -151,7 +160,7 @@ else{ ?>
 
          </div>
 
-         <div class="col-md-6">
+         <div class="col-md-4">
 
               <label for="Time of Event"  class="mb-2 mt-3 fw-bold">Time of Event</label>
 
@@ -164,7 +173,7 @@ else{ ?>
                   
                        <label for="Details of Event"  class="mb-2 mt-3 fw-bold">Details of Event</label>
 
-                      <input type="text" name="eventDetails"  class="form-control w-100" placeholder="Text Here">
+                      <textarea  name="eventDetails"  class="form-control w-100" placeholder="....Write details" rows="4" wrap="physical"></textarea>
 
                       <label for="Purpose of reporting"  class="mb-2 mt-3 fw-bold">Purpose of reporting</label>
 
@@ -467,6 +476,8 @@ var formdata = new FormData();
        $('#bom').load(location.href + " #my");
     $("#reportForm")[0].reset();
     $("input:file").val("");
+    $('input:file').val(''); // This will generally not work
+    $('input:file').replaceWith($('input:file').clone(true)); 
 }
 
 else

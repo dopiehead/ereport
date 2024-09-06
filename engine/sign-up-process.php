@@ -10,18 +10,17 @@ $name = $_POST['name'] ?? ''; // Use null coalescing operator to provide a defau
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 $cpassword = $_POST['cpassword'] ?? '';
-$verified = $_POST['verified'] ?? '0'; // Default to '0' if not set
+// Default to '0' if not set
+$country = $_POST['country'] ??'0';
 $img_upload = $_POST['img_upload'] ??'0';
 $blacklist = $_POST['blacklist'] ??'0';
-$country = $_POST['country'] ??'0';
 $whatsapp = $_POST['whatsapp'] ??'0';
 $location = $_POST['location'] ??'0';
 $facebook = $_POST['facebook'] ??'0';
 $twitter = $_POST['twitter'] ??'0';
 $linkedin = $_POST['linkedin'] ??'0';
 $instagram = $_POST['instagram'] ??'0';
-
-
+$verified = $_POST['verified'] ?? '0'; 
 $date = date("D, F d, Y g:iA", strtotime('+1 hours'));
 $vkey = md5(time() . $email);
 
@@ -38,7 +37,7 @@ elseif ($password !== $cpassword) {
 }
 
 if (empty($errors)) {
-    if ($UserAuth->register($name, $email, $password,$img_upload,$verified, $date, $vkey)) {
+    if ($UserAuth->register($name, $email, $password, $img_upload, $country, $whatsapp , $location, $facebook, $twitter, $linkedin, $instagram, $blacklist, $date, $verified, $vkey)) {
         echo "1";
         exit();
     } else {
