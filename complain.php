@@ -1,14 +1,14 @@
-<?php session_start(); // Start the session
-error_reporting(E_ALL ^ E_NOTICE);
-if (isset($_SESSION['name']) && $_SESSION['name'] !== "") {
-   $user_name =  $_SESSION['name']; 
-   $user_id =  $_SESSION['id']; 
-   $img_upload = $_SESSION['img']; 
+<?php 
+session_start();
 
-} 
-else{
-    $user_name = "John Smith";
-    $img_upload = "<i class='fa fa-user-alt'></i>";
+$user_name = "John Smith";
+$img_upload = "<i class='fa fa-user-alt'></i>";
+$user_id = null;
+
+
+if (isset($_SESSION['name']) && isset($_SESSION['id'])) {
+   $user_name = htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8'); 
+   $user_id = $_SESSION['id']; 
 }
 ?>
 
@@ -39,11 +39,21 @@ else{
             
          <div class="complain-comment-container mx-3">
 
-        <?php if(isset($_SESSION['id']) && file_exists($_SESSION['img'])){?>
-            <img class="user_image mr-2 mb-2" src="<?php echo$_SESSION['img'] ?>" alt=""><span class="user_name"><?php echo $_SESSION['name'] ?></span>        
-        <?php } else { ?>
-             <i class="fa fa-user-alt user_image mr-2 mb-2"></i> <span class="user_name">John Smith</span>        
-        <?php }?>
+         <?php 
+if (isset($_SESSION['id'])): 
+    // Sanitize session variables
+    $user_name = htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8');
+    $user_img = htmlspecialchars($_SESSION['img'], ENT_QUOTES, 'UTF-8');
+    
+?>
+
+    <img class="user_image mr-2 mb-2" src="<?php  echo 'dashboard/'.$user_img; ?>" alt=""><span class="user_name"><?php echo $user_name; ?></span>        
+
+<?php else: ?>
+
+    <i class="fa fa-user-alt user_image mr-2 mb-2"></i> <span class="user_name">John Smith</span>    
+
+<?php endif; ?>
        
          <form id="complainForm">
              

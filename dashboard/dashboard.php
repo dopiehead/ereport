@@ -166,7 +166,7 @@ $(".fa-bars").on('click', function() {
 <script type="text/javascript">
 
 $("#loading-image").hide();
-$(".table-container").load("read-report.php?page=1");
+$(".table-container").load("read-report.php");
 $("#q").on('keyup',function() {
 var x = $('#q').val();
 if (x=='') {$("#reset").hide();}

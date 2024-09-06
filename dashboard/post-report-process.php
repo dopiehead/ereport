@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle multiple reportTo and reportCategory values
     $selectedreportTo = isset($_POST['reportTo']) ? implode(', ', $_POST['reportTo']) : '';
     $selectedreportCategory = isset($_POST['reportCategory']) ? implode(', ', $_POST['reportCategory']) : '';
-
+    $date = date("D, F d, Y g:iA");
     // File upload handling
     $imageFolder = "report_uploads/";
     $basename = $_FILES['fileupload']['name'] ?? '';
@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($uploadSuccess) {
-        $date = date("D, F d, Y g:iA");
+ 
 
         // Prepare the SQL statement
         $stmt = $conn->prepare("INSERT INTO report (user_id, reporterName, eventTitle, addressOffender, eventDate, eventTime, eventDetails, reportPurpose, anonymous, reportTo, reportCategory, fileupload, images, comments, views, pending, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $selectedreportCategory = htmlspecialchars($selectedreportCategory, ENT_QUOTES, 'UTF-8');
 
         // Bind parameters
-        $stmt->bind_param("isssssssssssssiii", $user_id, $reporterName, $eventTitle, $addressOffender, $eventDate, $eventTime, $eventDetails, $reportPurpose, $anonymous, $selectedreportTo, $selectedreportCategory, $myimage, $myimagex, $comments, $views, $pending, $date);
+        $stmt->bind_param("isssssssssssssiis", $user_id, $reporterName, $eventTitle, $addressOffender, $eventDate, $eventTime, $eventDetails, $reportPurpose, $anonymous, $selectedreportTo, $selectedreportCategory, $myimage, $myimagex, $comments, $views, $pending, $date);
 
         if ($stmt->execute()) {
             echo "1"; // Success message

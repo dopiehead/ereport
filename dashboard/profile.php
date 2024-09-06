@@ -81,9 +81,11 @@ if (!in_array($extension , $image_extension)) {
     $_SESSION['img'] = "<i style='font-size:20px;color:black;' class='fa fa-user-alt' ></i>";
 echo$_SESSION['img']; }
 else{ ?>
-    <div id="bom"><div id="my">
+    <div id="bom">
+        <div id="my">
    <img class="profile_pic" src="<?php echo $_SESSION['img']; ?>" alt="image">
-   </div></div>
+   </div>
+</div>
 <?php }  } 
 ?>
 
@@ -291,7 +293,7 @@ let formdata = new FormData();
    $.ajax({
            type: "POST",
 
-           url: "engine/changeprofilepic.php",
+           url: "changeprofilepic.php",
 
            data:new FormData(this),
 

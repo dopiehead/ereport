@@ -20,13 +20,7 @@ $session->checkLogin(); // Check if the user is logged in
     <link rel="stylesheet" href="../css/dashboard/post-report.css">
     <link rel="stylesheet" href="../css/dashboard/profile_pic.css">
     <link rel="stylesheet" href="../css/loader.css">
-    
-    
-    <style>
-        body{
-        font-family:poppins;
-        }
-    </style>
+  
 </head>
 <body>
     <div class="dashboard">
@@ -111,9 +105,7 @@ else{ ?>
 
 <!-------------------------  menu     -------------------------------->
 <div class="d-flex justify-content-end aign-items-end">
-
-
-
+    
 </div>  
 
 <div class="page_1">
@@ -275,7 +267,7 @@ else{ ?>
 <label class="form-control p-5 w-100 text-center bg-light">
 <small  id="file-labelx"  style="font-size: 14px;padding: 1px;background-color: rgba(0,0,0,0.6);color: white;">Choose a file</small><br></span>
 <span id="fileNamex"></span>
-<input style="display: none;" type="file" class="form-control" name="imager" accept="image/*" onchange="updateFileNameAndPreview(this)">
+<input style="display: none;" type="file" class="form-control" name="imager" id="imager" accept="image/*" onchange="updateFileNameAndPreview(this)">
 </label>
 
 <div class="d-flex justify-content-center align-items-center">
@@ -475,9 +467,9 @@ var formdata = new FormData();
         });
        $('#bom').load(location.href + " #my");
     $("#reportForm")[0].reset();
-    $("input:file").val("");
-    $('input:file').val(''); // This will generally not work
-    $('input:file').replaceWith($('input:file').clone(true)); 
+    $("#imager").val("");
+    $('#fileInput').val(''); // This will generally not work
+    $('#fileInput').replaceWith($('#fileInput').clone(true)); 
 }
 
 else
@@ -487,7 +479,8 @@ else
             text:response
 
            });
-            // $("#reportForm")[0].reset();      
+           $('#fileInput').val(''); // This will generally not work
+           $('#fileInput').replaceWith($('#fileInput').clone(true));     
 
             }
  }

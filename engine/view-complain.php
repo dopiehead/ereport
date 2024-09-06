@@ -108,7 +108,7 @@ function get_reply_comment($conn, $parent_id = 0, $marginleft = 0) {
   </div>
 
   </div><hr>';
-            $output .= get_reply_comment($conn, $row["coomplain_id"], $marginleft + 25);
+            $output .= get_reply_comment($conn, $row["complain_id"], $marginleft + 25);
         }
     }
     

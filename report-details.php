@@ -52,7 +52,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $title = htmlspecialchars(substr($row['eventDetails'], 0, 15)); // Use htmlspecialchars to prevent XSS
+            $title = htmlspecialchars(substr($row['eventTitle'], 0, 15)); // Use htmlspecialchars to prevent XSS
             $content = htmlspecialchars($row['eventDetails']);
             $date = htmlspecialchars($row['eventDate']);
             $author = htmlspecialchars($row['reporterName']);          
@@ -132,7 +132,7 @@ function time_ago($date) {
 
 </div> -->
 
-<br><br><br><br>
+<br><br><br><br><br><br>
 
 
 <div class="container">
@@ -158,7 +158,7 @@ function time_ago($date) {
               
               <?php $thumbnailPath = 'dashboard/thumbnails/' . basename($image) . '.jpg';
               ?>
-              <img src ="<?php echo $thumbnailPath ?>" >
+              <a id="<?php echo$id ?>" class="btn-play"><img src ="<?php echo $thumbnailPath ?>" ></a>
               <figcaption>
                 <b><?php echo$title?></b>       
               </figcaption>
@@ -260,6 +260,8 @@ function time_ago($date) {
     
     if ($result_report->num_rows > 0) {
         while ($data = $result_report->fetch_assoc()) { 
+
+            
             
             $thumbnailPath_all = 'dashboard/thumbnails/' . basename($data['fileupload']) . '.jpg';
             $image = "uploads/" . htmlspecialchars($data['fileupload']); 
@@ -285,7 +287,7 @@ function time_ago($date) {
                         <small>10 min read</small>
                      </div>
 
-                        <h6><?php echo htmlspecialchars(substr($data['eventDetails'], 0, 15));?></h6>
+                        <h6><?php echo htmlspecialchars(substr($data['eventTitle'], 0, 15));?></h6>
              </div>
 
      </div>     
@@ -368,7 +370,7 @@ function time_ago($date) {
 
          <div>
            <img src="<?php echo htmlspecialchars($thumbnailPath_topstories) ?>" alt="">
-           <h6><?php echo substr($datatopstories['eventDetails'],0,15) ?></h6>
+           <h6><?php echo substr($datatopstories['eventTitle'],0,15) ?></h6>
            <small>Essential news <i class="fa fa-check"></i> </small>
            <small><?php echo$datatopstories['views']." views"." ". time_ago($datatopstories['date']) ?></small>
         </div>
@@ -490,7 +492,7 @@ while($rowupcoming = $result->fetch_assoc()){
             <p><?php echo htmlspecialchars($rowupcoming["date"]); ?></p> 
             <p>10 mins read</p>
         </div> 
-        <h6>Topic of Discussion</h6>
+        <h6>T<?php echo htmlspecialchars($rowupcoming["eventTitle"]); ?></h6>
     </div>
 
  </div>
@@ -500,7 +502,14 @@ while($rowupcoming = $result->fetch_assoc()){
 ?>
              
                
+             <div class="popup" id="popup">
 
+<a class="close" id="close">&times;</a>
+
+<div class="video-player">
+
+
+</div>
 
 
 <!-- 
@@ -691,7 +700,7 @@ $(document).on('click', '.dislikes', function() {
             $(document).on('click', '.btn-play', function(){
                 let id = $(this).attr('id');
                 $.ajax({
-                    url: "uploaded-video.php",
+                    url: "dashboard/uploaded-video.php",
                     method: "POST",
                     data: { 'id': id },
                     success: function(data){

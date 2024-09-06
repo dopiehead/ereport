@@ -219,7 +219,7 @@ height:120px;
             .ads-right{
                 display:block;
                 position: absolute;
-                top:50px !important;
+                top:70px !important;
                 margin-top:40px;
                 right:5px;
                 width:180px;
@@ -421,4 +421,19 @@ height:120px;
         padding:3px 10px;
         }
     
-    
+        
+#popup{
+    background-color: white;  
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 450px;
+    height:380px;
+    padding:5px;
+    z-index: 9;
+    box-shadow: 0 5px 30px rgba(0,0,0,.30);
+    background: #fff;
+    display:none;
+    transition: 0.3s;
+    }

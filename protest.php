@@ -1,14 +1,11 @@
-<?php session_start(); // Start the session
-error_reporting(E_ALL ^ E_NOTICE);
-if (isset($_SESSION['name']) && $_SESSION['name'] !== "") {
-   $user_name =  $_SESSION['name']; 
-   $user_id =  $_SESSION['id']; 
-   $img_upload = $_SESSION['img']; 
-
-} 
-else{
-    $user_name = "John Smith";
-    $img_upload = "<i class='fa fa-user-alt'></i>";
+<?php 
+session_start(); 
+$user_name = "John Smith";
+$img_upload = "<i class='fa fa-user-alt'></i>";
+$user_id = null; 
+if (isset($_SESSION['name']) && isset($_SESSION['id'])) {
+   $user_name = htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8'); 
+   $user_id = $_SESSION['id']; 
 }
 ?>
 
@@ -41,38 +38,43 @@ else{
      <div class="protest-container">
             
          <div class="post-comment-container mx-3">
-
-         <?php
-
-if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
-    $name = $_SESSION['name'];
-    $img = '<img src="' . htmlspecialchars($_SESSION['img'], ENT_QUOTES, 'UTF-8') . '" alt="User Image" class="user_image mr-2 mb-2">';
-
-} else {
-
-    $img = '<i class="fa fa-user-alt"></i>';
-}
+         <?php 
+if (isset($_SESSION['id'])): 
+    // Sanitize session variables
+    $user_name = htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8');
+    $user_img = htmlspecialchars($_SESSION['img'], ENT_QUOTES, 'UTF-8');
+    
 ?>
 
-         <?php echo$img ?><span class="user_name"><?php echo$name?></span>
+    <img class="user_image mr-2 mb-2" src="<?php  echo 'dashboard/'.$user_img; ?>" alt=""><span class="user_name"><?php echo $user_name; ?></span>        
+
+<?php else: ?>
+
+    <i class="fa fa-user-alt user_image mr-2 mb-2"></i> <span class="user_name">John Smith</span>    
+
+<?php endif; ?>
+
             
          <form  id="protestForm">
          <input type="hidden" name="protest_id" id="protest_id">
 
             <input type="hidden" name="user_id" id="user_id" value="<?php echo$user_id ?>"><br>
 
-            <input type="hidden" name="name" id="user_name" value="<?php echo$name; ?>">
+            <input type="hidden" name="name" id="user_name" value="<?php echo$user_name ?>">
 
-            <input type="hidden" name="user_email" id="user_email" value="<?php echo$id; ?>"><br>
+            <input type="hidden" name="user_email" id="user_email" value="<?php echo$_SESSION['email'] ?>"><br>
 
             <textarea name="protest" style="font-size:13px;" id="message" class="form-control" wrap="physical" placeholder="...Start a protest" rows="5" ></textarea> 
              
             <div class="d-flex justify-content-space-around align-items-center">
             <button class="btn-comment mt-3 w-50 mr-3">Post <i class="fa fa-chevron-right"></i></button>
-            <label class="btn-comment mt-3 w-50 p-1 d-flex justify-content-center align-items-center gap-5">
-               Upload Photo<i class="fa fa-camera ml-3"></i>
-               <input type="file" name="fileupload" id="fileupload" class="d-none">
-            </label>
+            <label class="btn-comment mt-3 w-50 p-2 d-flex justify-content-center align-items-center gap-5">
+              <span id="file-label"> Upload Photo<i class="fa fa-camera ml-3"></i></span> <span id="fileName">
+    
+    </span>
+               <input type="file" name="fileupload" id="fileupload" class="d-none" accept="image/*"  onchange="updateFileName(this)">
+               
+</label>
        </form>
           </div>
      
@@ -241,6 +243,19 @@ $(document).on('click', '.dislikes', function() {
     });
 });
 </script>
-            
+   
+<script type="text/javascript">
+  
+function updateFileName(input) {
+var fileName = input.files[0].name;
+  document.getElementById('file-label').innerText = fileName;
+}
+
+</script>
+
+
+
+
+
 </body>
 </html>
