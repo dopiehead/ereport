@@ -200,7 +200,7 @@ function time_ago($date) {
      </div>
         
 
-       <input type="hidden" name="comment_id" id="comment_id" value="<?php echo $id ?>">
+       <input type="hidden" name="comment_id" id="comment_id">
 
        <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
 
@@ -216,9 +216,9 @@ function time_ago($date) {
      
      <?php
      if(isset($_SESSION['id'])){?>
-        <input type="submit" class="btn btn-success" value="Send">
+        <input type="submit" name="submit" id="submit" class="btn btn-success" value="Send">
      <?php }else{?>
-        <a href="login.php?details=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>" class="btn btn-success">Login to continue</a>
+        <a href="sign-in.php?details=<?php echo urlencode($_SERVER['REQUEST_URI']) ?>" class="btn btn-success">Login to continue</a>
      <?php } ?>
 
 
@@ -484,7 +484,7 @@ while($rowupcoming = $result->fetch_assoc()){
  <div class="upcoming_details">
                    
     <div>
-        <img src="<?php echo htmlspecialchars($thumbnailPath_upcoming); ?>" alt="Thumbnail">
+        <a class='btn-play'  id="<?php echo $rowupcoming['id'] ?>"><img src="<?php echo htmlspecialchars($thumbnailPath_upcoming); ?>" alt="Thumbnail"></a>
     </div>
 
     <div>
@@ -492,7 +492,7 @@ while($rowupcoming = $result->fetch_assoc()){
             <p><?php echo htmlspecialchars($rowupcoming["date"]); ?></p> 
             <p>10 mins read</p>
         </div> 
-        <h6>T<?php echo htmlspecialchars($rowupcoming["eventTitle"]); ?></h6>
+        <h6><?php echo htmlspecialchars($rowupcoming["eventTitle"]); ?></h6>
     </div>
 
  </div>
@@ -502,14 +502,7 @@ while($rowupcoming = $result->fetch_assoc()){
 ?>
              
                
-             <div class="popup" id="popup">
 
-<a class="close" id="close">&times;</a>
-
-<div class="video-player">
-
-
-</div>
 
 
 <!-- 
@@ -552,35 +545,55 @@ while($rowupcoming = $result->fetch_assoc()){
 
 </div>
 <br><br>
+
+
+
+
+<div class="pop" id="pop">
+
+<a class="close" id="close">&times;</a>
+
+  <div class="video-player">
+
+
+ </div>
+
+</div>
+
+
+
+
+
 <?php  include 'components/footer.php'; ?>
 
 <!-- Include jQuery and SweetAlert2 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+
+        <script>
 $(document).ready(function() {
+    // Load comments when the document is ready
     $("#comment-show").load("engine/view-comments.php");
 
+    // Handle click event for reply buttons
     $(document).on("click", '.reply', function() {
-        var comment_id = $(this).attr('id');
+        let comment_id = $(this).attr('id');
         $('#comment_id').val(comment_id);  // Set the comment ID in the hidden input field
         $("#name").focus();  // Focus the name input field
-    
     });
-$('#commentForm').on('submit', function(e) {
-        e.preventDefault(); 
+
+    // Handle form submission
+    $('#commentForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission behavior
         $("#loading-image").show(); // Show loading image
 
-        var formdata = new FormData(this); // Create FormData object with the form's data
-
+        let formdata = new FormData(this); // Create FormData object with the form's data
+        
         $.ajax({
             type: "POST",
             url: "engine/comments-process.php",
             data: formdata, // Send FormData object
             cache: false,
-            processData: false,
-            contentType: false,
-
+            
+           
             success: function(response) {
                 $("#loading-image").hide(); // Hide loading image
 
@@ -593,9 +606,10 @@ $('#commentForm').on('submit', function(e) {
                         icon: "success",
                     });
 
-                    $("#name").val(""); // Clear name input
-                    $("#comment").val(""); // Clear comment input
-                    $("#comment_id").val(""); // Clear comment_id input
+                    // Clear form inputs
+                    $("#name").val("");
+                    $("#comment").val("");
+                    $("#comment_id").val("");
                     $("#fileupload").val("");
                 } else {
                     swal({
@@ -617,6 +631,7 @@ $('#commentForm').on('submit', function(e) {
     });
 });
 </script>
+
 
 
 <script>
@@ -696,26 +711,67 @@ $(document).on('click', '.dislikes', function() {
         }
     });
 });
+</script>
+ 
 
-            $(document).on('click', '.btn-play', function(){
-                let id = $(this).attr('id');
-                $.ajax({
-                    url: "dashboard/uploaded-video.php",
-                    method: "POST",
-                    data: { 'id': id },
-                    success: function(data){
-                        $(".popup").show();
-                        $(".video-player").html(data);
-                    }
-                });
-            });
+<script>
+$(document).on('click','.btn-play',function(){
+let id = $(this).attr('id');
+$.ajax({
+url:"uploaded-video.php",
+method:"POST",
+data:{'id':id},
+success:function(data){
+$(".pop").show();
+$(".video-player").html(data);
+}
 
-            $(document).on('click', '.close', function(){
-                $(".popup").hide();
-    });
+});
+});
+$(document).on('click','.close',function(){
+    $(".pop").hide();
+});
 
 </script>
-            
+
+<script>
+
+$(document).ready(function () {
+    // Array of video sources
+    var videos = [
+        // 'video1.mp4',
+        // 'video2.mp4',
+        // 'video3.mp4'
+    ];
+
+    // Track the current video index
+    var currentVideo = 0;
+
+    // Get the video player and source element
+    var videoPlayer = $('#videoPlayer');
+    var videoSource = $('#videoSource');
+
+    // Listen for when the video ends
+    videoPlayer.on('ended', function () {
+        // Move to the next video in the array
+        currentVideo++;
+
+        // If there are more videos, load and play the next one
+        if (currentVideo < videos.length) {
+            videoSource.attr('src', videos[currentVideo]);
+            videoPlayer[0].load();  // Load the new video
+            videoPlayer[0].play();  // Play the new video
+        } else {
+            console.log("All videos have been played.");
+        }
+    });
+});
+
+</script>
+
+
+
+
 
 </body>
 </html>

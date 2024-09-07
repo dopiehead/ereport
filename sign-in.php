@@ -1,4 +1,17 @@
-<?php session_start(); ?>
+<?php session_start();
+error_reporting(E_ALL ^ E_NOTICE);
+?>
+<?php
+
+if (isset($_GET['details']) && !empty($_GET['details'])) {
+$details = $_GET['details'];
+$url_details = $details;
+
+}
+
+?>
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -50,11 +63,11 @@
 <?php  include 'components/footer.php'; ?>
 
 
-
+<input type="hidden" id="url_details" value="<?php echo$url_details;?>">
 <script type="text/javascript">
 
 // var url = $('#url').val();
-// var url_details = $('#url_details').val();
+var url_details = $('#url_details').val();
 $('.btn-signin').on('click',function(e){
 e.preventDefault();
 $("#loading-image").show();
@@ -69,7 +82,11 @@ $('.btn-signin').prop('disabled', true);
              success: function(response) {
              $("#loading-image").hide();
              if (response==1)  {
-              window.location.href = "../ereport/dashboard/dashboard.php";
+                if(url_details==''){
+              window.location.href = "../ereport/dashboard/dashboard.php";}
+              else{
+                 window.location.href = url_details;
+              }
                  $("#signin-form")[0].reset();
              }                                 
           else{            

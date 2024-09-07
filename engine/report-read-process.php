@@ -3,15 +3,11 @@ session_start();
 include('configure.php');
 require '../vendor/autoload.php'; // Ensure Composer's autoload is included
 
-use FFMpeg\FFMpeg;
-use FFMpeg\FFProbe;
-use FFMpeg\Media\Video;
+
+
 
 // Initialize FFMpeg
-$ffmpeg = FFMpeg::create([
-    'ffmpeg.binaries'  => 'C:\Users\USER\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg.Essentials_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-7.0.2-essentials_build\bin\ffmpeg.exe',
-    'ffprobe.binaries' => 'C:\Users\USER\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg.Essentials_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-7.0.2-essentials_build\bin\ffprobe.exe',
-]);
+
 
 // Error reporting for debugging
 error_reporting(E_ALL);
@@ -84,7 +80,7 @@ if (!$stmt->execute()) {
                             <img src="<?php echo htmlspecialchars($thumbnailPath); ?>" alt="Thumbnail" width="100">
                   </div>
                 <div class="post-title">
-                    <?php echo htmlspecialchars(truncateToWordsUsingSubstr($row['eventDetails'])); ?>
+                    <?php echo htmlspecialchars($row['eventTitle']); ?>
                 </div>
                 <div class="calendar"><i class="fa fa-calendar"></i><?php echo htmlspecialchars($row['eventDate']); ?><i class="fa fa-user"></i> BY  <small style="color:red"><?php echo $row['reporterName'];?></small></div>
                 <div class="post-link"><a href="report-details.php?id=<?php echo $row['id'] ?>">Read More <i class="fas fa-arrow-right"></i></a></div>
