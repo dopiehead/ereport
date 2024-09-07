@@ -177,7 +177,9 @@ if (!empty($_SESSION['contact'])) {
 
 <div class="password-container" style="display:flex;justify-content:space-between;">
 
-<input id="password"  type="password" name="password" placeholder="Password" class="form-control"><input id="first_name"  type="password" name="cpassword" placeholder="Confirm Password" class="form-control"><br>
+<input id="password"  type="password" name="password" placeholder="Password" class="form-control">
+
+<input id="first_name"  type="password" name="cpassword" placeholder="Confirm Password" class="form-control"><br>
 
 </div>
 
@@ -189,16 +191,16 @@ if (!empty($_SESSION['contact'])) {
 
 <input type="text" name="country" placeholder="Country" id="contact"  class="form-control">
 
-<input type="text" name="contact" id="contact"  placeholder="Phone number"  class="form-control">
+<input type="number"  min="0"  minlength="11" name="contact" id="contact"  placeholder="Phone number"  class="form-control">
 
-<input type="text" name="whatsapp" id="whatsapp" placeholder="Whatsapp"  class="form-control"><br>
+<input type="number" min="0"   minlength="11" name="whatsapp" id="whatsapp" placeholder="Whatsapp"  class="form-control"><br>
 </div>
 
 
 
 <br>
 <h6> Address Details</h6>
-<textarea name="location" id="" class="form-control" placeholder="..Write something" wrap="physical">
+<textarea name="location"  class="form-control" placeholder="..Write something" wrap="physical">
 </textarea>
 
 <br>

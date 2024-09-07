@@ -15,6 +15,7 @@
 if (isset($_SESSION['name']) && $_SESSION['name'] != "") {
    $user_name =  $_SESSION['name']; 
    $user_id =  $_SESSION['id']; 
+   
   
 
 } 
@@ -30,6 +31,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     include('engine/configure.php');
     $conn = new Database();
+
+     // Prepare the SQL statement for views
+   
+     $views = "UPDATE report SET views = views +1 where id =?";
+     $stmt_views = $conn->prepare($views);
+     $stmt_views->bind_param('i', $id);
+     $stmt_views->execute();
+
 
     // Prepare the SQL statement
     $sql = "SELECT * FROM report WHERE id = ?";
@@ -107,17 +116,7 @@ function time_ago($date) {
     }
 }
 
-
-
-
-
-
 ?>
-
-
-
-
-
 
 
 <!-- <div class="hero-section">
@@ -132,7 +131,7 @@ function time_ago($date) {
 
 </div> -->
 
-<br><br><br><br><br><br>
+<br><br><br><br><br>
 
 
 <div class="container">
@@ -142,7 +141,7 @@ function time_ago($date) {
       
        <a href="">Video</a>
      
-       <a href="">News</a>
+   
 
     </div>
 
@@ -160,7 +159,7 @@ function time_ago($date) {
               ?>
               <a id="<?php echo$id ?>" class="btn-play"><img src ="<?php echo $thumbnailPath ?>" ></a>
               <figcaption>
-                <b><?php echo$title?></b>       
+                <b><?php echo"<a href='report-details.php?id=".$id.">'".$title."></a>"?></b>       
               </figcaption>
              
            </figure>
@@ -186,25 +185,32 @@ function time_ago($date) {
      </div>
 
       <div class="commenter">
-        
+     <?php   
+    if (isset($_SESSION['id'])){
+    // Sanitize session variables
+    $user_name = htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8');
+    $user_img = htmlspecialchars($_SESSION['img'], ENT_QUOTES, 'UTF-8');
+}
+     ?>
+
       <?php 
       if(isset($_SESSION['id'])){?>
- <img class="reporter" src="<?php echo $_SESSION['img'] ?>" alt=""> <span><?php echo $user_name; ?></span>
+ <img class="reporter" src="<?php echo 'dashboard/'.$user_img ?>" alt=""> <span><?php echo $user_name; ?></span>
       <?php } else{ ?>
 
         <div class="d-none">
-        <img class="reporter" src="<?php echo $_SESSION['img'] ?>" alt=""> <span><?php echo $user_name; ?></span>
+        <img class="reporter" src="<?php echo "dashboard/".$_SESSION['img'] ?>" alt=""> <span><?php echo "dashboard/".$user_name; ?></span>
         </div>
       <?php } ?>
 
      </div>
         
 
-       <input type="hidden" name="comment_id" id="comment_id">
+       <input type="text" name="comment_id" id="comment_id">
 
-       <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
+       <input type="text" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
 
-       <input type="hidden" name="name" id="name" value="<?php echo $user_name; ?>" >
+       <input type="text" name="name" id="name" value="<?php echo $user_name; ?>" >
     
       <textarea name="comment" id="comment" class="form-control comment" wrap="physical" rows="5">
 
@@ -262,7 +268,7 @@ function time_ago($date) {
         while ($data = $result_report->fetch_assoc()) { 
 
             
-            
+            $id_all = $data['id'];
             $thumbnailPath_all = 'dashboard/thumbnails/' . basename($data['fileupload']) . '.jpg';
             $image = "uploads/" . htmlspecialchars($data['fileupload']); 
        
@@ -277,7 +283,7 @@ function time_ago($date) {
 
             <div> 
                   
-                  <img src ="<?php echo $thumbnailPath_all ?>" alt="">
+                  <a class='btn-play' id='<?php echo $id_all?>'><img src ="<?php echo $thumbnailPath_all ?>" alt=""></a>
              </div>
 
              <div class="other-news-details">
@@ -287,7 +293,7 @@ function time_ago($date) {
                         <small>10 min read</small>
                      </div>
 
-                        <h6><?php echo htmlspecialchars(substr($data['eventTitle'], 0, 15));?></h6>
+                        <h6><a class="text-dark" href="report-details.php?id=<?php echo$id_all; ?>"><?php echo htmlspecialchars(substr($data['eventTitle'], 0, 15));?></a></h6>
              </div>
 
      </div>     
@@ -366,11 +372,12 @@ function time_ago($date) {
     while ($datatopstories= $topstories->fetch_assoc()){
             $thumbnailPath_topstories = 'dashboard/thumbnails/' . basename($datatopstories['fileupload']) . '.jpg';
             $image = "uploads/" . htmlspecialchars($datatopstories['fileupload']); 
+            $datatopstoriesId = $datatopstories['id'];
             ?>
 
          <div>
-           <img src="<?php echo htmlspecialchars($thumbnailPath_topstories) ?>" alt="">
-           <h6><?php echo substr($datatopstories['eventTitle'],0,15) ?></h6>
+           <a class='btn-play' id='<?php echo$datatopstoriesId  ?>'><img src="<?php echo htmlspecialchars($thumbnailPath_topstories) ?>" alt=""></a>
+           <h6><a class="text-dark" href="report-details.php?id=<?php echo $datatopstoriesId?>"><?php echo substr($datatopstories['eventTitle'],0,15) ?></a></h6>
            <small>Essential news <i class="fa fa-check"></i> </small>
            <small><?php echo$datatopstories['views']." views"." ". time_ago($datatopstories['date']) ?></small>
         </div>
@@ -401,7 +408,7 @@ while ($datalateststories= $lateststories->fetch_assoc()){
         $details = $datalateststories['eventDetails'];
         $date = $datalateststories['date'];
         $reporterid = $datalateststories['user_id'];
-
+        $areaid = $datalateststories['id'];
    } ?>
       
       <?php
@@ -420,6 +427,9 @@ while ($datalateststoriesreporter= $lateststoriesreporter->fetch_assoc()){
        
         $reporterpic = $datalateststoriesreporter['img_upload'];
 
+        $reporterpId = $datalateststoriesreporter['id'];
+
+        $reporterlocation = $datalateststoriesreporter['location'];
    } ?>    
 
 
@@ -430,7 +440,7 @@ while ($datalateststoriesreporter= $lateststoriesreporter->fetch_assoc()){
          <div class="col-md-6 latest_stories">
           
              <div>
-                 <img class="reporter" src="<?php echo$reporterpic  ?>" alt="">
+                 <img class="reporter" src="<?php echo"dashboard/" .htmlspecialchars($reporterpic)  ?>" alt="">
           
                  <span class="reporter_name"><?php echo htmlspecialchars($reportername) ?></span> <br>
 
@@ -442,7 +452,7 @@ while ($datalateststoriesreporter= $lateststoriesreporter->fetch_assoc()){
                                    
                      <p><?php  echo htmlspecialchars(time_ago($date)) ?></p>
 
-                     <p>10 min read</p>
+                     <p><?php echo htmlspecialchars($reporterlocation) ?></p>
             
                   </div>
 
@@ -450,7 +460,7 @@ while ($datalateststoriesreporter= $lateststoriesreporter->fetch_assoc()){
 
              <div class="latest_stories_img">
 
-                 <img src="<?php echo  $thumbnailPath_lateststories ?>" alt="">
+                 <img class='btn-play' id='<?php echo$areaid ?>' src="<?php echo  $thumbnailPath_lateststories ?>" alt="">
 
              </div>
 
@@ -492,7 +502,7 @@ while($rowupcoming = $result->fetch_assoc()){
             <p><?php echo htmlspecialchars($rowupcoming["date"]); ?></p> 
             <p>10 mins read</p>
         </div> 
-        <h6><?php echo htmlspecialchars($rowupcoming["eventTitle"]); ?></h6>
+        <h6><a class='text-dark' href="report-details.php?id=<?php echo $rowupcoming['id'] ?>"><?php echo htmlspecialchars($rowupcoming["eventTitle"]); ?></a></h6>
     </div>
 
  </div>
@@ -586,7 +596,7 @@ $(document).ready(function() {
         $("#loading-image").show(); // Show loading image
 
         let formdata = new FormData(this); // Create FormData object with the form's data
-        
+        alert(formdata); //
         $.ajax({
             type: "POST",
             url: "engine/comments-process.php",
@@ -724,6 +734,7 @@ data:{'id':id},
 success:function(data){
 $(".pop").show();
 $(".video-player").html(data);
+
 }
 
 });
@@ -768,10 +779,6 @@ $(document).ready(function () {
 });
 
 </script>
-
-
-
-
 
 </body>
 </html>

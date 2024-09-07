@@ -1,29 +1,30 @@
-<?php session_start();
-include('../../engine/configure.php');
-error_reporting(E_ALL ^ E_NOTICE);
+<?php
+session_start();
+include('configure.php');
+error_reporting(E_ALL & ~E_NOTICE);
 
 $conn = new Database();
 date_default_timezone_set('Africa/Lagos');
 
 // Retrieve user ID from session
-$user_id = $_SESSION['id'];
+$user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
 
 // Check request method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Retrieve and sanitize POST data
-    $sid = $_POST['sid'];
-    $name = trim($_POST['name']);
-    $password = trim($_POST['password']);
-    $cpassword = trim($_POST['cpassword']);
-    $country = trim($_POST['country']);
-    $contact = trim($_POST['contact']);
-    $whatsapp = trim($_POST['whatsapp']);
-    $location = trim($_POST['location']);
-    $facebook = trim($_POST['facebook']);
-    $twitter = trim($_POST['twitter']);
-    $linkedin = trim($_POST['linkedin']);
-    $instagram = trim($_POST['instagram']);
+    $sid = $user_id;
+    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+    $cpassword = isset($_POST['cpassword']) ? trim($_POST['cpassword']) : '';
+    $country = isset($_POST['country']) ? trim($_POST['country']) : '';
+    $contact = isset($_POST['contact']) ? trim($_POST['contact']) : '';
+    $whatsapp = isset($_POST['whatsapp']) ? trim($_POST['whatsapp']) : '';
+    $location = isset($_POST['location']) ? trim($_POST['location']) : '';
+    $facebook = isset($_POST['facebook']) ? trim($_POST['facebook']) : '';
+    $twitter = isset($_POST['twitter']) ? trim($_POST['twitter']) : '';
+    $linkedin = isset($_POST['linkedin']) ? trim($_POST['linkedin']) : '';
+    $instagram = isset($_POST['instagram']) ? trim($_POST['instagram']) : '';
 
     // Validate input
     if (strlen($name) > 22) {
@@ -36,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Location field cannot be empty";
     } else {
         // Hash password
-        $secret_password = sha1(md5($password));
+        $secret_password = !empty($password) ? password_hash($password, PASSWORD_DEFAULT) : '';
 
         // Prepare and execute update statement
         $stmt = $conn->prepare("
@@ -55,11 +56,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ");
 
         if ($stmt === false) {
-            die("Prepare failed: " . $conn->error);
+            error_log("Prepare failed: " . $conn->error);
+            echo "An error occurred. Please try again later.";
+            exit;
         }
 
         $stmt->bind_param(
-            "sssssssssi",
+            "ssssssssssi",
             $name,
             $secret_password,
             $contact,
@@ -76,7 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             echo "1";
         } else {
-            echo "Error in editing profile: " . $stmt->error;
+            error_log("Error in editing profile: " . $stmt->error);
+            echo "An error occurred. Please try again later.";
         }
 
         // Close statement
