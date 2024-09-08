@@ -80,6 +80,8 @@ if (!$stmt->execute()) {
                 <th style="padding:20px;font-size:14px;">Report category</th>
                 <th style="padding:20px;font-size:14px;">Date</th>
                 <th style="padding:20px;font-size:14px;">Time</th>
+                <th style="padding:20px;font-size:14px;">Views</th>
+                <th style="padding:20px;font-size:14px;">Shares</th>
                 <th style="padding:20px;font-size:14px;">Actions</th>
             </tr>
         </thead>
@@ -111,7 +113,9 @@ if (!$stmt->execute()) {
                 <td style="padding:20px;font-size:14px;"><?php echo htmlspecialchars($row['reportCategory']); ?></td>
                 <td style="padding:20px;font-size:14px;"><?php echo htmlspecialchars($row['eventDate']); ?></td>
                 <td style="padding:20px;font-size:14px;"><?php echo htmlspecialchars($row['eventTime']); ?></td>
-                <td style="padding:20px;font-size:14px;"><strong class="text-success">Pending</strong> &nbsp;</td>
+                <td style="padding:20px;font-size:14px;"><?php echo htmlspecialchars($row['views']); ?></td>
+                <td style="padding:20px;font-size:14px;"><?php echo htmlspecialchars($row['shares']); ?></td>
+                <td style="padding:20px;font-size:14px;"><strong class="text-success"><?php if($row['shares']===0){echo 'Pending';}else{ echo 'Approved';} ?></strong> &nbsp;</td>
             </tr>
         <?php
         }

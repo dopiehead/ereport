@@ -67,6 +67,8 @@ if (isset($_SESSION['id'])):
             <textarea name="protest" style="font-size:13px;" id="message" class="form-control" wrap="physical" placeholder="...Start a protest" rows="5" ></textarea> 
              
             <div class="d-flex justify-content-space-around align-items-center">
+             
+            <?php if(isset($_SESSION['id'])){ ?>
             <button class="btn-comment mt-3 w-50 mr-3">Post <i class="fa fa-chevron-right"></i></button>
             <label class="btn-comment mt-3 w-50 p-2 d-flex justify-content-center align-items-center gap-5">
               <span id="file-label"> Upload Photo<i class="fa fa-camera ml-3"></i></span> <span id="fileName">
@@ -74,7 +76,9 @@ if (isset($_SESSION['id'])):
     </span>
                <input type="file" name="fileupload" id="fileupload" class="d-none" accept="image/*"  onchange="updateFileName(this)">
                
-</label>
+</label> <?php } else{?>
+    <a class="btn btn-primary" href="sign-in.php?id=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Login to continue</a>
+    <?php } ?>
        </form>
           </div>
      

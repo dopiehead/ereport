@@ -25,7 +25,7 @@ class UserAuth {
     }
 
     public function login($email, $password) {
-        $sql = "SELECT id,location, name,img_upload, email, password FROM user_profile WHERE email = ? AND verified = 1 and blacklist = 0 ";
+        $sql = "SELECT id, name, email, password, img_upload, contact, location, blacklist, verified FROM user_profile WHERE email = ? AND verified = 1 and blacklist = 0 ";
         $stmt = $this->db->prepare($sql);
 
         if ($stmt === false) {
@@ -37,15 +37,16 @@ class UserAuth {
         $stmt->store_result();
 
         if ($stmt->num_rows === 1) {
-            $stmt->bind_result($id, $name, $img_upload,$db_email, $location, $hashed_password);
+            $stmt->bind_result($id, $name, $email, $hashed_password, $img_upload, $contact, $location, $blacklist, $verified);
             $stmt->fetch();
 
             if (password_verify($password, $hashed_password)) {
                 $_SESSION['id'] = $id;
-                $_SESSION['email'] = $db_email;
+                $_SESSION['email'] = $email;
                 $_SESSION['name'] = $name;
                 $_SESSION['img'] = $img_upload;
                 $_SESSION['location'] = $location;
+                $_SESSION['contact'] = $contact;
 
                 
                 $stmt->close();

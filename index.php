@@ -354,94 +354,77 @@
 
      <h5>Reports/Videos <span class="see_more"><a href="report.php">See more</a></span></h5><br>
 
+
+
+
      <div class="blog-container">
       
-         <div>
+        
    
-              <figure>
+         <?php 
+
+         include('engine/configure.php');
+         $conn = new Database();
+         $getvideo = $conn->prepare("select * from report");
+         $getvideo->execute();
+         $result=$getvideo->get_result();
+         while ($row = $result->fetch_assoc()){
+            $image = "uploads/" . htmlspecialchars($row['fileupload']);
+            $id = $row['id'];
+            ?>
+          <?php $thumbnailPath = 'dashboard/thumbnails/' . basename($image) . '.jpg';
+              ?>
+         <div>
+         <figure>
               
-                     <video controls>
-                         <source src="assets/video/video.mp4" type="video/mp4">
-                     </video>
-             </figure>
+         <a id="<?php echo$id ?>" class="btn-play"><img src ="<?php echo $thumbnailPath ?>" ></a>
+         </figure>
 
-              <span><i class="fa fa-calendar"></i> FEBRUARY 28,2024 <i class="fa fa-user"></i> BY  <small style="color:red">ADMIN</small></span>
- 
-             <strong>Short Event Title on Topic</strong><br>
-             <br>
-             <a>Read more <i class="fa fa-arrow-right"></i></a>
-         </div>
+       <span><i class="fa fa-calendar"></i> <?php echo $row['eventDate'] ?> <i class="fa fa-user"></i> BY  <small style="color:red"><?php echo$row['reporterName']  ?></small></span>
 
+      <strong><?php $row['eventTitle'] ?></strong><br>
+      <br>
+      <a href='report-details.php?id=<?php echo $row['id'] ?>'>Read more <i class="fa fa-arrow-right"></i></a>
+  </div>
 
-         <div>
-
-              <figure>  
-                 <video  controls>
-                     <source src="assets/video/video.mp4" type="video/mp4">
-                </video>
-             </figure>
-
-             <span><i class="fa fa-calendar"></i> FEBRUARY 28,2024 <i class="fa fa-user"></i> BY  <small style="color:red">ADMIN</small></span>
- 
-             <strong>Short Event Title on Topic</strong><br>
-             <br>
-
-             <a>Read more <i class="fa fa-arrow-right"></i></a>
-
-         </div>
-
-
-      
-         <div>
-
-             <figure>  
-                     <video controls>
-                         <source src="assets/video/video.mp4" type="video/mp4">
-                     </video>
-             </figure>
-              <span><i class="fa fa-calendar"></i> FEBRUARY 28,2024 <i class="fa fa-user"></i> BY <small style="color:red">ADMIN</small></span>
- 
-             <strong>Short Event Title on Topic</strong><br>
-              <br>
-             <a>Read more <i class="fa fa-arrow-right"></i></a>
-
-             </div>
-
+     <?php } ?>
 
      </div>
 
 
 
 
-</div>
 
 
 <br><br>
-<div class=" container">
+<div class="video-home container">
 
          <h5>Short Videos   <span class="see_more"><a href="videos.php">See more</a></span></h5><br>
 
      <div class="video-container">
 
-     <video width="300" height="300" controls>
+     <video  controls>
         <source src="assets/video/video.mp4" type="video/mp4">
      </video>
 
-    <video width="300" height="300" controls>
-    <source src="assets/video/video.mp4" type="video/mp4"></video>
+     <video  controls>
+        <source src="assets/video/video.mp4" type="video/mp4">
+     </video>
 
-    <video width="300" height="300" controls>
-    <source src="assets/video/video.mp4" type="video/mp4"></video>
+    <video  controls>
+    <source src="assets/video/video.mp4" type="video/mp4">
+    </video>
 
-    <video width="300" height="300" controls>
-        <source src="assets/video/video.mp4" type="video/mp4"></video>
+  
 
      </div>
 
 </div>
 
-<br><br>
 
+
+
+<br><br>
 
 <div class="container">
 
@@ -538,6 +521,21 @@
 
 
 </div>
+
+
+
+<div class="pop" id="pop">
+
+<a class="close" id="close">&times;</a>
+
+  <div class="video-player">
+
+
+ </div>
+
+</div>
+
+
 
 <br><br><br>
 
@@ -670,7 +668,29 @@ $(document).ready(function() {
 </script>
 
 
+<script>
+$(document).on('click','.btn-play',function(){
+var id = $(this).attr('id');
+$.ajax({
+url:"uploaded-video.php",
+method:"POST",
+data:{'id':id},
+// cache:false,
+// processData:false,
+// contentType:false,
+success:function(data){
+$(".pop").show();
+$(".video-player").html(data);
 
+}
+
+});
+});
+$(document).on('click','.close',function(){
+    $(".pop").hide();
+});
+
+</script>
 
 
 

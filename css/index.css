@@ -370,8 +370,8 @@ text-decoration:none;
     }
 
           .blog-container figure{
-            width:250px;
-            height:250px;
+            width:250px !important;
+            height:250px !important;
           
             overflow:hidden;
             box-shadow:0px 3px 15px rgb(177, 176, 176);
@@ -440,7 +440,7 @@ text-decoration:none;
  
           
           video{
-            margin-right:18px;
+            margin-right:21px;
           }
           
 
@@ -521,9 +521,67 @@ text-decoration:none;
       }
 
 
+        
+      #pop{
+        background-color:whitesmoke;  
+        position:fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 450px;
+        height:380px;
+        padding:5px;
+        z-index: 9;
+        box-shadow: 0 5px 30px rgba(0,0,0,.30);
+        transition: 0.3s;
+        display:none;
+        }
+       
+        #close{
+     
+            position: absolute;
+            top: -10px;
+            left: 95%;
+            margin-top: -10px;
+            color:red;
+            cursor: pointer;
+            font-size:18px;
+            background-color: white;
+            border-radius: 50%;
+            padding:0px 6px;
+            }
+        
+        
+            #close:hover, #close:focus{
+            opacity: 0.6;
+          
+           
+            
+            }
+        
+            video{
+                width:100%;
+                height:100%;
+            }
+    
+            .btn-play{
+                cursor:pointer;
+            }
+    
+            .btn-play:hover{
+               opacity:0.8;
+            }
+
+            .video-container{
+              width:100%;
+           
+            }
 
 
-
+            .video-container video{
+              width:300px;
+              height:350px;
+            }
 
 
 

@@ -1,18 +1,18 @@
-<?php session_start(); ?>
+<?php session_start();?>
+
+
 <?php
 include('configure.php');
 $conn = new Database();
-
 // Fetch comments
-$query = "SELECT * FROM comments WHERE parent_comment_id = '0' ORDER BY comment_id DESC";
+$query = "SELECT * FROM comments WHERE parent_comment_id = '0' and news_id = 1 ORDER BY comment_id DESC";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
-
 $output = '';
 while ($row = $result->fetch_assoc()) {
     $output .= '<div class="comment-box">
-        <img src="assets/images/IMG_E7548.jpg" alt="">
+        
         <span class="status"><i class="fa fa-circle"></i></span>
         <span class="commenter-name">' . htmlspecialchars($row["comment_sender_name"]) . '</span>
         <p>' . htmlspecialchars($row["comment"]) . '</p>

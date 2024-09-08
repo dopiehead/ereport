@@ -28,7 +28,7 @@ else{
 <?php 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id']; // Ensure $id is an integer to prevent SQL injection
-
+ 
     include('engine/configure.php');
     $conn = new Database();
 
@@ -206,11 +206,14 @@ function time_ago($date) {
      </div>
         
 
-       <input type="text" name="comment_id" id="comment_id">
 
-       <input type="text" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
+       <input type="hidden" name="news_id" id="news_id" value="<?php echo$id ?>">
 
-       <input type="text" name="name" id="name" value="<?php echo $user_name; ?>" >
+       <input type="hidden" name="comment_id" id="" value="">
+
+       <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
+
+       <input type="hidden" name="name" id="name" value="<?php echo $user_name; ?>" >
     
       <textarea name="comment" id="comment" class="form-control comment" wrap="physical" rows="5">
 
@@ -576,27 +579,52 @@ while($rowupcoming = $result->fetch_assoc()){
 
 <?php  include 'components/footer.php'; ?>
 
-<!-- Include jQuery and SweetAlert2 -->
-
         <script>
 $(document).ready(function() {
-    // Load comments when the document is ready
-    $("#comment-show").load("engine/view-comments.php");
 
-    // Handle click event for reply buttons
+    $("#comment-show").load("engine/view-comments.php");
     $(document).on("click", '.reply', function() {
         let comment_id = $(this).attr('id');
         $('#comment_id').val(comment_id);  // Set the comment ID in the hidden input field
         $("#name").focus();  // Focus the name input field
     });
 
-    // Handle form submission
+  
     $('#commentForm').on('submit', function(e) {
         e.preventDefault(); // Prevent default form submission behavior
         $("#loading-image").show(); // Show loading image
+       let name = $('#name').val();
+       let comment = $('#comment').val();
+       let comment_category = $('#comment_category').val();
+       if (comment ==='') {
+        swal({
+            title: 'Error',
+            icon: 'warning',
+            text:"Comment field cannot be empty"
+       });
+    }
 
-        let formdata = new FormData(this); // Create FormData object with the form's data
-        alert(formdata); //
+    else if (name ==='') {
+        swal({
+            title: 'Error',
+            icon: 'warning',
+            text:"Name field cannot be empty"
+       });
+    }
+
+    
+    else if (comment_category ==='') {
+        swal({
+            title: 'Error',
+            icon: 'warning',
+            text:"Please select a comment category"
+       });
+    }
+
+    else{
+
+        let formdata = $("#commentForm").serialize(); // Create FormData object with the form's data
+  
         $.ajax({
             type: "POST",
             url: "engine/comments-process.php",
@@ -638,7 +666,12 @@ $(document).ready(function() {
                 });
             }
         });
+
+    }
+
+
     });
+
 });
 </script>
 
@@ -648,6 +681,7 @@ $(document).ready(function() {
 $(document).on('click', '.likes', function() {
     var user_id = "<?php echo $user_id; ?>";
     var comment_id = $(this).attr('id');
+    alert('clicked');
     
     $.ajax({
         type: "POST",
@@ -726,11 +760,14 @@ $(document).on('click', '.dislikes', function() {
 
 <script>
 $(document).on('click','.btn-play',function(){
-let id = $(this).attr('id');
+var id = $(this).attr('id');
 $.ajax({
 url:"uploaded-video.php",
 method:"POST",
 data:{'id':id},
+// cache:false,
+// processData:false,
+// contentType:false,
 success:function(data){
 $(".pop").show();
 $(".video-player").html(data);

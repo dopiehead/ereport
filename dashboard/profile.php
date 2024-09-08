@@ -127,25 +127,27 @@ else{ ?>
 </thead>
 </table>
 
-<div style="padding:10px;">
- <small> <?php echo$_SESSION['name']; ?> </small><br>
+<div class="p-5">
 
- <small> <?php 
-if (!empty($_SESSION['contact'])) {
+<h6>
+<?php if($_SESSION['name'] === 0){ echo"No name has been entered yet"; } else { ?>
+ <?php echo$_SESSION['name']; ?> </h6>
+<?php } ?>
+
+ <h6> <?php 
+if ($_SESSION['contact']!==0) {
     echo htmlspecialchars($_SESSION['contact']);
 } else {
     echo "No phone number provided yet";
 }
-?></small><br>
+?></h6>
 
-<small>Dial code +234</small><br>
+<h6>Dial code +234</h6>
 
-<small><?php if(!empty($_SESSION['contact'])) {echo$_SESSION['contact2'];} else{echo"No Other number";} ?></small><br>
+<h6 class="fw-normal"><?php echo $_SESSION['email']?></h6>
 
+<h6><?php echo $_SESSION['location']?></h6>
 
-<small>Dial code +234</small><br>
-
-<small><?php echo $_SESSION['email']?></small>
 
    <br>
 

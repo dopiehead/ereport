@@ -7,7 +7,6 @@ $stmt=$conn->prepare($sql);
 if (!$conn->prepare($sql)) {
     echo "Database Error";
 }
-
 else{
     $stmt->bind_param("i",$id);
     if ($stmt->execute()) {
