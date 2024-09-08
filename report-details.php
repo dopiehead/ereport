@@ -786,12 +786,7 @@ $(document).on('click','.close',function(){
 
 $(document).ready(function () {
     // Array of video sources
-    var videos = [
-        // 'video1.mp4',
-        // 'video2.mp4',
-        // 'video3.mp4'
-    ];
-
+    var videos = "<?php echo$row['fileupload'] ?>";
     // Track the current video index
     var currentVideo = 0;
 

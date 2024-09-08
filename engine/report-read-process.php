@@ -55,8 +55,9 @@ if(isset($_POST['sort'])){
 
 
 
-$sql .= "LIMIT ?, ?" ;
+$sql .= " LIMIT ?, ?" ;
 $stmt = $conn->prepare($sql);
+
 $stmt->bind_param("ii",$initial_page, $num_per_page);
 if (!$stmt->execute()) {
     echo "Error executing query: ";

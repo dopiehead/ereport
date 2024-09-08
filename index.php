@@ -1,4 +1,37 @@
 <?php session_start(); ?>
+<?php
+
+function time_ago($date) {
+    // Create DateTime objects for the current time and the input date
+    $now = new DateTime();
+    $ago = new DateTime($date);
+    
+    // Subtract 1 hour from the current time
+    $now->modify('-1 hour');
+    
+    // Calculate the time difference
+    $interval = $now->diff($ago);
+    
+    // Determine the time ago
+    if ($interval->y > 0) {
+        return ($interval->y == 1) ? "A year ago" : $interval->y . " years ago";
+    } elseif ($interval->m > 0) {
+        return ($interval->m == 1) ? "A month ago" : $interval->m . " months ago";
+    } elseif ($interval->d > 0) {
+        return ($interval->d == 1) ? "Yesterday" : $interval->d . " days ago";
+    } elseif ($interval->h > 0) {
+        return ($interval->h == 1) ? "An hour ago" : $interval->h . " hours ago";
+    } elseif ($interval->i > 0) {
+        return ($interval->i == 1) ? "A minute ago" : $interval->i . " minutes ago";
+    } else {
+        return ($interval->s <= 5) ? "Just now" : $interval->s . " seconds ago";
+    }
+}
+
+?>
+
+
+<?php include('engine/configure.php'); ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +70,13 @@
 
   <p>Help us build a transparent and trustworthy community <br>by reporting Bad Practices, Fraud and Negligence</p>
   <br><br>
-   <a  style='font-size:15px;'>Get started</a>
+
+  <?php if(isset($_SESSION['id'])){?>
+ <a href="dashboard/post-report.php"  style='font-size:15px;'>Get started</a>
+  <?php }else{ ?>
+    <a href='sign-in.php?details=dashboard/post-report.php'  style='font-size:15px;'>Get started</a>
+  <?php } ?>
+  
 
  </div>
 
@@ -61,7 +100,7 @@
 
          <div>
 
-              <a class="btn btn-danger">View all</a>
+              <a href='report.php' class="btn btn-danger">View all</a>
 
          </div>
 
@@ -75,7 +114,7 @@
         
          <div class="naviLinks">
 
-         <a><img src="assets/images/menu/hotel.png"></a>
+         <a href="report.php?search='hotel'"><img src="assets/images/menu/hotel.png"></a>
 
          <p>hotel</p>
 
@@ -174,32 +213,100 @@
 
          <div class="row in_numbers">
 
-         <div class="col-md-3 sorted">
-        <h6 id="counter1" class="counter" data-start="0" data-end="120" data-duration="2500">0</h6>
+         <div class="col-md-2 sorted">
+        <h6 id="counter1" class="counter" data-start="0" data-end="1" data-duration="2500">0</h6>
         <p>Sorted Reports</p>
-    </div>
+         </div>
+      
+   
 
-    <div class="col-md-3 nreports">
-        <h6 id="counter2" class="counter" data-start="0" data-end="100" data-duration="2500">0</h6>
+
+
+
+
+
+
+    <div class="col-md-2 nreports">
+        <?php  $conn = new Database(); 
+        $getreportnumber = $conn->prepare("SELECT  COUNT(*) AS count FROM report");
+        $getreportnumber->execute();
+        $getreportnumber_result =  $getreportnumber->get_result();
+       while ($getnumrep = $getreportnumber_result->fetch_assoc()){
+         $numberofreport = $getnumrep['count'];
+       }  
+       $conn->close();
+         ?>
+
+        <h6 id="counter2" class="counter" data-start="0" data-end="<?php echo$numberofreport; ?>" data-duration="2500">0</h6>
         <p>Number of Reports</p>
      </div>
 
 
-     <div class="col-md-3 sorted ">
-        <h6 id="counter3" class="counter" data-start="0" data-end="80" data-duration="2500">0</h6>
+     <div class="col-md-2 sorted ">
+     <?php  $conn = new Database(); 
+        $getreportnumberpending = $conn->prepare("SELECT  COUNT(*) AS count FROM report where pending = 0");
+        $getreportnumberpending->execute();
+        $getreportnumber_result_pending =  $getreportnumberpending->get_result();
+       while ($getnumrep_pending = $getreportnumber_result_pending->fetch_assoc()){
+         $numberofreportpending = $getnumrep_pending['count']; ?>
+         <h6 id="counter3" class="counter" data-start="0" data-end="<?php echo$numberofreportpending ?>" data-duration="2500">0</h6>
+       <?php } 
+       $conn->close(); 
+         ?>
+
+     
+        
         <p>Pending Reports</p>
      </div>
 
 
-     <div class="col-md-3 nreports">
-        <h6 id="counter4" class="counter" data-start="0" data-end="150" data-duration="2500">0</h6>
-        <p>Registered Members</p>
+     <div class="col-md-2 nreports">
+     <?php
+$conn = new Database();
+$result = $conn->prepare("SELECT COUNT(*) AS count FROM user_profile WHERE verified = 1");
+$result->execute();
+$get_result = $result->get_result();
+while ($getnumresult = $get_result->fetch_assoc()){ $getnumresult = $getnumresult['count']; ?>
+ <h6 id="counter4" class="counter" data-start="0" data-end="<?php echo$getnumresult ?>" data-duration="2500">0</h6>
+<?php } ?> 
+
+<p>Registered Members</p>
      </div>
 
+
+
+<div class="col-md-2 sorted ">
+
+     <?php
+$conn = new Database();
+$resultComplain = $conn->prepare("SELECT COUNT(*) AS count FROM complain");
+$resultComplain->execute();
+$get_result = $resultComplain->get_result();
+while ($getnumresult = $get_result->fetch_assoc()){ echo"<h6 class='counter'>".$getnumresult = $getnumresult['count']."</h6>"; ?>
+ <h6 id="counter5" class="counter d-none" data-start="0" data-end="<?php echo$getnumresult['count'];?>" data-duration="2500">0</h6>
+        
+<?php } ?> 
+<p>number of complaints</p>
+</div>
+
+
+<div class="col-md-2 sorted ">
+         <?php
+$conn = new Database();
+$resultProtest = $conn->prepare("SELECT COUNT(*) AS count FROM protest");
+$resultProtest->execute();
+$get_result = $resultProtest->get_result();
+while ($getnumresult = $get_result->fetch_assoc()){ echo"<h6 class='counter text-danger'>".$getnumresult = $getnumresult['count']."</h6>"; ?>
+ <h6 id="counter6" class="counter d-none" data-start="0" data-end="<?php echo$getnumresult['count'];?>" data-duration="2500">0</h6>
+        
+<?php } ?> 
+
+       <p class="text-danger">number of protests</p>
          </div>
 
+    
 
-     </div>
+</div>
 
 </div>
 
@@ -227,9 +334,19 @@
 
                  <span><i class="fa fa-check"></i> Community-Driven Approach</span>
                  <p>We provide a platform for individuals to report misconduct with confidence</p><br>
+                 
+                 <?php if (!isset($_SESSION['id'])) {?>
 
-                 <a class="btn btn-danger" href="">Make a Report <i class="fa fa-arrow-right"></i></a>
-                 </div>
+                     <a class="btn btn-danger" href="sign-in.php?details=dashboard/post-report.php">Make a Report <i class="fa fa-arrow-right"></i></a>
+                 <?php
+
+                 } else{ ?>
+
+                    <a class="btn btn-danger" href="dashboard/post-report.php">Make a Report <i class="fa fa-arrow-right"></i></a>
+                 
+                 <?php } ?>
+
+                </div>
          </div>
 
          <div class="col-md-6 fade-in">
@@ -295,7 +412,7 @@
 </div>
 
 
-<div class="container blog-section">
+<!-- <div class="container blog-section">
 
      <h5>Reports <span class="see_more"><a href="report.php">See more</a></span></h5><br>
 
@@ -341,7 +458,7 @@
              </div>
 
 
-     </div>
+     </div> -->
 
 
 
@@ -363,7 +480,7 @@
    
          <?php 
 
-         include('engine/configure.php');
+
          $conn = new Database();
          $getvideo = $conn->prepare("select * from report");
          $getvideo->execute();
@@ -380,11 +497,16 @@
          <a id="<?php echo$id ?>" class="btn-play"><img src ="<?php echo $thumbnailPath ?>" ></a>
          </figure>
 
-       <span><i class="fa fa-calendar"></i> <?php echo $row['eventDate'] ?> <i class="fa fa-user"></i> BY  <small style="color:red"><?php echo$row['reporterName']  ?></small></span>
+       <span><i class="fa fa-calendar"></i> <?php echo $row['eventDate'] ?> <i class="fa fa-user"></i> BY  <small class="text-capitalize" style="color:red"><?php echo$row['reporterName']  ?></small></span>
 
-      <strong><?php $row['eventTitle'] ?></strong><br>
+      <strong class="text-dark text-capitalize"><?php echo$row['eventTitle'] ?></strong>
       <br>
-      <a href='report-details.php?id=<?php echo $row['id'] ?>'>Read more <i class="fa fa-arrow-right"></i></a>
+      <a href='report-details.php?id=<?php echo $row['id'] ?>'>Read more <i class="fa fa-arrow-right"></i></a><br>
+<div class="d-flex justify-content-space-between align-items-center w-100 gap-20 pt-3">
+      <span class=" mr-3"><i class="fa fa-eye"></i><?php echo $row['views'] ?></span>
+        <span class="mr-3"><i class="fa fa-comments"></i><?php echo $row['comments'] ?></span>
+         <span class="mr-3"  id='ereport/index.php?share =<?php echo$row["eventTitle"]?>'  onclick='share()'><i class="fa fa-share-alt"></i><?php echo $row['share'] ?></span> 
+</div>
   </div>
 
      <?php } ?>
@@ -397,11 +519,11 @@
 
 
 <br><br>
-<div class="video-home container">
+<div class="container">
 
          <h5>Short Videos   <span class="see_more"><a href="videos.php">See more</a></span></h5><br>
 
-     <div class="video-container">
+     <div style="margin-top:-100px;" class="video-container">
 
      <video  controls>
         <source src="assets/video/video.mp4" type="video/mp4">
@@ -415,6 +537,10 @@
     <source src="assets/video/video.mp4" type="video/mp4">
     </video>
 
+
+    <video  controls>
+    <source src="assets/video/video.mp4" type="video/mp4">
+    </video>
   
 
      </div>
@@ -432,92 +558,36 @@
 
      <div class="group-container">
 
+     <?php 
+     $conn = new Database();
+       $getgroup = $conn->prepare("SELECT * FROM groups");
+       $getgroup->execute();
+   
+        $group_result = $getgroup->get_result();
+        while ($data = $group_result->fetch_assoc()) {
+          ?>
 
-         <div class="group_inc">
+<div class="group_inc">
       
-               <img src="assets/images/group.png" alt="group">
+      <img src="<?php echo $data['group_img'] ?>" alt="group">
 
-               <h6>IT news</h6>
+      <h6><?php echo $data['group_name'] ?></h6>
 
-               <p><span>1 Member</span> <span>0</span>  <span>Posts</span>   <span>today</span></p>
+      <p><span>Member</span> <span><?php echo $data['member'] ?></span>  <span><?php echo $data['posts'] ?> Posts</span>   <span><?php echo time_ago($data['date']) ?></span></p>
 
-               <a>Join</a>
+      <a href=groups.php>Join</a>
 
-               <br>
+      <br>
 
-         </div>
-
-
-      
-         <div class="group_inc">
-      
-             <img src="assets/images/group.jpg" alt="group">
-
-             <h6>Tech group</h6>
-
-             <p><span>1 Member</span> <span>0</span>  <span>Posts</span>   <span>today</span></p>
-
-             <a>Join</a>
-
-             <br>
-
-         </div>
+</div>
 
 
-        
-         <div class="group_inc">
-      
-             <img src="assets/images/group.png" alt="group">
+      <?php  }
 
-             <h6>Tech group</h6>
-
-             <p><span>1 Member</span> <span>0</span>  <span>Posts</span>   <span>today</span></p>
-
-             <a>Join</a>
-
-             <br>
-
-         </div>
-
-
-
-         
-         <div class="group_inc">
-      
-             <img src="assets/images/group.jpg" alt="group">
-
-             <h6>Tech group</h6>
-
-             <p><span>1 Member</span> <span>0</span>  <span>Posts</span>   <span>today</span></p>
-
-             <a>Join</a>
-
-             <br>
-
-         </div>
-
-
-
-         
-         <div class="group_inc">
-      
-             <img src="assets/images/group.png" alt="group">
-
-             <h6>Tech group</h6>
-
-             <p><span>1 Member</span> <span>0</span>  <span>Posts</span>   <span>today</span></p>
-
-             <a>Join</a>
-
-             <br>
-
-         </div>
-
-
+       
+     ?>
 
      </div>
-
-
 
 
 </div>
@@ -535,7 +605,7 @@
 
 </div>
 
-
+</div>
 
 <br><br><br>
 
@@ -692,8 +762,50 @@ $(document).on('click','.close',function(){
 
 </script>
 
+<script>
+
+$(document).ready(function () {
+    // Array of video sources
+    var videos = "<?php echo$row['fileupload'] ?>";
+    // Track the current video index
+    var currentVideo = 0;
+
+    // Get the video player and source element
+    var videoPlayer = $('#videoPlayer');
+    var videoSource = $('#videoSource');
+
+    // Listen for when the video ends
+    videoPlayer.on('ended', function () {
+        // Move to the next video in the array
+        currentVideo++;
+
+        // If there are more videos, load and play the next one
+        if (currentVideo < videos.length) {
+            videoSource.attr('src', videos[currentVideo]);
+            videoPlayer[0].load();  // Load the new video
+            videoPlayer[0].play();  // Play the new video
+        } else {
+            console.log("All videos have been played.");
+        }
+    });
+});
+
+</script>
 
 
+
+<script>
+function share() {
+    var url = $('.share').attr('id');
+    var encodedUrl = encodeURIComponent(url);
+    var facebookShare = "https://www.facebook.com/sharer/sharer.php?u=" + encodedUrl;
+    var twitterShare = "https://twitter.com/intent/tweet?url=" + encodedUrl;
+    var linkedinShare = "https://www.linkedin.com/shareArticle?url=" + encodedUrl;
+    window.open(facebookShare, "_blank");
+    window.open(twitterShare, "_blank");
+    window.open(linkedinShare, "_blank");
+}
+</script>
 
 </body>
 </html>

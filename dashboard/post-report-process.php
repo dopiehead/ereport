@@ -72,6 +72,84 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Prepare the SQL statement
         $stmt = $conn->prepare("INSERT INTO report (user_id, reporterName, eventTitle, addressOffender, eventDate, eventTime, eventDetails, reportPurpose, anonymous, reportTo, reportCategory, fileupload, images, comments, views, pending, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
+
+
+        require_once 'vendor/autoload.php';
+
+        $client = new Google_Client();
+        $client->setClientId('YOUR_CLIENT_ID');
+        $client->setClientSecret('YOUR_CLIENT_SECRET');
+        $client->setRedirectUri('YOUR_REDIRECT_URI');
+        $client->addScope(Google_Service_YouTube::YOUTUBE_UPLOAD);
+        
+        $client->setAccessType('offline');
+        $client->setPrompt('select_account consent');
+        
+        // Assuming you've stored the OAuth 2.0 tokens somewhere after the first authentication
+        $accessToken = 'STORED_ACCESS_TOKEN';
+        $client->setAccessToken($accessToken);
+        
+        if ($client->isAccessTokenExpired()) {
+            $refreshToken = 'STORED_REFRESH_TOKEN';
+            $client->fetchAccessTokenWithRefreshToken($refreshToken);
+        }
+        
+        $youtube = new Google_Service_YouTube($client);
+        
+        $videoPath = ' $myimage';
+        $snippet = new Google_Service_YouTube_VideoSnippet();
+        $snippet->setTitle('Video Title');
+        $snippet->setDescription('Video Description');
+        $snippet->setTags(array('tag1', 'tag2'));
+        $snippet->setCategoryId('22'); // Category ID for People & Blogs
+        
+        $status = new Google_Service_YouTube_VideoStatus();
+        $status->privacyStatus = 'public';
+        
+        $video = new Google_Service_YouTube_Video();
+        $video->setSnippet($snippet);
+        $video->setStatus($status);
+        
+        $chunkSizeBytes = 1 * 1024 * 1024;
+        
+        $client->setDefer(true);
+        $insertRequest = $youtube->videos->insert('status,snippet', $video);
+        
+        $media = new Google_Http_MediaFileUpload(
+            $client,
+            $insertRequest,
+            'video/*',
+            null,
+            true,
+            $chunkSizeBytes
+        );
+        
+        $media->setFileSize(filesize($videoPath));
+        
+        $status = false;
+        $handle = fopen($videoPath, "rb");
+        while (!$status && !feof($handle)) {
+            $chunk = fread($handle, $chunkSizeBytes);
+            $status = $media->nextChunk($chunk);
+        }
+        fclose($handle);
+        $client->setDefer(false);
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if ($stmt === false) {
             die("Prepare failed: " . $conn->error);
         }
@@ -96,4 +174,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Close database connection
     $conn->close();
 }
+?>
+
+<?php
+
 ?>

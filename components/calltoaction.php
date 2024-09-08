@@ -73,8 +73,11 @@
       <h6>Whatever information shared with us is Protected</h6>
       
       <br>
-
-      <a>Report</a>
+  <?php if(isset($_SESSION['id'])){ ?>
+     <a href="dashboard/post-report.php">Report</a>
+  <?php }else{ ?>
+       <a href="sign-in.php?details=dashboard/post-report.php">Report</a>
+       <?php } ?> 
 
      </div>
 

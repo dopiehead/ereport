@@ -15,8 +15,6 @@ height:80px !important;
 display:flex;
 justify-content:space-around;
 align-items: center;
-
-
 }
 
 
@@ -35,9 +33,13 @@ margin-left: -35px;
 .header ul li{
 list-style:none;
 z-index:9;
-
 }
 
+
+.header ul .logo a:hover{
+   text-decoration:none !important;
+   background-color: none !important;
+    }
 
 .menu-icon{
 display:none;
