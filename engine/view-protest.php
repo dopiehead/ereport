@@ -2,9 +2,22 @@
 <?php
 include('configure.php');
 $conn = new Database();
-
-// Fetch comments
-$query = "SELECT * FROM protest WHERE parent_protest_id = '0' ORDER BY protest_id DESC";
+$query = "SELECT protest.protest_id AS protest_id,
+protest.user_id AS user_id, 
+protest.protest AS protest,
+protest.parent_protest_id AS parent_protest_id,
+protest.fileupload AS fileupload,
+protest.protest_sender_name AS protest_sender_name,
+protest.likes AS likes,
+protest.unlikes AS unlikes,
+protest.date AS date,
+user_profile.id,
+user_profile.img_upload AS img_upload
+ 
+FROM protest
+JOIN user_profile ON user_id = user_profile.id 
+WHERE parent_protest_id = '0' 
+ORDER BY protest_id DESC";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -13,7 +26,7 @@ $output = '';
 while ($row = $result->fetch_assoc()) {
     $output .= '<div class="user-container">
     <div>
-<img src="assets/images/IMG_E7548.jpg" alt="">
+<img src="'.$row['img_upload'].'" alt="">
 <span class="user_name">' . htmlspecialchars($row["protest_sender_name"]) . '</span>
 </div>
 
@@ -32,6 +45,11 @@ while ($row = $result->fetch_assoc()) {
 <span class="reply p-3"><a class="reply"  id="' . $row["protest_id"] . '"  onClick="reply()">Reply</a></span>
 
 </div>
+
+   
+        <div class="sender_image_container d-flex justify-content-center align-items-center mt-5">
+            <img src="' . htmlspecialchars($row['fileupload']) . '">
+        </div>
 
 </div><hr>';
     $output .= get_reply_comment($conn, $row["protest_id"]);

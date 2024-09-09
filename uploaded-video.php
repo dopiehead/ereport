@@ -13,10 +13,10 @@ else{
         $result = $stmt->get_result(); // Get the result set
         while ($row = $result->fetch_assoc()) { ?>
                 
- <video controls>
-  <source src="<?php echo "dashboard/./".$row['fileupload'] ?>" type="video/mp4">
-  <source src="<?php echo "dashboard/./".$row['fileupload'] ?>" type="video/ogg">
-  <source src="<?php echo "dashboard/./".$row['fileupload'] ?>" type="video/mov">
+ <video id="videoPlayer" controls>
+  <source id="videoSource" src="<?php echo "dashboard/./".$row['fileupload'] ?>" type="video/mp4">
+  <source id="videoSource" src="<?php echo "dashboard/./".$row['fileupload'] ?>" type="video/ogg">
+  <source id="videoSource" src="<?php echo "dashboard/./".$row['fileupload'] ?>" type="video/mov">
  </video>
  
 

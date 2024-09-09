@@ -36,15 +36,20 @@
      <div class="form-container">
 
          <div>
-                 <img src="assets/images/IMG_E7548.jpg" alt="">
+            <?php if(isset($_SESSION['id'])){
+                echo "<img src='dashboard/".$_SESSION['img']."' alt='user-photo'>";
+            } else{?>
+               <i class="fa fa-user-alt"></i>   
+                <?php } ?>
+             
 
-                 <i id="startCall" class="fa fa-plus"></i>
+                 <i id="startCamera" class="fa fa-plus"></i>
 
-                 <!-- <i id="startRecording" class="fa fa-video-camera"></i> -->
-<!-- 
-                 <i class="fa fa-play" id="playRecording" style="display:none;"></i>
+                 <i id="startRecording" class="fa fa-video-camera"></i>
 
-                 -->
+                  <i class="fa fa-play" id="playRecording" ></i>
+
+                
 
           
 
@@ -52,10 +57,14 @@
 
         <div>
 
-            <i id="endCall" class="fa fa-close"></i>
+            <i id="stopCamera" class="fa fa-close"></i>
           
-            <i id="closeChatButton" class="fa fa-hand"></i>
-            <!-- <i id="hangUp" class="fa fa-stop"></i> -->
+            <i id="stopRecording" class="fa fa-hand">
+                
+            </i>
+
+            <i id="downloadRecording" class="fa fa-download" ></i>
+           
                
 
 
@@ -72,7 +81,7 @@
 
 <div class="video-container">
 
-<video id="localVideo" autoplay></video>
+<video id="video" autoplay></video>
 
 <video id="remoteVideo" autoplay></video>
 
@@ -90,7 +99,7 @@
 
              <i class="fa fa-crop"></i>
 
-             <i class="fa fa-share-alt"></i>
+             <i id='https://localhost/ereport/golive.php?share=<?php echo $_SESSION['id'] ?>' class="fa fa-share-alt" onclick="share()"  target='_blank' rel='noopener noreferrer'></i>
 
          </div> 
 
@@ -107,11 +116,10 @@
 </div>
 
 
-
 <?php  include 'components/footer.php';  ?>
 
 
-    <!-- <script>
+    <script>
       $(document).ready(function() {
         let stream = null; // Store the media stream globally
         let mediaRecorder = null; // Store the MediaRecorder instance
@@ -171,7 +179,7 @@
                 console.log('Recording started');
             } else {
                 console.error('No active stream to record');
-                alert('Start the camera first');
+                swal('Start the camera first');
             }
         });
 
@@ -180,8 +188,38 @@
             if (mediaRecorder) {
                 mediaRecorder.stop();
                 mediaRecorder = null;
-                console.log('Recording stopped');
+               swal('Recording stopped');
             }
+
+            var id = $('.user_id').val();
+        
+           $.ajax({
+
+             method:"POST",
+             url: "engine/sendtoadmin.php",
+             data:{'id':id},
+           
+             success: function(response) {
+              
+                if(response==1){
+              swal({ 
+                    icon:"success",
+                    text:"alert has been sent to the admin",
+              });
+             }
+
+             else{
+                 swal({
+                    icon:"error",
+                    text:response
+                });
+             }
+            }
+
+           });
+
+
+
         });
 
         // Play recorded video
@@ -201,12 +239,25 @@
             URL.revokeObjectURL(url);
         });
       });
-    </script> -->
+    </script>
 
 
 
+<script>
+function share() {
+    var url = $('.share').attr('id');
+    var encodedUrl = encodeURIComponent(url);
+    var facebookShare = "https://www.facebook.com/sharer/sharer.php?u=" + encodedUrl;
+    var twitterShare = "https://twitter.com/intent/tweet?url=" + encodedUrl;
+    var linkedinShare = "https://www.linkedin.com/shareArticle?url=" + encodedUrl;
+    window.open(facebookShare, "_blank");
+    window.open(twitterShare, "_blank");
+    window.open(linkedinShare, "_blank");
+}
+</script>
 
-    <script>
+
+    <!-- <script>
         const signalingServerUrl = 'ws://localhost:8080';
         const localVideo = document.getElementById('localVideo');
         const remoteVideo = document.getElementById('remoteVideo');
@@ -289,7 +340,7 @@
         startCallButton.addEventListener('click', startCall);
         endCallButton.addEventListener('click', endCall);
         closeChatButton.addEventListener('click', closeChat);
-    </script>
+    </script> -->
 
 
 

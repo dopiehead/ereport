@@ -64,7 +64,11 @@ if (!$stmt->execute()) {
 } else { ?>
     <div class="container trending-section">  
         <?php
-        $result = $stmt->get_result(); // Get the result set
+        $result = $stmt->get_result();
+        
+        if($result->num_rows<1){echo "No result found";}
+        
+        // Get the result set
         while ($row = $result->fetch_assoc()) {
             $videoPath = $row['fileupload'];
            

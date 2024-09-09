@@ -125,6 +125,7 @@
   
 
   <div class="popup" id="popup">
+  <h6 class="text-dark text-center fw-bold text-uppercase text-lg"><b>Choose comments category</b></h6>
     <a id="close" onclick="btn_cat()">&times;</a>
     <div class="d-flex justify-content-start align-items-center px-1 gap-5">
     <a id="next" class='bg-success p-1 mr-1' onclick="prev_cat()"><i class="fa fa-chevron-left"></i></a>
@@ -135,7 +136,8 @@
     <h6>Choose category</h6>
 
         <div class="container newsletter-choose">
-           
+                           
+                               
 
              <div class="first_slide">
          

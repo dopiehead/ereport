@@ -114,7 +114,7 @@ function time_ago($date) {
         
          <div class="naviLinks">
 
-         <a href="report.php?search='hotel'"><img src="assets/images/menu/hotel.png"></a>
+         <a href="report.php?search=hotel"><img src="assets/images/menu/hotel.png"></a>
 
          <p>hotel</p>
 
@@ -124,7 +124,7 @@ function time_ago($date) {
         
          <div class="naviLinks">
 
-         <a><img src="assets/images/menu/business-owner.png"></a>
+         <a href="report.php?search=business owner"><img src="assets/images/menu/business-owner.png"></a>
 
          <p>business owner</p>
 
@@ -133,7 +133,7 @@ function time_ago($date) {
          
          <div class="naviLinks">
 
-         <img src="assets/images/menu/service-provider.png">
+         <a href="report.php?search=service provider"><img src="assets/images/menu/service-provider.png"></a>
 
          <p>service provider</p>
 
@@ -142,7 +142,7 @@ function time_ago($date) {
 
          <div class="naviLinks">
 
-           <img src="assets/images/menu/bank.png">
+         <a href="report.php?search=bank"><img src="assets/images/menu/bank.png"></a>
 
            <p>Banks</p>
 
@@ -152,7 +152,7 @@ function time_ago($date) {
 
          <div class="naviLinks">
 
-           <img src="assets/images/menu/drugs.png">
+         <a href="report.php?search=drugs"><img src="assets/images/menu/drugs.png"></a>
             
            <p>drugs</p>
 
@@ -161,7 +161,7 @@ function time_ago($date) {
 
          <div class="naviLinks">
 
-           <img src="assets/images/menu/army.png">
+         <a href="report.php?search=army"><img src="assets/images/menu/army.png"></a>
 
 <p>army</p>
 
@@ -172,7 +172,7 @@ function time_ago($date) {
 
 <div class="naviLinks">
 
-<img src="assets/images/menu/electricity.png">
+<a href="report.php?search=electricity"><img src="assets/images/menu/electricity.png"></a>
 
 <p>electricity</p>
 
@@ -511,15 +511,12 @@ while ($getnumresult = $get_result->fetch_assoc()){ echo"<h6 class='counter text
 
      <?php } ?>
 
+    
      </div>
 
 
-
-
-
-
 <br><br>
-<div class="container">
+<div class="w-100 ml-5">
 
          <h5>Short Videos   <span class="see_more"><a href="videos.php">See more</a></span></h5><br>
 
@@ -763,10 +760,10 @@ $(document).on('click','.close',function(){
 </script>
 
 <script>
-
 $(document).ready(function () {
-    // Array of video sources
-    var videos = "<?php echo$row['fileupload'] ?>";
+    // PHP array of video sources should be output as a JSON array
+    var videos = <?php echo json_encode($row['fileupload']); ?>;
+    
     // Track the current video index
     var currentVideo = 0;
 
@@ -788,9 +785,16 @@ $(document).ready(function () {
             console.log("All videos have been played.");
         }
     });
-});
 
+    // Initialize the first video
+    if (videos.length > 0) {
+        videoSource.attr('src', videos[currentVideo]);
+        videoPlayer[0].load();  // Load the first video
+        videoPlayer[0].play();  // Play the first video
+    }
+});
 </script>
+
 
 
 

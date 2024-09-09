@@ -1,4 +1,9 @@
 <?php session_start(); ?>
+
+
+
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,9 +30,31 @@
 
 </div>
 
+
+<?php 
+if(isset($_GET['search']) && !empty($_GET['search'])){
+$search = $_GET['search']; ?>
+
+<input type="hidden" id="search" value="<?php echo$search;?>">
+
+<script>
+$(document).ready(function(){
+var search = $('#search').val();
+if (search!=''){
+$('#q').val(search).trigger('keyup');   
+}
+ });
+ </script>  
+<?php } ?>
+
+
+
+
+
+
 <div class="container search-container">
      
-      <input type="text" name="q" id="q" placeholder="Search for reports...">
+      <input type="text" name="q" id="q" placeholder="Search for reports..." value="<?php if(isset($search) && !empty($search)){echo$search;}?>">
               
         <select name="newsType" id="newsType">
             
@@ -41,6 +68,7 @@
 
 <br>
 <div>
+
 
 <div class="blog-post-container">
                 

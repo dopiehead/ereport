@@ -1,0 +1,9 @@
+<VirtualHost *:80>
+    ServerName dev.local
+    DocumentRoot /xampp/htdocs/ereport/engine/   # Path to your project directory
+
+    <Directory /xampp/htdocs/ereport/engine/>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>

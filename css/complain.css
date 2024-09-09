@@ -72,3 +72,13 @@ width:80px;
     height:50px;
     width:50px;
     }
+
+    .sender_image_container img{
+width:180px !important;
+height:210px !important;
+object-fit:cover;
+object-position: center;
+border-radius:none !important;
+
+
+    }
