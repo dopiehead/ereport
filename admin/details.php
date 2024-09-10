@@ -25,6 +25,14 @@
 include("../engine/configure.php");
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
+    $num_per_page = 4;
+    if (isset($_POST['page'])) {
+        $page = $_POST['page'];
+       }
+       else{
+       $page = 1;  
+       }
+       $initial_page = ($page-1)*$num_per_page; 
 
     // Create a database connection
     $conn = new Database();
@@ -60,6 +68,7 @@ if (isset($_GET['id'])) {
         WHERE user_profile.id = ?
         GROUP BY user_profile.id, report.id
     ";
+    $query .= " limit $initial_page,$num_per_page";
 
     // Prepare the statement
     $stmt = $conn->prepare($query);
