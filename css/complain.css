@@ -45,7 +45,7 @@
   }
 
 
-  .complain-comment-section img{
+  .complain-comment-section img:nth-child(1){
 border-radius: 50%;
 height:80px;
 width:80px;
@@ -73,12 +73,31 @@ width:80px;
     width:50px;
     }
 
-    .sender_image_container img{
-width:180px !important;
-height:210px !important;
-object-fit:cover;
+    .sender_image_container{
+width:300px !important;
+height:250px !important;
+display: flex;
+justify-content: center;
+align-items: center;
+
+ }
+
+ .sender_image_container img{
+    object-fit:cover;
 object-position: center;
-border-radius:none !important;
+width:100% !important;
+height:100% !important;
 
+    }
 
+    .reply{
+      cursor:pointer;
+    }
+
+    .likes{
+      cursor: pointer;
+    }
+
+    .dislikes{
+      cursor: pointer;
     }

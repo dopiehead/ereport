@@ -76,8 +76,6 @@ $session->checkLogin(); // Check if the user is logged in
                      </div>
      
                  </div>
-                 
-                
 
                  <?php if (file_exists($_SESSION['img'])) {
 $extension = strtolower(pathinfo($_SESSION['img'],PATHINFO_EXTENSION));

@@ -1,4 +1,5 @@
 <?php 
+error_reporting(E_ALL ^ E_NOTICE);
 session_start();
 
 $user_name = "John Smith";
@@ -63,12 +64,12 @@ if (isset($_SESSION['id'])):
 
             <input type="hidden" name="user_id" id="user_id" value="<?php echo$user_id ?>"><br>
 
-            <textarea name="complain" style="font-size:13px;" id="complain" class="form-control" wrap="physical" placeholder="...Write a complain" rows="5" ></textarea> 
+            <textarea name="complain" style="font-size:13px;" id="complain" class="form-control complain_section" wrap="physical" placeholder="...Write a complain" rows="5" ></textarea> 
 
             <div class="d-flex justify-content-space-between align-items-center">
 
             <?php if(isset($_SESSION['id'])){ ?>
-            <button class="btn-comment mt-3 w-50 mr-3">Post <i class="fa fa-chevron-right"></i></button>
+            <button class="btn-comment mt-2 w-50 mr-3 p-2">Post <i class="fa fa-chevron-right"></i></button>
        <?php } else{ ?> 
         <a href="sign-in.php?details='<?php echo urlencode($_SERVER['REQUEST_URI'])?>'" class="btn btn-primary mt-3 w-50 mr-3">login to continue <i class="fa fa-chevron-right"></i></a>
            <?php } ?>
@@ -86,17 +87,8 @@ if (isset($_SESSION['id'])):
         
          <div class="complain-comment-section" id="complain-comment-section">
                <div class="user-container">        
-                     <div>
-                          <img src="assets/images/IMG_E7548.jpg" alt=""> 
-                          <span class="user_name">Adewale Musa</span>
-                     </div>
-                     <div>
-                          <span class="user_time">2 hours ago</span>
-                     </div>
-               </div>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio adipisci laboriosam odio voluptas cum blanditiis provident laudantium aperiam a sunt! Libero minus corrupti animi inventore tenetur velit, modi veniam id.</p>
-            
-         
+                     
+                     
          </div>
 
      </div>
@@ -105,34 +97,48 @@ if (isset($_SESSION['id'])):
 
 </div>
 
+</div>
 
+<!-- footer -->
 <?php include 'components/footer.php'; ?>
 <script>
 $(document).ready(function() {
     $("#complain-comment-section").load("engine/view-complain.php");
-    $(document).on("click", '.reply', function() {
-        var comment_id = $(this).attr('id');
+    $(document).on("click", '.btn_reply', function() {
+       
+        var complain_id = $(this).attr('id');
+
         $('#complain_id').val(complain_id);  // Set the comment ID in the hidden input field
-        $("#name").focus();  // Focus the name input field
+        $(".complain_section").focus();  // Focus the name input field
     
     });
 $('#complainForm').on('submit', function(e) {
         e.preventDefault(); 
         $("#loading-image").show(); // Show loading image
+         var complain = $("#complain").val();
+         if (complain==""){
+            swal({ 
+                   title:"Notice",
+                   icon:"warning",
+                   text:"Complain field cannot be empty.",
+            });
+         }
 
-        var formdata = new FormData(this); // Create FormData object with the form's data
+        var formdata = new FormData(this); 
+
+        // Create FormData object with the form's data
 
         $.ajax({
             type: "POST",
             url: "engine/complain-process.php",
-            data: formdata, // Send FormData object
+            data:  new FormData(this), // Send FormData object
             cache: false,
             processData: false,
             contentType: false,
 
             success: function(response) {
                 $("#loading-image").hide(); // Hide loading image
-
+       $('#bom').load(location.href + " #cy");
                 if (response == 1) {
                     // On success, reload comments and reset form
                     $("#complain-comment-section").load("engine/view-complain.php");
@@ -169,10 +175,14 @@ $('#complainForm').on('submit', function(e) {
 
 
 <script>
+    $(".likes").show();
+       $(".dislikes").hide();
 $(document).on('click', '.likes', function() {
-    var user_id = "<?php echo $user_id; ?>";
+    var user_id = "<?php echo$user_id ?>";
     var complain_id = $(this).attr('id');
-    
+
+
+
     $.ajax({
         type: "POST",
         url: "engine/update-complain-likes.php",
@@ -186,20 +196,23 @@ $(document).on('click', '.likes', function() {
                     text: "Like added successfully",
                     icon: "success",
                 });
+
+
+
             } else if (response == 2) {
                 swal({
                     title: "Notice",
-                    text: "You have already liked this complain",
+                    text: "You have already liked this comment",
                     icon: "info",
                 });
             } else {
 
-                alert(response);
-                // swal({
-                //     title: "Error",
-                //     text: "An error occurred while liking the comment",
-                //     icon: "error",
-                // });
+               
+                swal({
+                    title: "Error",
+                    text: response,
+                    icon: "error",
+                });
             }
         },
         error: function(xhr, status, error) {
@@ -215,10 +228,13 @@ $(document).on('click', '.likes', function() {
 
 
 <script>
+
 $(document).on('click', '.dislikes', function() {
-    var user_id = "<?php echo $user_id; ?>";
-    var comment_id = $(this).attr('id');
-    
+   var user_id = "<?php echo $user_id; ?>";
+    var complain_id = $(this).attr('id');// Using data attribute
+
+
+
     $.ajax({
         type: "POST",
         url: "engine/update-complain-dislikes.php",
@@ -226,14 +242,18 @@ $(document).on('click', '.dislikes', function() {
         success: function(response) {
             if (response == 1) {
                 swal({
-                    title: "Success!",
-                    text: "Like removed successfully",
+                    title: "Success",
+                    text: "like has been removed successfully",
                     icon: "success",
                 });
-            } else {
 
-                swal(response);
-                
+
+            } else {
+               swal({
+                    title: "Notice",
+                    text: response,
+                    icon: "error",
+                });
             }
         },
         error: function(xhr, status, error) {

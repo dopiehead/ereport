@@ -119,7 +119,7 @@ else{ ?>
 
              <label for="offender" class="mb-2 mt-3 fw-bold">Name Of Offender</label>
  
-             <input type="text" name="reporterName" class="form-control" placeholder="Name">
+             <input type="hidden" name="reporterName" class="form-control" placeholder="Name" value="<?php echo $_SESSION['name'] ?>">
 
          </div>
 

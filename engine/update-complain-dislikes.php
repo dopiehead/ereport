@@ -1,7 +1,8 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
 include('configure.php');
 $conn = new Database();
-
+error_reporting(E_ALL ^ E_NOTICE);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $complain_id = intval($_POST['complain_id']); // Sanitize input
     $user_id = intval($_POST['user_id']); // Sanitize input
@@ -26,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn->close();
         exit();
     }
-
+else{
     // Delete the like from report_likes_unlikes table
     $deleteLikeQuery = "DELETE FROM complain_likes_unlikes WHERE complain_id = ? AND user_id = ?";
     $stmt = $conn->prepare($deleteLikeQuery);
@@ -42,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt2 === false) {
             die('Prepare failed: ' . $conn->error);
         }
-        $stmt2->bind_param("i", $complain_id);
+        $stmt2->bind_param("i", $comment_id);
 
         if ($stmt2->execute()) {
             echo "1"; // Success
@@ -54,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         die('Execute failed: ' . $stmt->error);
     }
-
+}
     $stmt->close();
     $conn->close();
 }

@@ -16,8 +16,6 @@ if (isset($_SESSION['name']) && $_SESSION['name'] != "") {
    $user_name =  $_SESSION['name']; 
    $user_id =  $_SESSION['id']; 
    
-  
-
 } 
 else{
     $user_name = "John Smith";
@@ -118,9 +116,7 @@ function time_ago($date) {
 
 ?>
 
-
 <!-- <div class="hero-section">
-
 <div class="hero-text">
 
   <h3>
@@ -132,7 +128,6 @@ function time_ago($date) {
 </div> -->
 
 <br><br><br><br><br>
-
 
 <div class="container">
 
@@ -168,9 +163,9 @@ function time_ago($date) {
          
 <!----------------------comment---------------------->
 <div class="comment-button">
-      <a>Positive <i class="fa fa-comments positive"></i></a> 
-      <a>Negative  <i class="fa fa-comments negative"></i></a> 
-      <a>Suggestions</a>
+      <a id="positive" class="category-button">Positive <i class="fa fa-comments positive"></i></a> 
+      <a id="negative" class="category-button">Negative  <i class="fa fa-comments negative"></i></a> 
+      <a id="suggestions" class="category-button">Suggestions</a>
 </div>
 <form id="commentForm">
 <div class="comment-section">
@@ -318,17 +313,10 @@ function time_ago($date) {
   
    
     <div class="comment-show" id="comment-show">
-
-
                 
                </div> 
 
              </div>
-
-
-
-
-
 
 
         </div>
@@ -340,7 +328,6 @@ function time_ago($date) {
 <br>
 
 <div class="container">
-
 <div class="ads-right">
         
         <img src="assets/images/ads/ad1.png" alt="">
@@ -354,16 +341,11 @@ function time_ago($date) {
         </div>
         <?php
     
-    $conn = new Database();
-     
-    $topdiscussions = $conn->prepare("SELECT * FROM report order by views, date desc limit 8");
-     
+    $conn = new Database();    
+    $topdiscussions = $conn->prepare("SELECT * FROM report order by views, date desc limit 8");    
     $topdiscussions->execute();
-
     $topstories = $topdiscussions->get_result();
-
     ?>
-
 
 <br>
         <h4><b>Top Stories</b></h4><br>
@@ -396,14 +378,10 @@ function time_ago($date) {
       <h6><b>Latest Stories</b></h6>
       <?php
     
-    $conn = new Database();
-     
-    $latestdiscussions = $conn->prepare("SELECT * FROM report order by id desc limit 1");
-     
+    $conn = new Database();     
+    $latestdiscussions = $conn->prepare("SELECT * FROM report order by id desc limit 1");     
     $latestdiscussions->execute();
-
     $lateststories =  $latestdiscussions->get_result();
-
 while ($datalateststories= $lateststories->fetch_assoc()){
         $thumbnailPath_lateststories = 'dashboard/thumbnails/' . basename($datalateststories['fileupload']) . '.jpg';
         $image = "uploads/" . htmlspecialchars($datalateststories['fileupload']); 
@@ -416,26 +394,16 @@ while ($datalateststories= $lateststories->fetch_assoc()){
       
       <?php
     
-    $conn = new Database();
-     
+    $conn = new Database();     
     $latestdiscussionsreporter = $conn->prepare("SELECT * FROM user_profile where id =?");
-
-    $latestdiscussionsreporter->bind_param("i",$reporterid);
-     
+    $latestdiscussionsreporter->bind_param("i",$reporterid);     
     $latestdiscussionsreporter->execute();
-
     $lateststoriesreporter =  $latestdiscussionsreporter->get_result();
-
-while ($datalateststoriesreporter= $lateststoriesreporter->fetch_assoc()){
-       
+while ($datalateststoriesreporter= $lateststoriesreporter->fetch_assoc()){       
         $reporterpic = $datalateststoriesreporter['img_upload'];
-
         $reporterpId = $datalateststoriesreporter['id'];
-
         $reporterlocation = $datalateststoriesreporter['location'];
    } ?>    
-
-
 
 
      <div class="row">
@@ -514,43 +482,8 @@ while($rowupcoming = $result->fetch_assoc()){
 }
 ?>
              
-               
 
-
-
-<!-- 
-                 <div class="upcoming_details">
-                   
-                   <div>
-                       <img src="assets/images/blog.jpg" alt="">
-                   </div>
-
-                   <div>
-                      
-                       <div class="upcoming_read">
-
-                              <p>Aug 21 2024</p>
-                              <p>10 mins read</p>
-
-                        </div> 
-
-                      <h6>Topic of Discussion</h6>
-
-                   </div>
-
-               </div> -->
-
-
-
-
-
-
-
-
-
-
-         
-         </div>
+     </div>
 
      </div>
 
@@ -560,7 +493,7 @@ while($rowupcoming = $result->fetch_assoc()){
 <br><br>
 
 
-
+<!-- popup video player -->
 
 <div class="pop" id="pop">
 
@@ -574,7 +507,7 @@ while($rowupcoming = $result->fetch_assoc()){
 </div>
 
 
-
+<!-- footer -->
 
 
 <?php  include 'components/footer.php'; ?>
@@ -586,9 +519,9 @@ $(document).ready(function() {
     $(document).on("click", '.reply', function() {
         let comment_id = $(this).attr('id');
         $('#comment_id').val(comment_id);  // Set the comment ID in the hidden input field
-        $("#name").focus();  // Focus the name input field
+        $("#comment").focus(); 
+         // Focus the name input field
     });
-
   
     $('#commentForm').on('submit', function(e) {
         e.preventDefault(); // Prevent default form submission behavior
@@ -596,6 +529,7 @@ $(document).ready(function() {
        let name = $('#name').val();
        let comment = $('#comment').val();
        let comment_category = $('#comment_category').val();
+       let news_id = "<?php echo $id ?>";
        if (comment ==='') {
         swal({
             title: 'Error',
@@ -629,15 +563,13 @@ $(document).ready(function() {
             type: "POST",
             url: "engine/comments-process.php",
             data: formdata, // Send FormData object
-            cache: false,
-            
-           
-            success: function(response) {
+            cache: false,            
+           success: function(response) {
                 $("#loading-image").hide(); // Hide loading image
 
                 if (response == 1) {
                     // On success, reload comments and reset form
-                    $("#comment-show").load("engine/view-comments.php");
+                    $("#comment-show").load("engine/view-comments.php?id="+news_id);
 
                     swal({
                         text: "Comment added successfully",
@@ -676,12 +608,10 @@ $(document).ready(function() {
 </script>
 
 
-
 <script>
 $(document).on('click', '.likes', function() {
     var user_id = "<?php echo $user_id; ?>";
     var comment_id = $(this).attr('id');
-    alert('clicked');
     
     $.ajax({
         type: "POST",
@@ -811,6 +741,36 @@ $(document).ready(function () {
 });
 
 </script>
+
+
+<script>
+$(document).ready(function() {
+    $(".category-button").on('click', function() {
+        var comment_category = $(this).attr('id');
+        var button = $(this); // Save reference to the button
+
+        $.ajax({
+            method: "POST",
+            url: "engine/view-comments.php",
+            data: { 'comment_category': comment_category },
+            success: function(data) {
+                $("#comment-show").html(data);
+
+                // Optional: Handle response if needed
+                button.css("backgroundColor", "green");
+            },
+            error: function(xhr, status, error) {
+                // Handle error if needed
+                console.error("AJAX Error: " + status + error);
+            }
+        });
+    });
+});
+</script>
+
+
+
+
 
 </body>
 </html>

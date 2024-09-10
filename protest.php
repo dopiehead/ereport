@@ -46,17 +46,18 @@ if (isset($_SESSION['id'])):
     
 ?>
 
-    <img class="user_image mr-2 mb-2" src="<?php  echo 'dashboard/'.$user_img; ?>" alt=""><span class="user_name"><?php echo $user_name; ?></span>        
+    <img class="user_image mr-2 mb-1" src="<?php  echo 'dashboard/'.$user_img; ?>" alt=""><span class="user_name"><?php echo $user_name; ?></span>        
 
 <?php else: ?>
 
-    <i class="fa fa-user-alt user_image mr-2 mb-2"></i> <span class="user_name">John Smith</span>    
+    <i class="fa fa-user-alt user_image mr-2 mb-1"></i> <span class="user_name">John Smith</span>    
 
 <?php endif; ?>
 
             
          <form  id="protestForm">
-         <input type="hidden" name="protest_id" id="protest_id">
+
+         <input type="hidden" name="protest_id" class="protest_id" id="protest_id">
 
             <input type="hidden" name="user_id" id="user_id" value="<?php echo$user_id ?>"><br>
 
@@ -64,12 +65,12 @@ if (isset($_SESSION['id'])):
 
             <input type="hidden" name="user_email" id="user_email" value="<?php echo$_SESSION['email'] ?>"><br>
 
-            <textarea name="protest" style="font-size:13px;" id="message" class="form-control" wrap="physical" placeholder="...Start a protest" rows="5" ></textarea> 
+            <textarea name="protest" style="font-size:13px;" id="protest" class="form-control protest_section" wrap="physical" placeholder="...Start a protest" rows="5" ></textarea> 
              
             <div class="d-flex justify-content-space-around align-items-center">
              
             <?php if(isset($_SESSION['id'])){ ?>
-            <button class="btn-comment mt-3 w-50 mr-3">Post <i class="fa fa-chevron-right"></i></button>
+            <button class="btn-comment mt-2 w-50 mr-3 p-2 ">Post <i class="fa fa-chevron-right"></i></button>
             <label class="btn-comment mt-3 w-50 p-2 d-flex justify-content-center align-items-center gap-5">
               <span id="file-label"> Upload Photo<i class="fa fa-camera ml-3"></i></span> <span id="fileName">
     
@@ -87,17 +88,9 @@ if (isset($_SESSION['id'])):
         
          <div class="protest-comment-section" id="protest-comment-section">
                <div class="user-container">        
-                     <div>
-                          <img src="assets/images/IMG_E7548.jpg" alt=""> 
-                          <span class="user_name">Adewale Musa</span>
-                     </div>
-                     <div>
-                          <span class="user_time">2 hours ago</span>
-                     </div>
+
                </div>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio adipisci laboriosam odio voluptas cum blanditiis provident laudantium aperiam a sunt! Libero minus corrupti animi inventore tenetur velit, modi veniam id.</p>
-              <span class="heart p-4 likes"><i class="fa fa-heart"></i> </span>   <span class="hand p-3 dislikes"><i class="fa fa-hand"></i> </span> <span class="reply p-3"><a class="reply">Reply</a></span>
-         
+            
          </div>
 
      </div>
@@ -107,45 +100,76 @@ if (isset($_SESSION['id'])):
 
 
 <?php include 'components/footer.php';?>
-
 <script>
 $(document).ready(function() {
+    // Load the initial content
     $("#protest-comment-section").load("engine/view-protest.php");
-    $(document).on("click", '.reply', function() {
+
+    // Handle reply button click
+    $(document).on("click", '.btn_reply', function() {
         var protest_id = $(this).attr('id');
-        $('#protest_id').val(protest_id);  // Set the comment ID in the hidden input field
-        $("#name").focus();  // Focus the name input field
-    
+        $('.protest_id').val(protest_id);
+        $(".protest_section").focus();
     });
-$('#protestForm').on('submit', function(e) {
-        e.preventDefault(); 
-        $("#loading-image").show(); // Show loading image
 
-        var formdata = new FormData(this); // Create FormData object with the form's data
+    // Handle form submission
+    $('#protestForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
 
+        // Show loading image
+        $("#loading-image").show();
+
+        // Get form values
+        var name = $("#user_name").val(); 
+        var protest = $("#protest").val();
+
+        // Validate form inputs
+        if (name === '') {
+            $("#loading-image").hide(); // Hide loading image
+            swal({
+                title: "Notice",
+                icon: "warning",
+                text: "Name field cannot be empty"
+            });
+            return; // Stop the execution of the function
+        }
+
+        if (protest === '') {
+            $("#loading-image").hide(); // Hide loading image
+            swal({
+                title: "Notice",
+                icon: "warning",
+                text: "Protest field cannot be empty"
+            });
+            return; // Stop the execution of the function
+        }
+
+        // Create FormData object
+        var formdata = new FormData(this);
+
+        // Send AJAX request
         $.ajax({
             type: "POST",
             url: "engine/protest-process.php",
-            data: formdata, // Send FormData object
-            cache: false,
-            processData: false,
-            contentType: false,
-
+            data: formdata, 
+            contentType: false, // Required for FormData
+            processData: false, // Required for FormData
             success: function(response) {
                 $("#loading-image").hide(); // Hide loading image
 
                 if (response == 1) {
                     // On success, reload comments and reset form
-                    $("#protest-comment-section").load("engine/view-protest.php");
+               
 
                     swal({
                         text: "Protest added successfully",
                         icon: "success",
                     });
 
-                    $("#name").val(""); // Clear name input
-                    $("#protest").val(""); // Clear comment input
-                    $("#protest_id").val(""); // Clear comment_id input
+                    // Clear form fields
+                    $("#name").val("");
+                    $("#protest").val("");
+                    $("#protest_id").val("");
                     $("#fileupload").val("");
                 } else {
                     swal({
@@ -154,7 +178,6 @@ $('#protestForm').on('submit', function(e) {
                     });
                 }
             },
-
             error: function(jqXHR, textStatus, errorThrown) {
                 $("#loading-image").hide(); // Hide loading image on error
                 console.log("Error: " + errorThrown); // Log error
@@ -169,18 +192,19 @@ $('#protestForm').on('submit', function(e) {
 </script>
 
 
+
 <script>
 $(document).on('click', '.likes', function() {
     var user_id = "<?php echo $user_id; ?>";
-    var comment_id = $(this).attr('id');
+    var protest_id = $(this).attr('id');
     
     $.ajax({
         type: "POST",
         url: "engine/update-protest-likes.php",
         data: { 'user_id': user_id, 'protest_id': protest_id },
         success: function(response) {
-        
-            $('#bom').load(location.href + " #cy"); // Reload specific part of the page
+            
+            $('.fa-thumbs-up').load(location.href + " #cy"); // Reload specific part of the page
             if (response == 1) {
                 swal({
                     title: "Success!",
@@ -195,12 +219,12 @@ $(document).on('click', '.likes', function() {
                 });
             } else {
 
-                alert(response);
-                // swal({
-                //     title: "Error",
-                //     text: "An error occurred while liking the comment",
-                //     icon: "error",
-                // });
+               
+                swal({
+                    title: "Error",
+                    text: "An error occurred while liking the comment",
+                    icon: "error",
+                });
             }
         },
         error: function(xhr, status, error) {
@@ -216,25 +240,33 @@ $(document).on('click', '.likes', function() {
 
 
 <script>
-$(document).on('click', '.dislikes', function() {
+$(document).on('click', '.dislike', function() {
     var user_id = "<?php echo $user_id; ?>";
     var protest_id = $(this).attr('id');
-    
+
+     // Using data attribute
+
+
     $.ajax({
         type: "POST",
         url: "engine/update-protest-dislikes.php",
         data: { 'user_id': user_id, 'protest_id': protest_id },
         success: function(response) {
+     
             if (response == 1) {
                 swal({
-                    title: "Success!",
-                    text: "Like removed successfully",
+                    title: "Success",
+                    text: "Dislike removed successfully",
                     icon: "success",
                 });
-            } else {
 
-                swal(response);
-                
+           $('#bom').load(location.href + " #cy");
+            } else {
+               swal({
+                    title: "Notice",
+                    text: response,
+                    icon: "error",
+                });
             }
         },
         error: function(xhr, status, error) {

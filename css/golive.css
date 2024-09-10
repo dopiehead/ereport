@@ -100,3 +100,12 @@
     cursor: pointer !important;
     z-index: 1;
 }
+
+
+.playRecording{
+display: none;
+}
+
+.downloadRecording{
+ display: none;   
+}

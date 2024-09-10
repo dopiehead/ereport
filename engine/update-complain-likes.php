@@ -1,15 +1,19 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
 include('configure.php');
 $conn = new Database();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $complain_id = intval($_POST['complain_id']); // Sanitize input
-    $user_id = intval($_POST['user_id']); // Sanitize input
-    $date = date("D, F d, Y g:iA"); // Use a standard format for date and time
+    // Retrieve and sanitize input
+    $complain_id = intval($_POST['complain_id']);
+    $user_id = intval($_POST['user_id']);
+    $date = date("D, F d, Y g:iA"); // Using a standard format for date and time
   
-    // Check if the user has already liked the comment
+
+    // Check if user has already liked this comment
     $checkLikeQuery = "SELECT COUNT(*) FROM complain_likes_unlikes WHERE user_id = ? AND complain_id = ?";
     $stmt = $conn->prepare($checkLikeQuery);
+    
     if ($stmt === false) {
         die('Prepare failed: ' . $conn->error);
     }
@@ -20,29 +24,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->fetch();
     $stmt->close();
 
-    if ($likeCount == 0) {
-        // User has not liked this comment
-        echo "You have not liked this comment"; // Or any appropriate message for not found
+    if ($likeCount > 0) {
+        // User has already liked this comment
+        echo "2"; // Or any other appropriate error code/message
         $conn->close();
         exit();
     }
+    else{
 
-    // Delete the like from report_likes_unlikes table
-    $deleteLikeQuery = "DELETE FROM complain_likes_unlikes WHERE complain_id = ? AND user_id = ?";
-    $stmt = $conn->prepare($deleteLikeQuery);
+    // Insert into report_likes_unlikes table
+    $insertLikeQuery = "INSERT INTO complain_likes_unlikes (user_id, complain_id, date) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($insertLikeQuery);
+
     if ($stmt === false) {
         die('Prepare failed: ' . $conn->error);
     }
-    $stmt->bind_param("ii", $complain_id, $user_id);
+
+    $stmt->bind_param("iis", $user_id, $complain_id, $date);
 
     if ($stmt->execute()) {
         // Update likes count in comments table
-        $likesUpdateQuery = "UPDATE complain SET likes = likes - 1 WHERE complain_id = ?";
+        $likesUpdateQuery = "UPDATE complain SET likes = likes + 1 WHERE complain_id = ?";
         $stmt2 = $conn->prepare($likesUpdateQuery);
+        
         if ($stmt2 === false) {
             die('Prepare failed: ' . $conn->error);
         }
-        $stmt2->bind_param("i", $comment_id);
+
+        $stmt2->bind_param("i", $complain_id);
 
         if ($stmt2->execute()) {
             echo "1"; // Success
@@ -54,6 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         die('Execute failed: ' . $stmt->error);
     }
+
+}
 
     $stmt->close();
     $conn->close();

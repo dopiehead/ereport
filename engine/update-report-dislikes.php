@@ -1,7 +1,7 @@
 <?php
 include('configure.php');
 $conn = new Database();
-
+error_reporting(E_ALL ^ E_NOTICE);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comment_id = intval($_POST['comment_id']); // Sanitize input
     $user_id = intval($_POST['user_id']); // Sanitize input

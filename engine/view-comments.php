@@ -5,14 +5,44 @@
 include('configure.php');
 $conn = new Database();
 // Fetch comments
-$query = "SELECT * FROM comments WHERE parent_comment_id = '0' and news_id = 1 ORDER BY comment_id DESC";
+$query = "SELECT
+    comments.comment_id AS comment_id,
+    comments.user_id AS user_id,
+    comments.comment AS comment,
+    comments.news_id AS news_id,
+    comments.parent_comment_id AS parent_comment_id,
+    comments.comment_category AS comment_category,
+    comments.comment_sender_name AS comment_sender_name,
+    comments.likes AS likes,
+    comments.unlikes AS unlikes,
+    report.user_id AS report_user_id,
+    report.id AS report_id,
+    user_profile.id AS user_profile_id,
+    user_profile.img_upload AS img_upload,
+    comments.date AS date
+FROM comments
+CROSS JOIN report ON comments.news_id = report.id
+JOIN user_profile ON comments.user_id = user_profile.id
+WHERE comments.parent_comment_id = '0' AND comments.news_id = report.id";
+
+
+if (isset($_POST['comment_category'])) {
+    $comment_category = $_POST['comment_category'];
+
+    
+    // Validate input to prevent SQL injection and handle unexpected values
+    if (in_array($comment_category, ['positive', 'negative', 'suggestions'])) {
+        $query .= " AND comments.comment_category = '$comment_category'";
+    }
+}
+
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
 $output = '';
 while ($row = $result->fetch_assoc()) {
     $output .= '<div class="comment-box">
-        
+        <img src = '."dashboard/".$row["img_upload"].'>
         <span class="status"><i class="fa fa-circle"></i></span>
         <span class="commenter-name">' . htmlspecialchars($row["comment_sender_name"]) . '</span>
         <p>' . htmlspecialchars($row["comment"]) . '</p>
@@ -71,8 +101,30 @@ function time_ago($date) {
 
 
 // Function to fetch and display reply comments
-function get_reply_comment($conn, $parent_id = 0, $marginleft = 0) {
-    $query = "SELECT * FROM comments WHERE parent_comment_id = ?";
+function get_reply_comment($conn, $parent_id = 0, $marginleft = 10) {
+
+    $query = "SELECT
+    comments.comment_id AS comment_id,
+    comments.user_id AS user_id,
+    comments.comment AS comment,
+    comments.news_id AS news_id,
+    comments.parent_comment_id AS parent_comment_id,
+    comments.comment_category AS comment_category,
+    comments.comment_sender_name AS comment_sender_name,
+    comments.likes AS likes,
+    comments.unlikes AS unlikes,
+    report.user_id AS report_user_id,
+    report.id AS report_id,
+    user_profile.id AS user_profile_id,
+    user_profile.img_upload AS img_upload,
+    comments.date AS date
+FROM comments
+CROSS JOIN report ON comments.news_id = report.id
+JOIN user_profile ON comments.user_id = user_profile.id
+WHERE comments.parent_comment_id = ? and comments.news_id = report.id 
+ORDER BY comments.comment_id DESC
+";
+
     $statement = $conn->prepare($query);
     $statement->bind_param('i', $parent_id); // Bind integer parameter
     $statement->execute();
@@ -104,7 +156,7 @@ function get_reply_comment($conn, $parent_id = 0, $marginleft = 0) {
                     </div>
                 </div>
             </div><hr>';
-            $output .= get_reply_comment($conn, $row["comment_id"], $marginleft + 25);
+            $output .= get_reply_comment($conn, $row["comment_id"], $marginleft + 15);
         }
     }
     

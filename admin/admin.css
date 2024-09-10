@@ -1,30 +1,45 @@
-
-
-/* styles.css */
-
+/* General Styles */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     display: flex;
     height: 100vh;
     background-color: #f4f4f4;
+    overflow: hidden; /* Prevents scrollbars due to fixed height in container */
 }
 
 .container {
     display: flex;
     width: 100%;
+    height: 100%;
 }
 
 .side-nav {
     width: 250px;
-    background-color: #333;
-    color: white;
+    background-color: whitesmoke;
+    color: black;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    height: 100vh;
+    height: 100%;
     transition: transform 0.3s ease;
-    position: relative;
+    position: fixed; /* Fixed position to keep it visible on scroll */
+    left: 0;
+    top: 0;
+    z-index: 1000; /* Ensures it is above other content */
 }
+
+.side-nav li{
+margin:20px 0px;
+}
+
+.side-nav ul {
+  list-style-type: none;
+    }
+
+.side-nav li a{
+  text-decoration: none;
+  color:rgb(39, 39, 39);
+    }
 
 .side-nav.active {
     transform: translateX(-250px);
@@ -32,50 +47,32 @@ body {
 
 .nav-toggle {
     display: none;
+}
+
+.nav-toggle {
     font-size: 24px;
     color: white;
     background: transparent;
     border: none;
     cursor: pointer;
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
-}
-
-.side-nav h2 {
-    margin-top: 0;
-}
-
-.side-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.side-nav ul li {
-    margin: 15px 0;
-}
-
-.side-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.side-nav ul li a:hover {
-    text-decoration: underline;
+    z-index: 1001; /* Above side-nav */
 }
 
 .main-content {
     flex: 1;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
+    margin-left: 250px; /* Offset for side-nav */
+    transition: margin-left 0.3s ease; /* Smooth transition */
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-bottom: 20px;
 }
 
 .header-icons {
@@ -89,10 +86,11 @@ header {
 }
 
 .table-wrapper {
-    overflow-x: auto;
+    overflow: auto;
     margin-top: 20px;
 }
 
+/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -106,7 +104,7 @@ table, th, td {
 
 th, td {
     padding: 12px;
-    text-align: left;
+    text-align:center;
 }
 
 th {
@@ -124,14 +122,18 @@ th {
         display: block;
     }
 
-    .container {
-        flex-direction: column;
-    }
-
     .main-content {
         margin-left: 0;
+        transition: none; /* Remove transition on smaller screens */
+    }
+
+    .side-nav.active {
+        transform: translateX(0); /* Slide-in on mobile */
     }
 }
 
-
-
+/* Logo Style */
+.admin-logo {
+    height: 100px !important;
+    width: 100px !important;
+}

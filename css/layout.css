@@ -108,6 +108,7 @@ display:none;
 color: rgb(7, 5, 112);
     text-decoration: none !important; 
     text-transform: capitalize;
+    font-size:14px;
 }
 
 .header ul li a:hover{
