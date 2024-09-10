@@ -189,11 +189,11 @@ $total_num_page =ceil($numpage/$num_per_page);
 echo "<br>";
 if ($page>1) {
 $previous = $page-1;
-echo'<span id="page_num"><a style="" class="btn-success prev" id="'.$previous.'">&lt;</a></span>';
+echo'<span id="page_num"><a href="details.php?page='.$previous.'" style="" class="btn-success prev" id="'.$previous.'">&lt;</a></span>';
 }
 for ($i=1; $i<=$total_num_page; $i++) { 
 if(($i >= 1 && $i <= $radius) || ($i > $page - $radius && $i < $page + $radius) || ($i <= $total_num_page && $i > $total_num_page - $radius)) {
-if($i == $page) {echo'<span id="page_num"><a class="btn-success active-button" id="'.$i.'">'.$i.'</a></span>';}
+if($i == $page) {echo'<span id="page_num"><a href="details.php?page='.$i.'" class="btn-success" id="'.$i.'">'.$i.'</a></span>';}
   }
 elseif($i == $page - $radius || $i == $page + $radius) {
  echo "... ";
@@ -201,14 +201,14 @@ elseif($i == $page - $radius || $i == $page + $radius) {
 elseif ($page==$i) {
 }
 else{
-echo'<span id="page_num"><a class="btn-success" id="'.$i.'">'.$i.'</a></span>';
+echo'<span id="page_num"><a href="details.php?page='.$i.'" class="btn-success" id="'.$i.'">'.$i.'</a></span>';
 }
 } 
 if ($page<$total_num_page) {
 $next = $page+1;
-echo'<span id="page_num"><a style="" class="btn-success next" id="'.$next.'">&gt;</a></span>';
+echo'<span id="page_num"><a href="details.php?page='.$next.'" style="" class="btn-success next" id="'.$next.'">&gt;</a></span>';
 
-echo'<input type="hidden" id="user_type" value="service provider">';
+
 
 
 }
@@ -219,9 +219,9 @@ echo'<input type="hidden" id="user_type" value="service provider">';
 
 <br><br>
 
-<div class='mt-5 p-2 d-flex justigy-content-center align-items-center'>
+<div class='mt-5 p-2 d-flex justify-content-center align-items-center'>
 
-<p>WEBSITE by Essential Nigeria</p>
+<p>WEBSITE by <b class="text-success fw-bold">Essential Nigeria</b></p>
 
 
 </div>

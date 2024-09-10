@@ -1,5 +1,5 @@
 <nav class="side-nav" id="side-nav">
-            <button class="nav-toggle text-dark bg-dark" id="nav-toggle">&#9776; toggle</button>
+            <button class="nav-toggle text-dark bg-secondary" id="nav-toggle">&#9776; toggle</button>
             
             <img class='admin-logo' src="../logo.png">
            
