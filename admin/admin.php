@@ -61,5 +61,37 @@
          
         });
     </script>
+
+     
+
+<div id="password_modal" class="password_modal bg-secondary">
+
+<a class='modal_close'><i class="fa fa-close"></i></a>
+
+<div class="modal_header">
+
+    <h5 class="text-white">Change Password</h5>
+ 
+</div>
+
+<div class="modal-content">
+
+
+<input type="password" name="opassword" class="border border-0 mt-2" placeholder="Old password">
+
+<input type="password" name ="npassword" class="border border-0 mt-2" placeholder="New password">
+
+<input type="password" name ="cpassword" class="border border-0 mt-2" placeholder="Confirm password">
+
+<button class="btn btn-success btn-password">Submit</button>
+
+<?php include 'dashboard/../components/loader.php'; ?>
+
+</div>
+
+
+</div>
+
+
 </body>
 </html>

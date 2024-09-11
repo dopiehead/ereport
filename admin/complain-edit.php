@@ -21,10 +21,35 @@
 </div>
 
 </div>
+
+<?php
+include("../engine/configure.php");
+$conn = new Database();
+$notify = "SELECT * FROM admin_alert";
+$adminMessage = $conn->prepare($notify);
+if($adminMessage==false){
+    echo"Prepared statement failed";}
+else{
+    $adminMessage->execute();
+    $result = $adminMessage->get_result();
+    
+    $countMessage =  $result->num_rows;
+    if($countMessage>0) {
+        echo$countMessage;
+       
+        
+    }  
+}
+?>
+
+
+
+
+
             <div class="container main-content">
             <div class="table-wrapper">
             <?php
-include("../engine/configure.php");
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $num_per_page = 4;
@@ -79,7 +104,8 @@ WHERE
     if ($result->num_rows > 0) {
         $user_data = $result->fetch_assoc(); // Fetch user data from the first row
         ?>
-          <span class="icon notification fa fa-bell text-success"></span>
+                <span class="notification fa fa-bell text-success"></span>
+                <span class="alert text-white bg-danger"><?php echo$countMessage?></span>
 
         <h2 class='d-flex justify-content-center align-items-center '>User Profile: <?php echo htmlspecialchars($user_data['user_name']); ?></h2>
 

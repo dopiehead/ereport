@@ -7,7 +7,26 @@
             <ul>
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="#">Users</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Logout</a></li>
+                <li>
+                    
+                <a href="#">Settings</a>
+
+                <ul>
+                <li><a class="text-secondary change_password" >Change Email</a></li>
+                   <li><a class="text-secondary change_password" >Change Password</a></li>
+                </ul>
+            
+            </li>
+                <li><a href="../engine/logout.php">Logout</a></li>
             </ul>
         </nav>
+
+        <script>
+
+           $('.change_password').click(function()){
+             $('#password_modal').modal('show');
+           }
+
+
+
+        </script>

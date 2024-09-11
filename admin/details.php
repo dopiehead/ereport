@@ -25,6 +25,33 @@
             <div class="table-wrapper">
             <?php
 include("../engine/configure.php");
+$conn = new Database();
+$notify = "SELECT * FROM admin_alert";
+$adminMessage = $conn->prepare($notify);
+if($adminMessage==false){
+    echo"Prepared statement failed";}
+else{
+    $adminMessage->execute();
+    $result = $adminMessage->get_result();
+    
+    $countMessage =  $result->num_rows;
+    if($countMessage>0) {
+        
+        echo$countMessage;
+        
+    }  
+}
+?>
+
+
+
+
+
+
+
+
+            <?php
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $num_per_page = 4;
@@ -88,7 +115,8 @@ if (isset($_GET['id'])) {
     if ($result->num_rows > 0) {
         $user_data = $result->fetch_assoc(); // Fetch user data from the first row
         ?>
-          <span class="icon notification fa fa-bell text-success"></span>
+         <span class="notification fa fa-bell text-success"></span>
+         <span class="alert text-white bg-danger"><?php echo$countMessage?></span>
 
         <h2 class='d-flex justify-content-center align-items-center '>User Profile: <?php echo htmlspecialchars($user_data['user_name']); ?></h2>
 
@@ -258,6 +286,44 @@ echo'<span id="page_num"><a class="text-dark" href="details.php?page='.$next.'" 
     
     </div>
     </div>
+
+
+    <div class="password_modal bg-secondary">
+
+<a class='modal_close'><i class="fa fa-close"></i></a>
+
+<div class="modal_header">
+
+    <h5 class="text-white">Change Password</h5>
+ 
+</div>
+
+<div class="modal-content">
+
+
+<input type="password" name="opassword" class="border border-0 mt-2" placeholder="Old password">
+
+<input type="password" name ="npassword" class="border border-0 mt-2" placeholder="New password">
+
+<input type="password" name ="cpassword" class="border border-0 mt-2" placeholder="Confirm password">
+
+<button class="btn btn-success btn-password">Submit</button>
+
+<?php include 'dashboard/../components/loader.php'; ?>
+
+</div>-
+
+
+</div>
+
+
+
+
+
+
+
+
+
     <script>
         // JavaScript to toggle side navigation on mobile
         document.getElementById('nav-toggle').addEventListener('click', function() {

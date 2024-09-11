@@ -1,14 +1,42 @@
-<?php 
+<?php
 include("../engine/configure.php");
+$conn = new Database();
+$notify = "SELECT * FROM admin_alert";
+$adminMessage = $conn->prepare($notify);
+if($adminMessage==false){
+    echo"Prepared statement failed";}
+else{
+    $adminMessage->execute();
+    $result = $adminMessage->get_result();
+    
+    $countMessage =  $result->num_rows;
+    if($countMessage>0) {
+        echo$countMessage;
+       
+        
+    }  
+}
+?>
+
+
+
+
+
+
+
+
+<?php 
+
 $conn = new Database();
 $query = "SELECT * FROM user_profile";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $result =$stmt->get_result();
 ?>
-<span class="icon notification fa fa-bell text-success"></span>
 
-<h2 class='d-flex justify-content-center align-items-center '>Welcome Admin</h2>
+<span class="notification fa fa-bell text-success"></span>
+<span class="alert text-white bg-danger"><?php echo$countMessage?></span>
+<h2 class='d-flex justify-content-center align-items-center text-uppercase'><b></b>Welcome Admin</b></h2><br>
 
 
 
@@ -36,10 +64,10 @@ while($row = $result->fetch_assoc()) { ?>
     <tr>
     <td><?php echo $row['id'] ?></td>
     <td><img width="150" height="160" src="<?php echo"../dashboard/". $row['img_upload'] ?>"></td>
-    <td><?php echo $row['name'] ?></td>
-    <td><?php echo $row['email'] ?></td>
-    <td><?php echo $row['contact'] ?></td>
-    <td><?php echo $row['location'] ?></td>
+    <td><?php echo  htmlspecialchars($row['name']) ?></td>
+    <td><?php echo  htmlspecialchars($row['email'] )?></td>
+    <td><?php echo  htmlspecialchars($row['contact']) ?></td>
+    <td><?php echo  htmlspecialchars($row['location']) ?></td>
     <td><?php if($row['blacklist']==0){echo"Not Blacklisted";} else{echo"Blacklisted";} ?></td>
 
     <td>

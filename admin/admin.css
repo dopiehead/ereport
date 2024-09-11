@@ -144,4 +144,52 @@ th {
 }
  .fa-bell{
     margin-left:20px;
+    font-size:23px;
 } 
+
+.alert{
+position:absolute;
+top:18px;
+border-radius:50%;
+font-size:13px;
+padding:0px 5px;
+}
+
+.notification{
+    position: relative;
+
+}
+
+.modal_close{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal_content{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+    z-index: 999;
+}
+
+.modal_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.password_modal{
+
+    width: 300px;
+    margin-top: 20px;
+    padding: 20px;
+    display: none;
+}
