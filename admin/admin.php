@@ -6,21 +6,40 @@
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-    <div class="container">
+<div class="main-content">
+            <!-- Header with Notification and Message Icons -->
+            <header>
+                <div class="header-icons">
+                  
+          
+                </div>
+           
+            </header>
+</div>
+
+</div>
+
+</div>
+    
+
+
+    <div class="container main-content">
+
+  
         <!-- Side Navigation -->
         <?php include "components.php"; ?>
         
         <!-- Main Content -->
-        <div class="main-content">
-            <!-- Header with Notification and Message Icons -->
-            <header>
-                <div class="header-icons">
-                    <span class="icon notification fa fa-bell" title="Notifications"></span>
-    
-                </div>
-            
-            </header>
+
+        
+
+
             <div class="table-wrapper">
+            
+                    
+     
+
+
                 <!-- Content will be loaded here -->
             </div>
         </div>
@@ -39,7 +58,7 @@
             $(".table-wrapper").load("admin-engine.php");
 
             // Replace content with a test message (optional, can be removed if not needed)
-            $(".table-wrapper").html("<div>Hello</div>");
+         
         });
     </script>
 </body>

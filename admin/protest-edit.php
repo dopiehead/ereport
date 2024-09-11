@@ -28,6 +28,7 @@ include("../engine/configure.php");
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $num_per_page = 4;
+
     if (isset($_POST['page'])) {
         $page = $_POST['page'];
        }
@@ -40,42 +41,32 @@ if (isset($_GET['id'])) {
     $conn = new Database();
     
     // Query to join user_profile and report tables
-    $query = "
-        SELECT 
-            user_profile.id AS user_id, 
-            user_profile.name AS user_name, 
-            user_profile.email AS user_email, 
-            user_profile.blacklist, 
-            COUNT(report.id) AS report_count,
-            report.id AS report_id,
-            report.reporterName,
-            report.eventTitle,
-            report.addressOffender,
-            report.eventDate,
-            report.eventTime,
-            report.eventDetails,
-            report.reportPurpose,
-            report.anonymous,
-            report.reportTo,
-            report.reportCategory,
-            report.fileupload,
-            report.images,
-            report.comments,
-            report.views AS views,
-            report.share,
-            report.pending AS report_pending,
-            report.date AS report_date
-        FROM user_profile
-        LEFT JOIN report ON user_profile.id = report.user_id
-        WHERE user_profile.id = ?
-        GROUP BY user_profile.id, report.id
-    ";
+    $query="SELECT 
+    user_profile.id AS user_id, 
+    user_profile.name AS user_name, 
+    user_profile.email AS user_email, 
+    user_profile.blacklist AS blacklist,
+    protest.protest_id AS protest_id,
+    protest.user_id AS protest_user_id,
+    protest.protest AS protest,
+      protest.fileupload AS file_upload,
+    protest.protest_sender_name AS protest_user_name,
+    protest.likes AS likes,
+    protest.unlikes AS unlikes,
+    protest.date AS date
+FROM 
+    user_profile
+LEFT JOIN 
+    protest ON user_profile.id = protest.user_id
+WHERE 
+    protest.user_id = ? ";
     $query .= " limit $initial_page,$num_per_page";
 
+    
     // Prepare the statement
     $stmt = $conn->prepare($query);
     if ($stmt === false) {
-        echo "Prepared statement failed: " . $conn->error;
+        echo "Prepared statement failed: " . $stmt->error;
         exit;
     }
     
@@ -95,23 +86,21 @@ if (isset($_GET['id'])) {
         <p class='d-flex justify-content-center align-items-center'>Blacklisted: <?php echo $user_data['blacklist'] ? 'Yes' : 'No'; ?></p>
 
 
-        <h3 class='d-flex justify-content-center align-items-center'`>Reports</h3>
+        <h3 class='d-flex justify-content-center align-items-center'`>Complains</h3>
         <table class="table-responsive">
             <thead>
                 <tr>
-                    <th>Report ID</th>
-                    <th>Report videos</th>
-                    <th>Event Title</th>
-                    <th>Reporter Name</th>
-                    <th>Event Date</th>
-                    <th>Event Time</th>
-                    <th>Report Category</th>
-                    <th>Report views</th>
-                    <th>Status</th>
-                    <th>Report Date</th>
-                    <th>Action</th>
-                    <th>Action</th>
-                      <th>Delete/th>
+                    <th>Protest ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Protest Picture</th>
+                    <th>Protest</th>
+                    <th>Protest date</th>
+                    <th>Protest sender Name</th>
+                    <th>Likes</th>
+                    <th>Unlikes</th>
+                   
+                      <th>Delete<th>
                 </tr>
             </thead>
             <tbody>
@@ -119,35 +108,31 @@ if (isset($_GET['id'])) {
             // Reset result pointer
             $result->data_seek(0);
             while ($row = $result->fetch_assoc()) {
-                if ($row['report_id']) { // Check if there's a report (to handle users with no reports)
+                if ($row['protest_id']) { // Check if there's a report (to handle users with no reports)
                     ?>
                     <tr>
-                    <td><video width='150' height='130' controls><source src="<?php echo "../dashboard/". htmlspecialchars($row['fileupload']); ?>"></video></td>
-                        <td><?php echo htmlspecialchars($row['report_id']); ?></td>
-                        <td><?php echo htmlspecialchars($row['eventTitle']); ?></td>
-                        <td><?php echo htmlspecialchars($row['reporterName']); ?></td>
-                        <td><?php echo htmlspecialchars($row['eventDate']); ?></td>
-                        <td><?php echo htmlspecialchars($row['eventTime']); ?></td>
-                        <td><?php echo htmlspecialchars($row['reportCategory']); ?></td>
-                        <td><?php echo htmlspecialchars($row['views']); ?></td>
-                       
-                        <td><?php if( $row['report_pending']== 0){echo "<strong class='text-primary'>Pending</strong";} else{ echo "<strong class='text-success'>Processed</strong";} ?></td>
-                      
-
-                        <td><?php echo htmlspecialchars($row['report_date']); ?></td>
-                        <td>
-                            
-                        <?php if($row['report_pending'] ==0){?>
-                        <div class='d-flex justify-content-space-between align-items-center gap-5'><a id='<?php echo$row["report_id"] ?>' class='btn btn-success btn-approve'>Approve</a>
-                        <?php }?>
-                        <?php if($row['report_pending'] ==1){?>
-                        <a id='<?php echo$row["report_id"] ?>' class='btn btn-warning btn-deny'>Deny</a>
-                        <?php }?>
-                    </td>
-                    </div>
-                    <td><a id='<?php echo$row["report_id"] ?>' class='btn btn-danger btn-delete'><i class='fa fa-trash'></i></a></td>
-
+                    <td><?php echo htmlspecialchars($row['protest_id']); ?></td>
+                    <td><?php echo htmlspecialchars($row['user_name']); ?></td>
+                 <td><?php echo htmlspecialchars($row['user_email']); ?></td>
+            
+                 <td>
+    <?php if (!empty($row['fileupload'])): ?>
+        <img width='30' height='100' src="../<?php echo htmlspecialchars($row['fileupload']); ?>" alt="User Image">
+    <?php else: ?>
+        <i class='fa fa-user-alt' style="font-size: 130px;"></i>
+    <?php endif; ?>       
+            
+</td>     
+                        <td class='text-md'><?php echo htmlspecialchars(substr($row['protest'],0,50)); ?></td>
+                        <td><?php echo htmlspecialchars($row['date']); ?></td>
+                        <td><?php echo htmlspecialchars($row['protest_user_name']); ?></td>
+                        <td><?php echo htmlspecialchars($row['likes']); ?></td>
+                        <td><?php echo htmlspecialchars($row['unlikes']); ?></td>
+               
+                        <td><a href='protest-edit.php?id=<?php echo htmlspecialchars($row['protest_id']); ?>'><i class='fa fa-trash'></i></a></td>
                     
+                    
+                   
                     </tr>
                     <?php
                 }
@@ -174,35 +159,25 @@ if (isset($_GET['id'])) {
 <?php
 $conn=new Database();
 $radius=3;
-$pageres = "SELECT 
-            user_profile.id AS user_id, 
-            user_profile.name AS user_name, 
-            user_profile.email AS user_email, 
-            user_profile.blacklist, 
-            COUNT(report.id) AS report_count,
-            report.id AS report_id,
-            report.reporterName,
-            report.eventTitle,
-            report.addressOffender,
-            report.eventDate,
-            report.eventTime,
-            report.eventDetails,
-            report.reportPurpose,
-            report.anonymous,
-            report.reportTo,
-            report.reportCategory,
-            report.fileupload,
-            report.images,
-            report.comments,
-            report.views AS views,
-            report.share,
-            report.pending AS report_pending,
-            report.date AS report_date
-        FROM user_profile
-        LEFT JOIN report ON user_profile.id = report.user_id
-        WHERE user_profile.id = ?
-        GROUP BY user_profile.id, report.id
-    ";
+$pageres ="SELECT 
+user_profile.id AS user_id, 
+user_profile.name AS user_name, 
+user_profile.email AS user_email, 
+user_profile.blacklist AS blacklist,
+protest.protest_id AS protest_id,
+protest.user_id AS protest_user_id,
+protest.protest AS protest,
+  protest.fileupload AS file_upload,
+protest.protest_sender_name AS protest_user_name,
+protest.likes AS likes,
+protest.unlikes AS unlikes,
+protest.date AS date
+FROM 
+user_profile
+LEFT JOIN 
+protest ON user_profile.id = protest.user_id
+WHERE 
+protest.user_id = ? ";
 
 $stmt2 = $conn->prepare($pageres);
 $numpage = $stmt2->num_rows;
@@ -213,11 +188,11 @@ $total_num_page =ceil($numpage/$num_per_page);
 echo "<br>";
 if ($page>1) {
 $previous = $page-1;
-echo'<span id="page_num"><a href="details.php?page='.$previous.'" style="" class="btn-success prev" id="'.$previous.'">&lt;</a></span>';
+echo'<span id="page_num"><a href="protest-edit.php?page='.$previous.'" style="" class="btn-success prev" id="'.$previous.'">&lt;</a></span>';
 }
 for ($i=1; $i<=$total_num_page; $i++) { 
 if(($i >= 1 && $i <= $radius) || ($i > $page - $radius && $i < $page + $radius) || ($i <= $total_num_page && $i > $total_num_page - $radius)) {
-if($i == $page) {echo'<span id="page_num"><a href="details.php?page='.$i.'" class="btn-success" id="'.$i.'">'.$i.'</a></span>';}
+if($i == $page) {echo'<span id="page_num"><a href="protest-edit.php?page='.$i.'" class="btn-success" id="'.$i.'">'.$i.'</a></span>';}
   }
 elseif($i == $page - $radius || $i == $page + $radius) {
  echo "... ";
@@ -225,12 +200,12 @@ elseif($i == $page - $radius || $i == $page + $radius) {
 elseif ($page==$i) {
 }
 else{
-echo'<span id="page_num"><a href="details.php?page='.$i.'" class="btn-success" id="'.$i.'">'.$i.'</a></span>';
+echo'<span id="page_num"><a href="protest-edit.php?page='.$i.'" class="btn-success" id="'.$i.'">'.$i.'</a></span>';
 }
 } 
 if ($page<$total_num_page) {
 $next = $page+1;
-echo'<span id="page_num"><a class="text-dark" href="details.php?page='.$next.'" style="" class="btn-success next" id="'.$next.'">&gt;</a></span>';
+echo'<span id="page_num"><a class="text-dark" href="protest-edit.php?page='.$next.'" style="" class="btn-success next" id="'.$next.'">&gt;</a></span>';
 
 
 
