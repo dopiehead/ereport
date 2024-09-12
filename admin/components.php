@@ -1,7 +1,7 @@
 <nav class="side-nav" id="side-nav">
             <button class="nav-toggle text-dark bg-secondary mx-4" id="nav-toggle">&#9776; toggle</button>
             <br><br>
-            <img class='admin-logo' src="../logo.png">
+            <a href='../index.php'><img class='admin-logo' src="../logo.png"></a>
            
             <h2 class="text-danger bg-dark">Admin Panel</h2>
             <ul>

@@ -3,8 +3,7 @@ if(isset($_POST['id'])){
 $id = $_POST['id'];
 include("../engine/configure.php");
 $conn = new Database();
-$query ="
-UPDATE report SET pending = 1 WHERE id = ?";
+$query ="DELETE from admin_alert WHERE id = ?";
 $stmt = $conn->prepare($query);
 if($stmt === false){
     echo "Prepared statement failed". $stmt->error;
@@ -17,8 +16,7 @@ echo" Prepared executived failed";
 }
 
 else{
-
-    echo "1";
+header("Location:admin/admin.php");
 }
 
 }

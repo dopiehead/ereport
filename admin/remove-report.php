@@ -10,7 +10,6 @@ if($stmt === false){
     echo "Prepared statement failed". $stmt->error;
 }
 else{
-
 $stmt->bind_param('i',$id);
 $stmt->execute();
 if($stmt->execute()==false){

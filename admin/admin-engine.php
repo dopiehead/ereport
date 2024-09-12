@@ -1,7 +1,7 @@
 <?php
 include("../engine/configure.php");
 $conn = new Database();
-$notify = "SELECT * FROM admin_alert";
+$notify = "SELECT * FROM admin_alert where pending = 0";
 $adminMessage = $conn->prepare($notify);
 if($adminMessage==false){
     echo"Prepared statement failed";}
@@ -28,7 +28,7 @@ $stmt->execute();
 $result =$stmt->get_result();
 ?>
 
-<span class="notification fa fa-bell text-success"></span>
+<a href='admin-notifications.php'><span class="notification fa fa-bell text-success"></span></a>
 <span class="alert text-white bg-danger"><?php echo$countMessage?></span>
 <h2 class='d-flex justify-content-center align-items-center text-uppercase'><b></b>Welcome Admin</b></h2><br>
 

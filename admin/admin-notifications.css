@@ -1,0 +1,134 @@
+.rounded-sm{
+    border-radius: 50%;
+}
+.alert-container{
+    border:1px solid transparent transparent;
+    box-shadow:0px 0px 5px rgba(84, 83, 83, 0.3);
+    position: relative;
+}
+
+.content{
+width:100% !important;
+    
+} 
+
+.col-md-3 img{
+    width:150px;
+    height:140px;
+  
+}
+
+.col-md-3{
+    padding:20px;
+
+}
+
+.side-nav {
+    width:350px;
+    background-color: whitesmoke;
+    color: black;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    height: 100%;
+    transition: transform 0.3s ease;
+    position: fixed; /* Fixed position to keep it visible on scroll */
+    left: 0;
+    top: 0;
+    z-index: 1000; /* Ensures it is above other content */
+}
+
+.side-nav li{
+margin:20px 0px;
+}
+
+.side-nav ul {
+  list-style-type: none;
+    }
+
+.side-nav li a{
+  text-decoration: none;
+  color:rgb(39, 39, 39);
+    }
+
+
+    .side-nav li a:hover{
+        cursor: pointer;
+          }
+
+.side-nav.active {
+    transform: translateX(-250px);
+}
+
+body{
+    font-family: poppins;
+}
+
+#time{
+    float: right;
+    position: absolute;
+    right:15px;
+}
+
+.btn-danger{
+    float: right;
+    position: absolute;
+    right:15px;
+}
+
+.active{
+    transform: translateX(-50px);
+}
+
+
+#popup{
+  
+    position:fixed;
+    padding: 4px 8px !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 350px;
+    height:300px;
+    padding:5px;
+    z-index: 99;
+    box-shadow: 0 5px 30px rgba(0,0,0,.30);
+    background: #fff;
+    display:none;
+    transition: 0.3s;
+    text-align: center;
+    font-size: 14px !important;
+    font-family: poppins !important;  
+    }
+    
+    
+    .close-modal{
+    
+    font-size: 14px;
+    position: absolute;
+    top: -6px;
+    left: 93%;
+    color:black;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+    border-radius: 50%;
+    background-color: white;
+    z-index: 1;
+    padding:0px 7px;
+    
+    }
+
+
+
+    .close-modal:hover, .close-modal:focus{
+    opacity: 0.6;
+    border: none;
+    outline: none;
+     outline: none;
+    
+    }
+
+
+    .btn-message{
+    cursor:pointer;
+    }
+    

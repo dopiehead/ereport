@@ -26,7 +26,7 @@
             <?php
 include("../engine/configure.php");
 $conn = new Database();
-$notify = "SELECT * FROM admin_alert";
+$notify = "SELECT * FROM admin_alert WHERE pending = 0";
 $adminMessage = $conn->prepare($notify);
 if($adminMessage==false){
     echo"Prepared statement failed";}
@@ -107,7 +107,7 @@ if (isset($_GET['id'])) {
     if ($result->num_rows > 0) {
         $user_data = $result->fetch_assoc(); // Fetch user data from the first row
         ?>
-         <span class="notification fa fa-bell text-success"></span>
+                 <a href='admin-notifications.php'><span class="notification fa fa-bell text-success"></span></a>
          <span class="alert text-white bg-danger"><?php echo$countMessage?></span>
 
         <h2 class='d-flex justify-content-center align-items-center '>User Profile: <?php echo htmlspecialchars($user_data['user_name']); ?></h2>

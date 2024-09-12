@@ -1,7 +1,7 @@
 <?php
 include("../engine/configure.php");
 $conn = new Database();
-$notify = "SELECT * FROM admin_alert";
+$notify = "SELECT * FROM admin_alert WHERE pending = 0";
 $adminMessage = $conn->prepare($notify);
 if($adminMessage==false){
     echo"Prepared statement failed";}
@@ -101,7 +101,7 @@ WHERE
     if ($result->num_rows > 0) {
         $user_data = $result->fetch_assoc(); // Fetch user data from the first row
         ?>
-               <span class="notification fa fa-bell text-success"></span>
+               <a href='admin-notifications.php'><span class="notification fa fa-bell text-success"></span></a>
                <span class="alert text-white bg-danger"><?php echo$countMessage?></span>
 
         <h2 class='d-flex justify-content-center align-items-center '>User Profile: <?php echo htmlspecialchars($user_data['user_name']); ?></h2>
@@ -178,7 +178,6 @@ WHERE
 ?>
 
 </tbody></table>
-
 <?php
 $conn=new Database();
 $radius=3;
@@ -201,7 +200,6 @@ LEFT JOIN
 protest ON user_profile.id = protest.user_id
 WHERE 
 protest.user_id = ? ";
-
 $stmt2 = $conn->prepare($pageres);
 $numpage = $stmt2->num_rows;
 $total_num_page =ceil($numpage/$num_per_page);
@@ -229,10 +227,6 @@ echo'<span id="page_num"><a href="protest-edit.php?page='.$i.'" class="btn-succe
 if ($page<$total_num_page) {
 $next = $page+1;
 echo'<span id="page_num"><a class="text-dark" href="protest-edit.php?page='.$next.'" style="" class="btn-success next" id="'.$next.'">&gt;</a></span>';
-
-
-
-
 }
 
 ?>
