@@ -59,8 +59,7 @@ if (isset($_GET['id'])) {
     $conn = new Database();
     
     // Query to join user_profile and report tables
-    $query = "
-        SELECT 
+    $query = "SELECT 
             user_profile.id AS user_id, 
             user_profile.name AS user_name, 
             user_profile.email AS user_email, 

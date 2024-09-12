@@ -3,8 +3,7 @@ if(isset($_POST['id'])){
 $id = $_POST['id'];
 include("../engine/configure.php");
 $conn = new Database();
-$query ="
-DELETE  from report WHERE id = ?";
+$query ="DELETE  FROM report WHERE id = ?";
 $stmt = $conn->prepare($query);
 if($stmt === false){
     echo "Prepared statement failed". $stmt->error;

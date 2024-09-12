@@ -32,10 +32,6 @@ $result =$stmt->get_result();
 <span class="alert text-white bg-danger"><?php echo$countMessage?></span>
 <h2 class='d-flex justify-content-center align-items-center text-uppercase'><b></b>Welcome Admin</b></h2><br>
 
-
-
-
-
 <?php echo"<table class='table-striped table-hovered table-responsive'>
                     <thead>
                         <tr>

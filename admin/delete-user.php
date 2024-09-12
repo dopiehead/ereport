@@ -3,8 +3,7 @@ if(isset($_POST['id'])){
 $id = $_POST['id'];
 include("../engine/configure.php");
 $conn = new Database();
-$query ="
-DELETE from user_profile WHERE id = ?";
+$query ="DELETE FROM user_profile WHERE id = ?";
 $stmt = $conn->prepare($query);
 if($stmt === false){
     echo "Prepared statement failed". $stmt->error;

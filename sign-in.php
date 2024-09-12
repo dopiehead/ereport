@@ -11,7 +11,6 @@ $url_details = $details;
 
 ?>
 
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">

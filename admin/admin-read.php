@@ -9,7 +9,17 @@ if($stmt==false){ echo "Prepare statement failed"; }{
 $stmt->bind_param("i",$id);
 $stmt->execute();
 if($stmt->execute()){
-$query = "SELECT * FROM admin_alert WHERE id = ?";
+$query = "SELECT 
+                    admin_alert.id AS id,
+                    admin_alert.user_id,
+                    admin_alert.message,
+                    admin_alert.date AS date,
+                    user_profile.id, 
+                    user_profile.name AS name
+                  FROM admin_alert 
+                  LEFT JOIN user_profile 
+                  ON user_profile.id = admin_alert.user_id
+                  WHERE admin_alert.id = ?";
 $stmt2 = $conn->prepare($query);
 $stmt2->bind_param("i",$id);
 $stmt2->execute();

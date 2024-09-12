@@ -111,7 +111,6 @@ WHERE
 
         <p class='d-flex justify-content-center align-items-center'>Blacklisted: <?php echo $user_data['blacklist'] ? 'Yes' : 'No'; ?></p>
 
-
         <h3 class='d-flex justify-content-center align-items-center'`>Complains</h3>
         <table class="table-responsive">
             <thead>

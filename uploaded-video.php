@@ -19,7 +19,6 @@ else{
   <source id="videoSource" src="<?php echo "dashboard/./".$row['fileupload'] ?>" type="video/mov">
  </video>
  
-
  <?php
     }
 }
