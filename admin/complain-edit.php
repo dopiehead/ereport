@@ -395,7 +395,15 @@ $(".btn-delete").on('click', function() {
 
 </script>
 
+<script>
+$(".btn-delete").click(function(){
+    if(confirm("Are you sure you want to delete this?"))
+    {
+         e.preventDefault(); 
+    }
+});
 
+</script>
 
 
 

@@ -1,7 +1,4 @@
-<?php session_start();?>
-
-
-<?php
+<?php session_start();
 include('configure.php');
 $conn = new Database();
 // Fetch comments
@@ -23,8 +20,7 @@ $query = "SELECT
 FROM comments
 CROSS JOIN report ON comments.news_id = report.id
 JOIN user_profile ON comments.user_id = user_profile.id
-WHERE comments.parent_comment_id = '0' AND comments.news_id = report.id";
-
+WHERE comments.parent_comment_id = '0'"; 
 
 if (isset($_POST['comment_category'])) {
     $comment_category = $_POST['comment_category'];
@@ -36,6 +32,17 @@ if (isset($_POST['comment_category'])) {
     }
 }
 
+
+
+if(isset($_POST['id'])){
+
+    $id = $_POST['id'];
+
+  $query .=" AND comments.news_id = $id";
+}
+
+
+$query .= " ORDER BY comment_id DESC";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -101,7 +108,7 @@ function time_ago($date) {
 
 
 // Function to fetch and display reply comments
-function get_reply_comment($conn, $parent_id = 0, $marginleft = 10) {
+function get_reply_comment($conn, $parent_id = 0, $marginleft = 15) {
 
     $query = "SELECT
     comments.comment_id AS comment_id,
@@ -121,9 +128,26 @@ function get_reply_comment($conn, $parent_id = 0, $marginleft = 10) {
 FROM comments
 CROSS JOIN report ON comments.news_id = report.id
 JOIN user_profile ON comments.user_id = user_profile.id
-WHERE comments.parent_comment_id = ? and comments.news_id = report.id 
-ORDER BY comments.comment_id DESC
-";
+WHERE comments.parent_comment_id = ?";
+
+if(isset($_POST['id'])){
+
+    $id = $_POST['id'];
+
+  $query .=" AND comments.news_id = $id";
+}
+
+if (isset($_POST['comment_category'])) {
+    $comment_category = $_POST['comment_category'];
+
+    
+    // Validate input to prevent SQL injection and handle unexpected values
+    if (in_array($comment_category, ['positive', 'negative', 'suggestions'])) {
+        $query .= " AND comments.comment_category = '$comment_category'";
+    }
+}
+
+$query .= " ORDER BY comment_id DESC";
 
     $statement = $conn->prepare($query);
     $statement->bind_param('i', $parent_id); // Bind integer parameter
@@ -162,5 +186,7 @@ ORDER BY comments.comment_id DESC
     
     return $output;
 }
+
+
 ?>
 

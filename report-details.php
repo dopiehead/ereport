@@ -162,6 +162,11 @@ function time_ago($date) {
            <p class="p_details"><?php echo $content; ?></p>
          
 <!----------------------comment---------------------->
+
+
+
+
+
 <div class="comment-button">
       <a id="positive" class="category-button">Positive <i class="fa fa-comments positive"></i></a> 
       <a id="negative" class="category-button">Negative  <i class="fa fa-comments negative"></i></a> 
@@ -176,7 +181,7 @@ function time_ago($date) {
              <option value="negative">Negative Comments</option> 
              <option value="suggestions">Suggestions</option>  
          </select>
-
+         
      </div>
 
       <div class="commenter">
@@ -199,8 +204,8 @@ function time_ago($date) {
       <?php } ?>
 
      </div>
-        
-
+ 
+     <input type="hidden" name="id" id="id" value="<?php echo$id ?>">
 
        <input type="hidden" name="news_id" id="news_id" value="<?php echo$id ?>">
 
@@ -506,7 +511,6 @@ while($rowupcoming = $result->fetch_assoc()){
 
 </div>
 
-
 <!-- footer -->
 
 
@@ -626,6 +630,7 @@ $(document).on('click', '.likes', function() {
                     text: "Like added successfully",
                     icon: "success",
                 });
+                   $("#comment-show").load("engine/view-comments.php");
             } else if (response == 2) {
                 swal({
                     title: "Notice",
@@ -670,6 +675,8 @@ $(document).on('click', '.dislikes', function() {
                     text: "Like removed successfully",
                     icon: "success",
                 });
+
+                   $("#comment-show").load("engine/view-comments.php");
             } else {
 
                 swal(response);
@@ -769,6 +776,42 @@ $(document).ready(function() {
 </script>
 
 
+<button name="btn-submit" id="<?php echo $id ?>" class="btn btn-dark btn-submit">click</button>
+
+
+<script>
+$(document).ready(function() {
+  
+    $(document).ready(function() {
+$(".btn-submit").click();
+
+});
+
+
+    $(".btn-submit").on('click',function() {
+
+
+        let id = $(this).attr("id");
+
+        $.ajax({
+            url: "engine/view-comments.php",
+            data: {'id': id},
+            method: "POST",
+            success: function(data) {
+          
+        $("#comment-show").html(data);
+        
+            },
+            error: function(xhr, status, error) {
+               swal({
+                title:"Error",
+               icon:"error",
+               text:"An error occurred: " + error});
+            }
+        });
+    });
+});
+</script>
 
 
 

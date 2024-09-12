@@ -152,7 +152,7 @@ WHERE
                         <td><?php echo htmlspecialchars($row['likes']); ?></td>
                         <td><?php echo htmlspecialchars($row['unlikes']); ?></td>
                
-                        <td><a href='protest-edit.php?id=<?php echo htmlspecialchars($row['protest_id']); ?>'><i class='fa fa-trash'></i></a></td>
+                        <td><a href='delete-protest.php?id=<?php echo htmlspecialchars($row['protest_id']); ?>'><i class='fa fa-trash'></i></a></td>
                     
                     
                    
@@ -352,6 +352,19 @@ $(document).ready(function() {
     });
 });
 </script>
+
+
+
+<script>
+$(".btn-delete").click(function(){
+    if(confirm("Are you sure you want to delete this?"))
+    {
+         e.preventDefault(); 
+    }
+});
+
+</script>
+
 
 
 <script>

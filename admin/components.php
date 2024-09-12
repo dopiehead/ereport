@@ -5,13 +5,13 @@
            
             <h2 class="text-danger bg-dark">Admin Panel</h2>
             <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Users</a></li>
+                <li><a href="admin.php">Dashboard</a></li>
+            
                 <li>
                     
-                <a href="#">Settings</a>
+                <a id="btn-settings">Settings</a>
 
-                <ul>
+                <ul class="setting-container d-none">
                 <li><a class="text-secondary change_password" >Change Email</a></li>
                    <li><a class="text-secondary change_password" >Change Password</a></li>
                 </ul>
@@ -23,9 +23,9 @@
 
         <script>
 
-           $('.change_password').click(function()){
-             $('#password_modal').modal('show');
-           }
+           $('.change_password').click(function(){
+             $('#password_modal').show();
+           });
 
 
 

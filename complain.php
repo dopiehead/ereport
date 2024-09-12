@@ -1,18 +1,14 @@
 <?php 
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-
-$user_name = "John Smith";
+$user_name = "Fikayo Ereport";
 $img_upload = "<i class='fa fa-user-alt'></i>";
 $user_id = null;
-
-
 if (isset($_SESSION['name']) && isset($_SESSION['id'])) {
    $user_name = htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8'); 
    $user_id = $_SESSION['id']; 
 }
 ?>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +34,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['id'])) {
       
      <div class="complain-container">
             
-         <div class="complain-comment-container mx-3">
+         <div class="complain-comment-container mx-3" style="height:80vh;overflow:auto;">
 
          <?php 
 if (isset($_SESSION['id'])): 
@@ -181,23 +177,20 @@ $(document).on('click', '.likes', function() {
     var user_id = "<?php echo$user_id ?>";
     var complain_id = $(this).attr('id');
 
-
-
     $.ajax({
         type: "POST",
         url: "engine/update-complain-likes.php",
         data: { 'user_id': user_id, 'complain_id': complain_id },
         success: function(response) {
         
-            $('#bom').load(location.href + " #cy"); // Reload specific part of the page
+            // Reload specific part of the page
             if (response == 1) {
                 swal({
                     title: "Success!",
                     text: "Like added successfully",
                     icon: "success",
                 });
-
-
+                $("#complain-comment-section").load("engine/view-complain.php");
 
             } else if (response == 2) {
                 swal({
@@ -206,8 +199,7 @@ $(document).on('click', '.likes', function() {
                     icon: "info",
                 });
             } else {
-
-               
+              
                 swal({
                     title: "Error",
                     text: response,
@@ -246,7 +238,7 @@ $(document).on('click', '.dislikes', function() {
                     text: "like has been removed successfully",
                     icon: "success",
                 });
-
+                $("#complain-comment-section").load("engine/view-complain.php");
 
             } else {
                swal({

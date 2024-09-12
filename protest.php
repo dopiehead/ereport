@@ -166,6 +166,8 @@ $(document).ready(function() {
                         icon: "success",
                     });
 
+                    $("#protest-comment-section").load("engine/view-protest.php");
+
                     // Clear form fields
                     $("#name").val("");
                     $("#protest").val("");
@@ -211,6 +213,7 @@ $(document).on('click', '.likes', function() {
                     text: "Like added successfully",
                     icon: "success",
                 });
+                $("#protest-comment-section").load("engine/view-protest.php");
             } else if (response == 2) {
                 swal({
                     title: "Notice",
@@ -259,6 +262,7 @@ $(document).on('click', '.dislike', function() {
                     text: "Dislike removed successfully",
                     icon: "success",
                 });
+                $("#protest-comment-section").load("engine/view-protest.php");
 
            $('#bom').load(location.href + " #cy");
             } else {

@@ -61,8 +61,34 @@
          
         });
     </script>
+  
 
-     
+<script>
+$(".btn-delete").click(function(){
+    if(confirm("Are you sure you want to delete this?"))
+    {
+         e.preventDefault(); 
+    }
+});
+
+</script>
+
+
+
+
+
+  <script>
+
+$(document).on('click','.btn-settings',function(e){
+e.preventDefault();
+$(".setting-container").toggleClass('active-setting');
+
+});
+
+
+
+  </script>
+    
 
 <div id="password_modal" class="password_modal bg-secondary">
 

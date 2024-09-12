@@ -56,8 +56,8 @@ while ($row = $result->fetch_assoc()) {
             <a class="btn_reply" id="' . $row["complain_id"] . '">Reply</a>
         </span>
     
-        ' . (!empty($row['fileupload']) ? '<div class="sender_image_container d-flex justify-content-center align-items-center mt-2 rounded-0">
-            <img class="rounded-0 w-100 h-100" src="ereport/' . htmlspecialchars($row['fileupload']) . '">
+        ' . (!empty($row['fileupload']) ? '<div class="sender_image_container d-flex justify-content-center align-items-center mt-4 rounded-0">
+            <div style="width:250px;height:230px;text-align:center" class=" justify-content-center align-items-center p-4"><img style="width:100%" class="rounded-0" src="ereport/' . htmlspecialchars($row['fileupload']) . '"></div>
         </div>' : '') . '
         <hr><br>
     </div>';
@@ -137,8 +137,8 @@ function get_reply_comment($conn, $parent_id = 0, $marginleft = 15) {
                 <a class="btn_reply" id="' . $row["complain_id"] . '">Reply</a>
             </span>
            
-            ' . (!empty($row['fileupload']) ? '<div class="sender_image_container d-flex justify-content-center align-items-center mt-2 rounded-0">
-                <img class="rounded-0 w-100 h-100" src="' ."ereport/". htmlspecialchars($row['fileupload']) . '">
+            ' . (!empty($row['fileupload']) ? '<div class="sender_image_container d-flex justify-content-center align-items-center rounded-0">
+                <div style="text-align:center" class=" justify-content-center align-items-center p-4"><img class="rounded-0 w-100 h-100" src="' ."ereport/". htmlspecialchars($row['fileupload']) . '"></div>
             </div>' : '') . '
             <hr>
         </div>';

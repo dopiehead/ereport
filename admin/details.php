@@ -138,8 +138,8 @@ if (isset($_GET['id'])) {
                     <th>Status</th>
                     <th>Report Date</th>
                     <th>Action</th>
-                    <th>Action</th>
-                      <th>Delete/th>
+             
+                      <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -423,7 +423,12 @@ $(document).ready(function() {
 
 
 <script>
-$(".btn-delete").on('click', function() {
+$(".btn-delete").on('click', function(e) {
+    
+    if(confirm("Are you sure you want to delete this?"))
+    { e.preventDefault(); 
+
+   
     let id = $(this).attr('id'); // Get the id from the clicked button
     let rowElement =$(this).parent().parent();
     $.ajax({
@@ -457,12 +462,25 @@ $(".btn-delete").on('click', function() {
             });
         }
     });
+
+}
+
 });
 
 </script>
 
 
+<script>
 
+$(document).on('click','.btn-settings',function(e){
+e.preventDefault();
+$(".setting-container").toggleClass('active-setting');
+
+});
+
+
+
+  </script>
 
 
 

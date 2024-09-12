@@ -136,7 +136,7 @@ function get_reply_comment($conn, $parent_id = 0, $marginleft = 15) {
             </span>
             </div></div>
             ' . (!empty($row['fileupload']) ? '<div class="sender_image_container d-flex justify-content-center align-items-center mt-2 rounded-0">
-                <img class="rounded-0 w-100 h-100" src="' ."ereport/". htmlspecialchars($row['fileupload']) . '">
+                <img style="width:120px;height:100px;" class="rounded-0" src="' ."ereport/". htmlspecialchars($row['fileupload']) . '">
             </div>' : '') . '
             <hr>
         </div>';
