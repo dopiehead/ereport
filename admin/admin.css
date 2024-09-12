@@ -41,6 +41,11 @@ margin:20px 0px;
   color:rgb(39, 39, 39);
     }
 
+
+    .side-nav li a:hover{
+        cursor: pointer;
+          }
+
 .side-nav.active {
     transform: translateX(-250px);
 }

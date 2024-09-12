@@ -41,7 +41,6 @@ if(isset($_POST['id'])){
   $query .=" AND comments.news_id = $id";
 }
 
-
 $query .= " ORDER BY comment_id DESC";
 $stmt = $conn->prepare($query);
 $stmt->execute();

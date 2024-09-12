@@ -43,15 +43,7 @@ else{
 }
 ?>
 
-
-
-
-
-
-
-
-            <?php
-
+ <?php
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $num_per_page = 4;

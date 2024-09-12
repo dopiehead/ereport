@@ -146,8 +146,10 @@ if ($_SESSION['contact']!==0) {
 
 <h6 class="fw-normal"><?php echo $_SESSION['email']?></h6>
 
-<h6><?php echo $_SESSION['location']?></h6>
-
+<?php
+$location = isset($_SESSION['location']) && $_SESSION['location'] != 0 ? $_SESSION['location'] : '';
+?>
+<h6><?php echo htmlspecialchars($location, ENT_QUOTES, 'UTF-8'); ?></h6>
 
    <br>
 
